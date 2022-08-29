@@ -1,0 +1,53 @@
+@font-face {
+  font-family: Consola-Bold;
+  /* Имя шрифта */
+  src: url('font/consolab.ttf');
+  /* Путь к файлу со шрифтом */
+}
+
+   #modal-content {
+  background-color: #ccc;
+  width: 800px;
+  height: 800px;
+  padding: 0px;
+  border: 0px;
+  border-radius: 10px;
+
+}
+
+#modal-top {
+  background-color: #fc0;
+  width: 800px;
+  height: 50px;
+}
+
+#menu-modal {
+
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #ffffff;
+  margin-left: 50px;
+  margin-right: 50px;
+  border-radius: 10px;
+  padding-left: 0px;
+  height: 70px;
+
+}
+
+#menu-modal p {
+  font-family: Consola-Bold;
+  font-size: 30px;
+  margin-bottom: 0px;
+
+  padding-top: 10px;
+
+}
+
+#menu-modal p:hover {
+  background-color: #c63;
+  border-radius: 5px;
+  color: rgb(255, 253, 253);
+  transition: 0.2s
+} 

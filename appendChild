@@ -1,0 +1,37 @@
+
+              /*  let food_card = document.createElement('div')
+                food_card.setAttribute('id', `food-card`)
+  
+                let logo_food = document.createElement('div')
+                logo_food.setAttribute('id', `logo-food`)
+  
+                let mig_logo = document.createElement('img')
+                mig_logo.src = `https://logos-marques.com/wp-content/uploads/2021/03/Subway-Logo-2048x1158.png`
+  
+                let photo_food = document.createElement('div')
+                photo_food.setAttribute('id', `photo-food`)
+                let mig_photo_food = document.createElement('img')
+                mig_photo_food.src = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_WaXXzFBoflsdfTdBifXTCQzFrbVMvniKQ&usqp=CAU`
+  
+  
+                let discription_food = document.createElement('div')
+                discription_food.setAttribute('id', `discription-food`)
+                discription_food.innerHTML = (`<p>${element.name}</p><hr>
+                <a id="add-indigreen" href="#">Соус овощи на выбор</a><hr>
+                <p>Цена:${element.price}</p>`)
+  
+                let buy_food = document.createElement('div')
+                buy_food.setAttribute('id', `buy-food`)
+                buy_food.innerHTML = ` <p>Количество</p>
+                          <button type="button" id="add-food">+</button>
+                          <input type="number" id="amount-food" name="amount-food" value=${element.weight} />
+                          <button type="button" id="delet-food">-</button><br>
+                          <button type="button" id="button-buy">В КОРЗИНУ</button>`
+  
+  
+                logo_food.appendChild(mig_logo)
+                food_card.appendChild(logo_food)
+                photo_food.appendChild(mig_photo_food)
+                food_card.appendChild(photo_food)
+                food_card.appendChild(discription_food)
+                food_card.appendChild(buy_food) */
