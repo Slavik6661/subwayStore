@@ -8,11 +8,11 @@
    #modal-content {
   background-color: #ccc;
   width: 800px;
-  height: 800px;
+  height: 830px;
   padding: 0px;
   border: 0px;
   border-radius: 10px;
-
+    
 }
 
 #modal-top {
@@ -20,7 +20,35 @@
   width: 800px;
   height: 50px;
 }
+#modal-bottom {
+  background-color: rgb(255, 255, 255);
+  height: 50px;
+  margin-top: 150px
 
+}
+#modal-bottom p {
+
+  text-align: center;
+  font-size: 30px;
+  color: red;
+
+}
+
+#close-moala{
+
+  font-size: 30px;
+  width: 45px;
+  height: 50px;
+  margin-left: 755px;
+  border: none;
+  background-color: #fc0;
+}
+#close-moala:hover{
+  
+  background-color: red;
+  
+  transition: 0.2s;
+}
 #menu-modal {
 
   display: flex;
@@ -36,18 +64,51 @@
 
 }
 
-#menu-modal p {
+#menu-modal input {
   font-family: Consola-Bold;
   font-size: 30px;
   margin-bottom: 0px;
-
   padding-top: 10px;
+  border-radius: 5px;
+    border: 0px;
+    background-color: #fff;
 
 }
 
-#menu-modal p:hover {
+#menu-modal input:hover {
   background-color: #c63;
   border-radius: 5px;
   color: rgb(255, 253, 253);
   transition: 0.2s
 } 
+#size-selection{
+text-align: center;
+display: flex;
+margin-top: 75px;
+margin-left: 0px;
+display: flex;
+flex-wrap: nowrap;
+flex-direction: row;
+justify-content: space-evenly;
+
+
+}
+#size-selection img{
+  width: 200px;
+  margin-top: 53px;
+  }
+  .selected{
+    
+    margin-right: 0px;
+    width: 290px;
+    height: 410px;
+    margin-right: 50px;
+    background-color: #f6d846;
+    border-radius: 10px;
+    box-shadow: 5px -1px 10px rgba(5, 5, 5, 0.5);
+  }
+ 
+  /* style="margin-right: 10px; 
+                 width:250px;
+                 height:270px;
+                 margin-top: 20px */

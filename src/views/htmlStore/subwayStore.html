@@ -74,6 +74,7 @@
       })
     })
 
+
     let listProducts = []
     async function getResponse() {
       let response = await fetch('http://myjson.dit.upm.es/api/bins/9np0')
@@ -86,6 +87,10 @@
 
       constructor() {
         let typeProduct = ''
+        let foods
+        this.order = []
+        this.local
+
       }
 
       render() {
@@ -95,7 +100,8 @@
         this.typeProduct = window.location.pathname.split('/')[1]
         console.log(this.typeProduct)
         getResponse().then((content) => {
-          console.log(content.menu)
+          this.foods = content
+          console.log(content)
           content.menu.forEach((element) => {
             console.log(element.category)
 
@@ -202,70 +208,214 @@
       addProductsBascket() {
         let listProducts = []
         let i = 0
-        let cardItemHTML
+        let j = 1
+        let cardItemHTML = ''
         let modalHtml
         let summa = 0
+        let selectSize = ''
 
 
 
         window.addEventListener('click', (event) => {
           if (event.target.id === 'button-buy') {
             let card = event.target.closest('#food-card')
+            let discription = card.querySelectorAll('#discription-food p')
+            let price_food = discription[1].innerText.split(':')[1]
             let btn = card.querySelector('#button-buy')
             let contentBox3 = document.getElementById('box3')
 
             if (this.typeProduct === 'sandwiches') {
+
+              let selectSize = ''
+
+              let foodSize = this.foods.sizes
+              for (let i = 1; i < Object.keys(foodSize).length + 1; i++) {
+                selectSize += ` 
+                       <div class="selected" data-set='${i}' style="margin-right: 10px";>
+                         <div class="background" style=" background-color: #ffffff;border-radius: 128px; height: 239px;
+                         width: 255px; margin-left: 18px;margin-top: 23px">
+                       <image src="static/${this.foods.sizes[`${i}x`].image}"/>
+                       <p style="margin-top: 65px;">${this.foods.sizes[`${i}x`].name}</p>
+                       <hr>
+                       <p>${this.foods.sizes[`${i}x`].price} руб</p>
+                       </div>
+                      </div>`
+              }
+
+
               modalHtml = `
-                <dialog id="modal-content">
-                  <div id="modal-top">
-                  </div>
-                  <form method="dialog">
-                    <menu id="menu-modal">
-                      <p>Размер</p>
-                      <p>Хлеб</p>
-                      <p>Овощи</p>
-                      <p>Соусы</p>
-                      <p>Начинка</p>
-                      <p>Готово!</p>
-                    </menu>
-                    </form>
-                    </dialog>
-                    `
+                 <dialog id="modal-content">
+                   <div id="modal-top">
+                     <input type="button" name="close-moala" id="close-moala" value="X"></input>
+                   </div>
+                   <form method="dialog">
+                     <menu id="menu-modal">
+                       <input type="button" id="sizes"  value="Размер"></input>
+                       <input type="button" id="breads"   value="Хлеб"></input>
+                       <input type="button" id="vegetables"   value="Овощи"></input>
+                       <input type="button" id="sauces"  value="Соусы"></input>
+                       <input type="button" id="fillings"  value="Начинка"></input>
+                       <input type="button" id="ready"  value="Готово!"></input>
+                     </menu>
+                      
+                      <div id="size-selection" style="text-align: center;
+                              display: flex;
+                              margin-top: 0px;
+                              margin-left: 0px;
+                              display: flex;
+                              flex-wrap: nowrap;
+                              flex-direction: row;
+                              justify-content: space-evenly;">
+                      ${selectSize}
+                       </div>
+
+                       <div id="modal-bottom" >
+                        <p>Итого:${price_food}</p>
+                       </div>
+                     </form>
+                     
+                     </dialog>
+                     `
 
               contentBox3.innerHTML += modalHtml
+
+
               let modal = document.getElementById("modal-content")
-              console.log(modal)
+              let modalClose = document.getElementById("close-moala")
+              let menuItem = document.getElementById("menu-modal")
+
+              console.log(menuItem)
               modal.showModal()
-              //modal.close()
+
+              menuItem.addEventListener("click", (e) => {
+
+                selectSize = ''
+                let smmaPrice
+
+                let size_selection = document.getElementById("size-selection")
+                let modal_bottom = document.getElementById("modal-bottom")
+                let categotyID = e.target.id
+                let foodCategory = this.foods[`${categotyID}`]
+
+
+                for (let key in foodCategory) {
+                  const element = foodCategory[key]
+
+                  selectSize += ` 
+                 <div class='selected' data-set='${i++}' ;>
+                            <div class="background" style=" background-color: #ffffff;
+                                border-radius: 128px;
+                                height: 143px;
+                                width: 150px;
+                                margin-left: 53px;
+                                margin-top: 23px;
+                                text-align: center;">
+                               <image style="width: 146px;margin-top: -1px;" src="static/${element.image}"/>
+                            
+                                     </div>
+                                     <p style="margin-top: 0px;">${element.name}</p>
+                                             <hr>
+                                  <p>${element.price} руб</p>
+                                     </div>`
+                }
+
+                modalHtml = `  <div id="size-selections" style="flex-wrap: wrap; 
+                                      display: flex;
+                                      margin-top: 10px;
+                                      margin-left: 2px;">
+                                        ${selectSize}
+                                       </div>
+                                     `
+
+                size_selection.innerHTML = modalHtml
+
+                let selecteds = document.querySelectorAll('.selected')
+                selecteds.forEach(element => {
+
+                  element.addEventListener('click', () => {
+                    let elem = element.querySelectorAll('p')
+                    console.log(elem[0].innerText)
+                    console.log(elem[1].innerText)
+
+                  })
+                })
+
+                if (e.target.id === 'ready') {
+                  console.log('ready')
+                }
+
+
+              })
+              /*   let size_selection = document.querySelectorAll('#seleted');
+                let selected = document.getElementById('#seleted');
+                console.log(size_selection)
+                
+  
+                selected.addEventListener('click', (e) => {
+                  console.log(e.currentTarget.id)
+  
+                }); */
+
+
+
+              modalClose.addEventListener("click", () => {
+                modal.close()
+                modal.remove()
+              })
+
 
             }
 
-            let addBascketProduckts = () => {
-
-              let card = event.target.closest('#food-card')
+            else {
+              let products = {}
               let basket_products = document.querySelector('.basket-products')
-              let discription = card.querySelectorAll('#discription-food p')
               let name_food = discription[0].innerText
-              let price_food = discription[1].innerText.split(':')[1]
-              let btn = card.querySelector('#button-buy')
-
               let resultSumma = document.getElementById('totalSumm')
 
-              cardItemHTML = `
-              <div class="order" data-order=${i++}>
-                <p>${name_food}</p> 
-                <p>${price_food}</p>
+              let localStorageOreder = localStorage.getItem('order')
+              localStorageOreder = JSON.parse(localStorageOreder)
+              console.log('..', typeof localStorageOreder)
+
+              //если order null
+              if (localStorageOreder == null) {
+                this.order.push({ name: name_food, price: price_food })
+                localStorage.setItem('order', JSON.stringify(this.order))
+              }
+              else {
+                this.order = localStorageOreder
+                localStorage.setItem('order', JSON.stringify(this.order))
+                this.order.push({ name: name_food, price: price_food })
+                localStorage.setItem('order', JSON.stringify(this.order))
+                console.log(this.order)
+              }
+
+
+              for (let key in this.order) {
+                let value = this.order[key];
+
+                cardItemHTML = `
+              <div class="order" id='order' data-order=${i++}>
+                <p>${value.name}</p> 
+                <p>${value.price}</p>
+               
               <div>
+                <button id="delete products">X</button>
               `
+
+              }
+
               basket_products.innerHTML += `${cardItemHTML}<br>`
               price_food = Number(price_food)
               summa = summa + price_food
               console.log(summa)
               resultSumma.innerText = `Итого: ${summa} руб`
-            }
-            addBascketProduckts()
-          }
 
+            }
+          }
+          if (event.target.id === 'delete products') {
+            document.getElementById('order').remove()
+
+          }
 
         })
 
