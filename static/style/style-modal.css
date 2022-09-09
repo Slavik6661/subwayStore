@@ -1,13 +1,13 @@
 @font-face {
   font-family: Consola-Bold;
   /* Имя шрифта */
-  src: url('font/consolab.ttf');
+  src: url('font/RobotoCondensed-Bold.ttf');
   /* Путь к файлу со шрифтом */
 }
 
    #modal-content {
   background-color: #ccc;
-  width: 800px;
+  width: 1100px;
   height: 830px;
   padding: 0px;
   border: 0px;
@@ -17,7 +17,7 @@
 
 #modal-top {
   background-color: #fc0;
-  width: 800px;
+  width: 1100px;
   height: 50px;
 }
 #modal-bottom {
@@ -39,7 +39,7 @@
   font-size: 30px;
   width: 45px;
   height: 50px;
-  margin-left: 755px;
+  margin-left: 1028px;
   border: none;
   background-color: #fc0;
 }
@@ -84,31 +84,59 @@
 #size-selection{
 text-align: center;
 display: flex;
-margin-top: 75px;
+margin-top: 0px;
 margin-left: 0px;
 display: flex;
-flex-wrap: nowrap;
+flex-wrap: wrap;
 flex-direction: row;
 justify-content: space-evenly;
 
 
 }
 #size-selection img{
-  width: 200px;
-  margin-top: 53px;
+  width: 150px;
+  margin-top: 20px;
   }
   .selected{
     
-    margin-right: 0px;
-    width: 290px;
-    height: 410px;
-    margin-right: 50px;
+    margin-right: 10px;
+    width: 250px;
+    height: 300px;
+    margin-top: 20px;
     background-color: #f6d846;
     border-radius: 10px;
-    box-shadow: 5px -1px 10px rgba(5, 5, 5, 0.5);
+    box-shadow: 5px -1px 10px rgb(5 5 5 / 50%);
+
   }
+
  
-  /* style="margin-right: 10px; 
-                 width:250px;
-                 height:270px;
-                 margin-top: 20px */
+    .background{
+      
+      background-color: #ffffff;
+      border-radius: 128px;
+      height: 166px;
+      width: 181px;
+      margin-left: 34px;
+      margin-top: 23px;
+      text-align: center;
+      
+    }
+.info{
+  font-size: 25px;
+  text-align: left;
+}
+
+.img_food{
+  background-color: #fc0;
+  height: 187px;
+  width: 185px;
+  border-radius: 100px;
+  margin-top: 100px;
+}
+  .amount-food-modal{
+    font-size: 24px;
+    border: 0px;
+    padding: 0px;
+    width: 40px;
+    height: 40px;
+  }

@@ -1,7 +1,7 @@
 @font-face {
   font-family: Consola-Bold;
   /* Имя шрифта */
-  src: url('font/consolab.ttf');
+  src: url('font/RobotoCondensed-Regular.ttf');
   /* Путь к файлу со шрифтом */
 }
 
@@ -67,14 +67,15 @@
     background-color: #808080;
     font-family: Consola-Bold;
     font-size: 30px;
-    margin-left: 40px;
+    margin-left: 0px;
     border-left-width: 0px;
     border-right-width: 0px;
     border-bottom-width: 0px;
     border-top-width: 0px;
     border-radius: 5px;
-    margin-bottom: 40px;
-    margin-right: 40px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 40px
   }
   
   .basket-body button:hover {
@@ -90,7 +91,13 @@
     font-size: 25px;
     margin-top: 1px;
     justify-content: space-around;
+    flex-wrap: wrap;
   
-    margin-right: 30px;
-    margin-left: 8px;
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  .delete_products{
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
   }

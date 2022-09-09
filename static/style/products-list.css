@@ -5,11 +5,8 @@
   /* Путь к файлу со шрифтом */
 }
 .products-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(358px, 1fr));
-    grid-gap: 45px;
-    margin-left: 95px;
-    max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
   
   }
   
@@ -18,5 +15,5 @@
     margin-right: -100px;
     margin-left: 100px;
     margin-bottom: 50px;
-    height: 660px;
+  
   }
