@@ -5,10 +5,11 @@ function renderModalDialog(
   i,
   price_food,
   smmaPriceModal,
-  categotyID
+  categotyID,
+  modalBottom
 ) {
   smmaPriceModal = smmaPriceModal + +price_food;
- /* for (let key in foodCategory) {
+  /* for (let key in foodCategory) {
     const element = foodCategory[key];
 
      selectSize += ` 
@@ -51,16 +52,11 @@ function renderModalDialog(
                       
                       </dialog>
                       `;
- 
-  contentBox3.innerHTML += modalHtml;
 
-  
+  contentBox3.innerHTML += modalHtml;
 
   return contentBox3;
 }
-
-
-
 
 function renderModalDialog2(
   selectSize,
@@ -70,7 +66,8 @@ function renderModalDialog2(
   price_food,
   smmaPriceModal,
   categotyID,
-  size_selection
+  size_selection,
+  modalBottom
 ) {
   smmaPriceModal = smmaPriceModal + +price_food;
   for (let key in foodCategory) {
@@ -117,9 +114,11 @@ function renderModalDialog2(
                </dialog>
                `;
 
-               
+  let modalBottom2 = `
+  <p>Итого:${smmaPriceModal} руб</p>`;
 
   modalHtml = `${selectSize} `;
   size_selection.innerHTML = modalHtml;
-  return size_selection;
+  modalBottom.innerHTML = modalBottom2;
+  return size_selection, modalBottom;
 }

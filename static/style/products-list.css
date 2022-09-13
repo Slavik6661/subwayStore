@@ -1,19 +1,17 @@
 @font-face {
   font-family: Consola-Bold;
   /* Имя шрифта */
-  src: url('font/consolab.ttf');
+  src: url("font/consolab.ttf");
   /* Путь к файлу со шрифтом */
 }
 .products-list {
   display: flex;
   flex-wrap: wrap;
-  
-  }
-  
-  .products-list #food-card {
-    width: auto;
-    margin-right: -100px;
-    margin-left: 100px;
-    margin-bottom: 50px;
-  
-  }
+}
+
+.products-list #food-card {
+  margin-right: -100px;
+  margin-left: 100px;
+  margin-bottom: 50px;
+  width: auto;
+}

@@ -1,18 +1,17 @@
 @font-face {
   font-family: Consola-Bold;
   /* Имя шрифта */
-  src: url('font/RobotoCondensed-Bold.ttf');
+  src: url("font/RobotoCondensed-Bold.ttf");
   /* Путь к файлу со шрифтом */
 }
 
-   #modal-content {
-  background-color: #ccc;
-  width: 1100px;
-  height: 830px;
-  padding: 0px;
+#modal-content {
   border: 0px;
   border-radius: 10px;
-    
+  padding: 0px;
+  width: 1100px;
+  height: 830px;
+  background-color: #ccc;
 }
 
 #modal-top {
@@ -20,123 +19,116 @@
   width: 1100px;
   height: 50px;
 }
+
 #modal-bottom {
-  background-color: rgb(255, 255, 255);
+  margin-top: 150px;
   height: 50px;
-  margin-top: 150px
-
+  background-color: rgb(255, 255, 255);
 }
-#modal-bottom p {
 
+#modal-bottom p {
   text-align: center;
   font-size: 30px;
   color: red;
-
 }
 
-#close-moala{
-
-  font-size: 30px;
-  width: 45px;
-  height: 50px;
+#close-moala {
   margin-left: 1028px;
   border: none;
+  width: 45px;
+  height: 50px;
+  font-size: 30px;
   background-color: #fc0;
 }
-#close-moala:hover{
-  
+
+#close-moala:hover {
   background-color: red;
-  
   transition: 0.2s;
 }
-#menu-modal {
 
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  justify-content: space-around;
-  background-color: #ffffff;
+#menu-modal {
   margin-left: 50px;
   margin-right: 50px;
   border-radius: 10px;
   padding-left: 0px;
   height: 70px;
-
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #ffffff;
 }
 
 #menu-modal input {
+  margin-bottom: 0px;
+  border-radius: 5px;
+  padding-top: 10px;
   font-family: Consola-Bold;
   font-size: 30px;
-  margin-bottom: 0px;
-  padding-top: 10px;
-  border-radius: 5px;
-    border: 0px;
-    background-color: #fff;
-
+  border: 0px;
+  background-color: #fff;
 }
 
 #menu-modal input:hover {
-  background-color: #c63;
   border-radius: 5px;
+  background-color: #c63;
   color: rgb(255, 253, 253);
-  transition: 0.2s
-} 
-#size-selection{
-text-align: center;
-display: flex;
-margin-top: 0px;
-margin-left: 0px;
-display: flex;
-flex-wrap: wrap;
-flex-direction: row;
-justify-content: space-evenly;
-
-
+  transition: 0.2s;
 }
-#size-selection img{
-  width: 150px;
+
+#size-selection {
+  margin-top: 0px;
+  margin-left: 0px;
+  display: flex;
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#size-selection img {
   margin-top: 20px;
-  }
-  .selected{
-    
-    margin-right: 10px;
-    width: 250px;
-    height: 300px;
-    margin-top: 20px;
-    background-color: #f6d846;
-    border-radius: 10px;
-    box-shadow: 5px -1px 10px rgb(5 5 5 / 50%);
+  width: 150px;
+}
 
-  }
+.selected {
+  margin-right: 10px;
+  margin-top: 20px;
+  border-radius: 10px;
+  width: 250px;
+  height: 300px;
+  background-color: #f6d846;
+  box-shadow: 5px -1px 10px rgb(5 5 5 / 50%);
+}
 
- 
-    .background{
-      
-      background-color: #ffffff;
-      border-radius: 128px;
-      height: 166px;
-      width: 181px;
-      margin-left: 34px;
-      margin-top: 23px;
-      text-align: center;
-      
-    }
-.info{
+.background {
+  margin-left: 34px;
+  margin-top: 23px;
+  border-radius: 128px;
+  height: 166px;
+  width: 181px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.info {
   font-size: 25px;
   text-align: left;
 }
 
-.img_food{
-  background-color: #fc0;
+.img_food {
+  margin-top: 100px;
+  border-radius: 100px;
   height: 187px;
   width: 185px;
-  border-radius: 100px;
-  margin-top: 100px;
+  background-color: #fc0;
 }
-  .amount-food-modal{
-    font-size: 24px;
-    border: 0px;
-    padding: 0px;
-    width: 40px;
-    height: 40px;
-  }
+
+.amount-food-modal {
+  border: 0px;
+  padding: 0px;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+}
