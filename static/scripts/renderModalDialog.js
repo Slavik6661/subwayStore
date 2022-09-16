@@ -1,36 +1,10 @@
-function renderModalDialog(
-  selectSize,
-  modalHtml,
-  foodCategory,
-  i,
-  price_food,
-  smmaPriceModal,
-  categotyID,
-  modalBottom
-) {
-  smmaPriceModal = smmaPriceModal + +price_food;
-  /* for (let key in foodCategory) {
-    const element = foodCategory[key];
+function renderModalDialog(selectSize, modalHtml, priceFood, summaPriceModal) {
+  summaPriceModal = summaPriceModal + +priceFood;
 
-     selectSize += ` 
-                  <div class='selected' id = '${categotyID}' data-set='${i++}' ;>
-                             <div class="background">
-                                <image src="static/${element.image}"/>
-                             
-                                </div>
-                                 <p style="margin-top: 0px;">${element.name}</p>
-                                     <hr>
-                                <p>${element.price} руб</p>
-                               
-                                 </div>
-                                 
-                                 `;
-  } */
-
-  modalHtml = `
+  modalHtml = /*html*/ `
                   <dialog id="modal-content">
                     <div id="modal-top">
-                      <input type="button" name="close-moala" id="close-moala" value="X"></input>
+                      <input type="button" name="close-modal" id="close-modal" value="X"></input>
                     </div>
                     <form method="dialog">
                       <menu id="menu-modal">
@@ -45,7 +19,7 @@ function renderModalDialog(
                          ${selectSize}
                        </div> 
                  <div id="modal-bottom" >
-                   <p>Итого:${smmaPriceModal} руб</p>
+                   <p>Итого:${summaPriceModal} руб</p>
                  </div> 
                       
                       </form>
@@ -53,9 +27,9 @@ function renderModalDialog(
                       </dialog>
                       `;
 
-  contentBox3.innerHTML += modalHtml;
+  contentFoods.innerHTML += modalHtml;
 
-  return contentBox3;
+  return contentFoods;
 }
 
 function renderModalDialog2(
@@ -63,23 +37,26 @@ function renderModalDialog2(
   modalHtml,
   foodCategory,
   i,
-  price_food,
-  smmaPriceModal,
-  categotyID,
-  size_selection,
-  modalBottom
+  resultSummaModal,
+  categoryID,
+  sizeSelection,
+  modalBottom,
+  priceFood
 ) {
-  smmaPriceModal = smmaPriceModal + +price_food;
+  resultSummaModal = sessionStorage.getItem(
+    "resultSummaModal",
+    resultSummaModal
+  );
   for (let key in foodCategory) {
     const element = foodCategory[key];
 
-    selectSize += ` 
-           <div class='selected' id = '${categotyID}' data-set='${i++}' ;>
+    selectSize += /*html*/ ` 
+           <div class='selected' id = '${categoryID}' data-set='${i++}' ;>
                       <div class="background">
                          <image src="static/${element.image}"/>
                       
                          </div>
-                          <p style="margin-top: 0px;">${element.name}</p>
+                          <p style="margin-top: 10px;">${element.name}</p>
                               <hr>
                          <p>${element.price} руб</p>
                         
@@ -88,7 +65,7 @@ function renderModalDialog2(
                           `;
   }
 
-  modalHtml = `
+  modalHtml = /*html*/ `
            <dialog id="modal-content">
              <div id="modal-top">
                <input type="button" name="close-moala" id="close-moala" value="X"></input>
@@ -105,20 +82,22 @@ function renderModalDialog2(
                 <div id="size-selection">
                   ${selectSize}
                 </div> 
-          <div id="modal-bottom" >
-            <p>Итого:${smmaPriceModal} руб</p>
-          </div> 
-               
+       
                </form>
-               
+               <div id="modal-bottom" >
+               <p>Итого:${resultSummaModal} руб</p>
+             </div> 
                </dialog>
+               
                `;
 
   let modalBottom2 = `
-  <p>Итого:${smmaPriceModal} руб</p>`;
+  <p>Итого:${resultSummaModal} руб</p>`;
+
+  //let modalBottom2.innerHTML = summaPriceModalHTML;
 
   modalHtml = `${selectSize} `;
-  size_selection.innerHTML = modalHtml;
+  sizeSelection.innerHTML = modalHtml;
   modalBottom.innerHTML = modalBottom2;
-  return size_selection, modalBottom;
+  return sizeSelection, modalBottom;
 }

@@ -3,23 +3,23 @@ function renderModalReadyOrder(
   selectSize,
   selectSize2,
   modalHtml,
-  size_selection,
-  food_img,
-  name_food,
-  smmaPriceModal,
+  sizeSelection,
+  foodImg,
+  nameFood,
+  summaPriceModal,
   modalBottom,
-  amount_food
+  amountFood
 ) {
   console.log("modalBottom", modalBottom);
-
+  let resultSummaModal = sessionStorage.getItem("resultSummaModal");
   for (let key in customBurger) {
     const element = `${key}: ${customBurger[key]}`;
     selectSize += `<p style="margin-top: 0px;">${element}</p>`;
   }
 
-  selectSize2 = ` 
+  selectSize2 = /*html*/ ` 
   <div class="img_food">
-    <img src =${food_img} style=" background-color: white;
+    <img src =${foodImg} style=" background-color: white;
       border-radius: 100px;
       width: 165px;
       height: 166px;
@@ -32,7 +32,7 @@ function renderModalReadyOrder(
   <hr>
   <p style="margin-top: 0px;">${selectSize}
   <hr>
-  <p>${name_food}</p>
+  <p>${nameFood}</p>
   </div>
   `;
 
@@ -40,25 +40,25 @@ function renderModalReadyOrder(
      ${selectSize2} 
   `;
 
-  let modalBottom2 = `
-   <div class="select-amount_food">
+  let modalBottom2 = /*html*/ `
+   <div class="select-amountFood">
     <p>Количество</p>
+
             <button type="button" id="add-foods">+</button>
 
-            <input type="number" class="amount-foods-modal1"  id="amount-foods"
-             name="amount-food" value=${amount_food}> </input>
+            <input type="number" class="amount-foods-modal"  id="amount-foods"
+             name="amount-food" value=${amountFood}> </input>
 
-            <button type="button" id="delet-foods">-</button><br>
+            <button type="button" id="delete-foods">-</button><br>
             </div>
 
-            <div class="smmaPrice">
-    <p>Итого:${smmaPriceModal} руб </p>
+            <div class="summaPrice">
+    <p>Итого:${resultSummaModal} руб </p>
     <button type="submit" id="button-add-basket"> В КОРЗИНУ</button>
     </div>`;
 
   window.addEventListener("click", (event) => {
     let counter = document.getElementById("amount-foods");
-    console.log(event.target.id);
 
     if (event.target.id === "amount-foods") {
       event.target.addEventListener("input", (event) => {
@@ -83,7 +83,7 @@ function renderModalReadyOrder(
       }
     }
 
-    if (event.target.id === "delet-foods") {
+    if (event.target.id === "delete-foods") {
       if (counter.value > 1) {
         counter.innerText = counter.value--;
         console.log(counter);
@@ -91,9 +91,10 @@ function renderModalReadyOrder(
     }
   });
 
-  size_selection.innerHTML = modalHtml;
+  sizeSelection.innerHTML = modalHtml;
+  /* modalBottom.style =
+    "margin-top: 150px;height: 168px; background-color: rgb(255, 255, 255);";*/
   modalBottom.innerHTML = modalBottom2;
 
-  return size_selection, modalBottom;
+  return sizeSelection, modalBottom;
 }
-//modalBottom

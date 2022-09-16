@@ -1,23 +1,19 @@
- function setSandwichesInOrder(order,customBurger) {
-    this.order=order
-    
-    localStorageOreder = JSON.parse(localStorage.getItem('order'))
-    console.log(customBurger)
+function setSandwichesInOrder(order, customBurger) {
+  this.order = order;
 
-    if (localStorageOreder == null) {
-      this.order.push(customBurger)
-      console.log(this.order)
-      localStorage.setItem('order', JSON.stringify(this.order))
-      return this.order
-    }
-    else {
+  localStorageOrder = JSON.parse(localStorage.getItem("order"));
+  console.log(customBurger);
 
-      this.order = localStorageOreder
-      localStorage.setItem('order', JSON.stringify(this.order))
-      this.order.push(customBurger)
-      localStorage.setItem('order', JSON.stringify(this.order))
-      return this.order
-    }
-
-
+  if (localStorageOrder === null) {
+    this.order.push(customBurger);
+    console.log(this.order);
+    localStorage.setItem("order", JSON.stringify(this.order));
+    return this.order;
+  } else {
+    this.order = localStorageOrder;
+    localStorage.setItem("order", JSON.stringify(this.order));
+    this.order.push(customBurger);
+    localStorage.setItem("order", JSON.stringify(this.order));
+    return this.order;
   }
+}

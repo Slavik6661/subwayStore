@@ -1,21 +1,18 @@
-.select-amount_food {
+.select-amountFood {
   text-align: center;
+  background-color:white;
 }
 
-#add-food {
-  border: 0px;
-  padding: 0px;
-  width: 40px;
-  height: 40px;
-  font-size: 24px;
+#add-foods {
+  border-radius: 160px;
+  width: 30px;
+  height: 30px;
 }
 
-#delet-food {
-  border: 0px;
-  padding: 0px;
-  width: 40px;
-  height: 40px;
-  font-size: 24px;
+#delete-foods {
+  border-radius: 160px;
+  width: 30px;
+  height: 30px; 
 }
 
 .amount-foods-modal {
@@ -30,9 +27,10 @@
   text-align: center;
 }
 
-.smmaPrice {
+.summaPrice {
   display: flex;
   justify-content: center;
+  background-color: white;
 }
 
 #button-add-basket {

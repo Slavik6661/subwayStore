@@ -1,16 +1,24 @@
-function reloadingCartDataToClick(basket_products, orderID, resultSumma) {
-  let summa = 0;
+function reloadingCartDataToClick(
+  basketProducts,
+  orderID,
+  resultSummaBasketHTML
+) {
   window.addEventListener("click", (e) => {
     if (e.target.id === "delete_products") {
-      let summa = 0;
-      basket_products.innerHTML = "";
+      resultSumma = sessionStorage.getItem("resultSumma");
+      resultSumma = Number(resultSumma);
 
+      basketProducts.innerHTML = "";
+      resultSumma = 0;
       orderID = 0;
-      if (localStorageOreder !== null) {
-        basket_products.innerHTML = "";
-        localStorageOreder = JSON.parse(localStorage.getItem("order"));
-        for (let key in localStorageOreder) {
-          let value = localStorageOreder[key];
+      localStorageOrder = JSON.parse(localStorage.getItem("order"));
+      console.log("arrayOrder", localStorageOrder.length);
+      if (localStorageOrder !== null) {
+        basketProducts.innerHTML = "";
+        localStorageOrder = JSON.parse(localStorage.getItem("order"));
+        console.log("reloadingCartDataToClick", localStorageOrder);
+        for (let key in localStorageOrder) {
+          let value = localStorageOrder[key];
 
           let cardItemHTML = /*html*/ `
           <div class="order" id='order'>
@@ -20,18 +28,24 @@ function reloadingCartDataToClick(basket_products, orderID, resultSumma) {
             <button id="delete_products" data-order=${orderID}>X</button>
           <div>
           `;
-          summa = summa + +value.price;
-          basket_products.innerHTML += `${cardItemHTML}<br>`;
+          resultSumma = resultSumma + +value.price;
+          basketProducts.innerHTML += `${cardItemHTML}<br>`;
           orderID++;
         }
-      } else {
-        summa = 0;
-        resultSumma.innerText = `Итого: ${summa} руб`;
+        sessionStorage.setItem("resultSumma", resultSumma);
+        resultSumma = sessionStorage.getItem("resultSumma");
       }
-      console.log("summa relod", summa);
-      resultSumma.innerText = `Итого: ${summa} руб`;
+      if (localStorageOrder.length === 0) {
+        resultSumma = 0;
+        resultSumma = sessionStorage.setItem("resultSumma", resultSumma);
+        resultSumma = sessionStorage.getItem("resultSumma");
+        resultSummaBasketHTML.innerText = `Итого: ${resultSumma} руб`;
+        return resultSummaBasketHTML;
+      }
+      console.log("summa relod", resultSumma);
+      resultSummaBasketHTML.innerText = `Итого: ${resultSumma} руб`;
     }
   });
 
-  return { basket_products };
+  return { basketProducts };
 }

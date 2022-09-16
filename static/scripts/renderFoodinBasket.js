@@ -1,12 +1,12 @@
 function renderFoodInBasket(order, cardItemHTML, orderID, resultSumma) {
-  orderIDbtn = 0;
+  let orderIDbtn = 0;
   this.order = order;
 
   for (let key in this.order) {
     let value = this.order[key];
-    console.log("value: ", value);
+    //console.log("value: ", value);
 
-    cardItemHTML = `
+    cardItemHTML = /*html*/ `
   <div class="order" id='order' data-order=${orderID}>
     <p>${value.name}</p> 
     <p>${value.amount}.шт</p>

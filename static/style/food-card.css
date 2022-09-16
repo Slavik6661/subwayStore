@@ -8,7 +8,7 @@
 #food-card {
   margin-right: -100px;
   margin-left: 100px;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
   width: auto;
   height: 700px;
 }
@@ -29,22 +29,31 @@
 
 #photo-food {
   margin-left: 60px;
+  padding-top: 1px;
   border-radius: 360px;
   width: 250px;
   height: 250px;
+  text-align: center;
   background-color: #ecc635;
 }
 
-#photo-food img {
+.backgroundFood{
+  margin-top: 10px;
   margin-left: 10px;
-  margin-top: 11px;
-  margin-bottom: 25px;
-  border-radius: 118px;
+  border-radius: 100pc;
   width: 230px;
   height: 230px;
+  background-color: rgb(255, 255, 255);
 }
 
-#discription-food {
+#photo-food img {
+  margin-top: 10px;
+  border-radius: 118px;
+  width: 210px;
+  height: 210px;
+}
+
+#description-food {
   margin-bottom: 0px;
   margin-top: 0px;
   margin-left: 10px;
@@ -53,14 +62,14 @@
   text-align: center;
 }
 
-#discription-food p {
+#description-food p {
   margin-bottom: 0px;
   margin-top: 0px;
   font-family: Consola-Bold;
   font-size: 30px;
 }
 
-#discription-food a {
+#description-food a {
   font-family: Consola-Bold;
   font-size: 18px;
 }

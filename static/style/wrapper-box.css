@@ -27,8 +27,7 @@
   width: 350px;
 }
 
-#box3 {
+#contentFoods {
+  margin-left: 47px;
   display: flex;
-
-  margin-left: 30px;
 }

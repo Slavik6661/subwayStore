@@ -1,14 +1,34 @@
 function calculationOfTheTotalPrice(
-  basket_products,
+  basketProducts,
   renderBasket,
-  price_food,
-  summa,
-  resultSumma
+  resultSummaBasketHTML,
+  priceFood
 ) {
-  basket_products.innerHTML += `${renderBasket}<br>`;
-  console.log(price_food);
-  console.log(summa);
-  resultSumma.innerText = `Итого: ${summa} руб`;
+  resultSumma = sessionStorage.getItem("resultSumma");
+  resultSumma = Number(resultSumma);
+  resultSumma = Number(resultSumma) + Number(priceFood);
+  resultSumma = sessionStorage.setItem("resultSumma", resultSumma);
+  resultSumma = sessionStorage.getItem("resultSumma");
+  console.log("!!", resultSumma);
+  basketProducts.innerHTML += `${renderBasket}<br>`;
+  resultSummaBasketHTML.innerText = `Итого: ${resultSumma} руб`;
+  return resultSummaBasketHTML;
+}
 
-  return resultSumma;
+function calculationOfTheTotalPriceModal(
+  basketProducts,
+  renderBasket,
+  resultSummaBasketHTML
+) {
+  resultSummaModal = sessionStorage.getItem("resultSummaModal");
+  resultSumma = Number(resultSummaModal);
+  resultSumma = sessionStorage.getItem("resultSumma");
+  resultSumma = Number(resultSumma);
+  resultSumma = Number(resultSumma) + Number(resultSummaModal);
+  resultSumma = sessionStorage.setItem("resultSumma", resultSumma);
+  resultSumma = sessionStorage.getItem("resultSumma");
+  basketProducts.innerHTML += `${renderBasket}<br>`;
+  resultSummaBasketHTML.innerText = `Итого: ${resultSumma} руб`;
+
+  return resultSummaBasketHTML;
 }
