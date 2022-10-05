@@ -20,13 +20,18 @@ function calculationOfTheTotalPriceModal(
   renderBasket,
   resultSummaBasketHTML
 ) {
-  resultSummaModal = sessionStorage.getItem("resultSummaModal");
-  resultSumma = Number(resultSummaModal);
+  let resultSummaModal = sessionStorage.getItem("resultSummaModal");
+  resultSummaModal = Number(resultSummaModal);
+  console.log("resultSummaModal", resultSummaModal);
+
   resultSumma = sessionStorage.getItem("resultSumma");
   resultSumma = Number(resultSumma);
+  console.log("resultSumma", resultSumma);
+
   resultSumma = Number(resultSumma) + Number(resultSummaModal);
   resultSumma = sessionStorage.setItem("resultSumma", resultSumma);
   resultSumma = sessionStorage.getItem("resultSumma");
+
   basketProducts.innerHTML += `${renderBasket}<br>`;
   resultSummaBasketHTML.innerText = `Итого: ${resultSumma} руб`;
 

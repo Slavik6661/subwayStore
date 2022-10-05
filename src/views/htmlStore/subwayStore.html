@@ -116,6 +116,27 @@
       type="text/javascript"
       src="/static/scripts/addPriceSessionsStorage.js"
     ></script>
+    <script
+      type="text/javascript"
+      src="/static/scripts/addClassActiveModal.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/static/scripts/addIngredientsSandwiches.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/static/scripts/disabledActiveModal.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/static/scripts/menuModalActivity.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/static/scripts/bottomModalPrice.js"
+    ></script>
+    <script type="text/javascript" src="/static/scripts/closeModal.js"></script>
 
     <script>
       let contentFoods = document.getElementById("contentFoods");
@@ -141,7 +162,7 @@
           console.log(this.typeProduct);
           getResponse().then((content) => {
             this.foods = content;
-            console.log(content);
+            // console.log(content);
             content.menu.forEach((element) => {
               //console.log(element.category);
 
@@ -227,12 +248,13 @@
           let summaPriceModal = 0;
           let totalSumma = 0;
           let orderModal = {};
-          //let resultSumma = 0;
           let localStorageOrder;
           let contentFoods = document.getElementById("contentFoods");
           let basketProducts = document.querySelector(".basket-products");
           let orderID = 0;
-
+          let objActiveItemModal = {};
+          let objPriceModalCard = {};
+          let modalReady;
           window.addEventListener("click", (event) => {
             let modalCardElement;
             let customBurger = {};
@@ -240,6 +262,9 @@
             let resultSumma = 0;
             let resultSummaModal = 0;
             let modalBottom;
+            let activeIngredientModal = [];
+            let arrayPriceModalCard = [];
+            let categoryMenu;
 
             if (event.target.id === "button-buy") {
               let card = event.target.closest("#food-card");
@@ -250,19 +275,23 @@
               let btn = card.querySelector("#button-buy");
               let amountFood = card.querySelector("#amount-food").value;
               let categoryID = event.target.id;
+              let addIngredients;
               addResultSummaSessionsStorage(resultSumma);
               if (this.typeProduct === "sandwiches") {
                 modalBottom = document.getElementById("modal-bottom");
                 let selectSize = "";
                 let foodCategory = this.foods.sizes;
+                categoryMenu = "sizes";
 
                 contentFoods = renderModalDialog(
                   selectSize,
                   modalHtml,
                   priceFood,
-                  summaPriceModal
+                  summaPriceModal,
+                  foodCategory,
+                  categoryMenu
                 );
-
+                let selected = document.querySelectorAll(".selected");
                 let modal = document.getElementById("modal-content");
                 let modalClose = document.getElementById("close-modal");
                 let menuItem = document.getElementById("menu-modal");
@@ -270,26 +299,20 @@
                   document.querySelector("#modal-bottom p").innerText;
                 let click = document.getElementById("sizes");
 
-                modal.addEventListener("click", (e) => {
-                  if (e.target.id === "modal-content") {
-                    modal.remove();
-                    localStorage.removeItem("customBurger");
-                    sessionStorage.removeItem("resultSummaModal");
-                  }
-                });
+                modal.addEventListener(
+                  "click",
+                  closeModal(modal, objActiveItemModal, "modal-content")
+                );
 
                 setTimeout(() => {
                   click.click();
-                }, 100);
+                }, 1);
+
                 modal.showModal();
-
                 menuItem.addEventListener("click", (e) => {
-                  let categoryMenu = e.target.value;
-
+                  categoryMenu = e.target.value;
                   selectSize = "";
-
                   let sizeSelection = document.getElementById("size-selection");
-
                   let modalBottom = document.getElementById("modal-bottom");
                   let categoryID = e.target.id;
                   let foodCategory = this.foods[`${categoryID}`];
@@ -305,14 +328,21 @@
                     categoryID,
                     sizeSelection,
                     modalBottom,
-                    priceFood
+                    priceFood,
+                    objActiveItemModal,
+                    addIngredients,
+                    objPriceModalCard
                   );
-
-                  let selected = document.querySelectorAll(".selected");
+                  let selected = [];
+                  let selectedSizes = document.getElementById("size-selection");
+                  Object.entries(selectedSizes.children).forEach((value) => {
+                    selected.push(value[1]);
+                  });
                   resultSummaModal = sessionStorage.getItem(
                     "resultSummaModal",
                     resultSummaModal
                   );
+                  resultSummaModal = +resultSummaModal;
 
                   ///////////////////////////////////////////////////////////////////
                   selected.forEach((element) => {
@@ -321,55 +351,79 @@
 
                       let priceElementFoodModal =
                         modalCardElement[1].innerText.split(" ")[0];
-                      console.log(element.className);
                       modalCardElement = modalCardElement[0].innerText;
-
-                      console.log(
-                        "priceElementFoodModal",
-                        priceElementFoodModal
-                      );
-
-                      console.log("@@", resultSummaModal);
-                      resultSummaModal =
-                        Number(resultSummaModal) +
-                        Number(priceElementFoodModal);
-
-                      sessionStorage.setItem(
-                        "resultSummaModal",
-                        resultSummaModal
-                      );
-
-                      if (element.className === "active-modal") {
-                        element.classList.remove("active-modal");
-                        element.classList.add("selected");
-                      } else {
-                        console.log('add class="active-modal');
-                        element.setAttribute("class", "active-modal");
-                      }
-
-                      summaPriceModalHTML = `<p>Итого:${resultSummaModal} руб</p> `;
-                      modalBottom.innerHTML = summaPriceModalHTML;
 
                       localStorageOrderModal = JSON.parse(
                         localStorage.getItem("customBurger")
                       );
-                      console.log("customBurger", localStorageOrderModal);
 
                       if (localStorageOrderModal === null) {
                         customBurger["name"] = nameFood;
-
                         customBurger[categoryMenu] = modalCardElement;
-
                         localStorage.setItem(
                           "customBurger",
                           JSON.stringify(customBurger)
                         );
-                      } else {
-                        localStorageOrderModal[categoryMenu] = modalCardElement;
-                        localStorage.setItem(
-                          "customBurger",
-                          JSON.stringify(localStorageOrderModal)
+                        activeIngredientModal.push(element.dataset.setmodal);
+                        objActiveItemModal[categoryMenu] =
+                          activeIngredientModal;
+                        console.log(objActiveItemModal);
+
+                        arrayPriceModalCard.push(priceElementFoodModal);
+                        objPriceModalCard[categoryMenu] = arrayPriceModalCard;
+                        console.log(objPriceModalCard);
+                        /////////////////////////////////////////////////////////
+
+                        bottomModalPrice(
+                          summaPriceModalHTML,
+                          modalBottom,
+                          resultSummaModal,
+                          priceElementFoodModal
                         );
+                        /////////////////////////////////////////////////////////
+                        addClassActiveModal(
+                          selected,
+                          element,
+                          categoryMenu,
+                          addIngredients
+                        );
+                      } else {
+                        if (element.className === "active-modal") {
+                          console.log("true");
+
+                          disabledActiveModal(
+                            selected,
+                            element,
+                            addIngredients,
+                            modalCardElement,
+                            categoryMenu,
+                            objActiveItemModal,
+                            objPriceModalCard,
+                            summaPriceModalHTML,
+                            modalBottom,
+                            resultSummaModal,
+                            priceElementFoodModal
+                          );
+                        } else {
+                          addIngredients = addIngredientsSandwiches(
+                            categoryMenu,
+                            localStorageOrderModal,
+                            modalCardElement,
+                            element,
+                            objActiveItemModal,
+                            priceElementFoodModal,
+                            objPriceModalCard,
+                            resultSummaModal,
+                            summaPriceModalHTML,
+                            modalBottom
+                          );
+                          addClassActiveModal(
+                            selected,
+                            element,
+                            categoryMenu,
+                            addIngredients
+                          );
+                        }
                       }
                     });
                   });
@@ -384,7 +438,7 @@
                       localStorage.getItem("customBurger")
                     );
 
-                    let modalReady = renderModalReadyOrder(
+                    modalReady = renderModalReadyOrder(
                       customBurger,
                       selectSize,
                       selectSize2,
@@ -393,18 +447,25 @@
                       foodImg,
                       nameFood,
                       summaPriceModal,
-                      modalBottom,
-                      amountFood
+                      modalBottom
                     );
-
+                    console.log("summaPrice", modalReady);
                     modalReady.addEventListener("click", (e) => {
                       if (e.target.id === "button-add-basket") {
                         modalReady = document.getElementById("amount-foods");
                         let summaPrice =
                           document.getElementsByClassName("summaPrice")[0];
+                        console.log(
+                          "summaPrice",
+                          summaPrice.innerText.slice(0, 10).split(":")[1]
+                        );
+                        summaPrice = Number(
+                          summaPrice.innerText.slice(0, 10).split(":")[1]
+                        );
+                        console.log("summaPrice", summaPrice);
                         amountFood = +modalReady.value;
                         customBurger.amount = amountFood;
-                        customBurger.price = resultSummaModal;
+                        customBurger.price = summaPrice;
                         localStorage.setItem(
                           "customBurger",
                           JSON.stringify(customBurger)
@@ -424,34 +485,33 @@
 
                         let resultSummaBasketHTML =
                           document.getElementById("totalSumm");
+
                         calculationOfTheTotalPriceModal(
                           basketProducts,
                           renderBasket,
-                          resultSummaBasketHTML,
-                          priceFood
+                          resultSummaBasketHTML
                         );
                         localStorage.removeItem("customBurger");
                         sessionStorage.removeItem("resultSummaModal");
+                        modal.remove();
+                        let modalOverlay =
+                          document.getElementsByClassName("modal-overlay")[0];
+                        modalOverlay.remove();
+                        objActiveItemModal = {};
                       }
                     });
                   }
                 });
-
-                modalClose.addEventListener("click", () => {
-                  modal.remove();
-                  sessionStorage.removeItem("resultSummaModal");
-                  localStorage.removeItem("customBurger");
-                });
+                menuModalActivity(objActiveItemModal);
+                modalClose.addEventListener(
+                  "click",
+                  closeModal(modal, objActiveItemModal, "close-modal")
+                );
               } else {
                 let basketProducts = document.querySelector(".basket-products");
                 let nameFood = description[0].innerText;
                 let resultSummaBasketHTML =
                   document.getElementById("totalSumm");
-                console.log(
-                  "add basket product",
-                  resultSummaBasketHTML.innerText
-                );
-
                 localStorageOrder = JSON.parse(localStorage.getItem("order"));
 
                 //если order null
@@ -498,7 +558,6 @@
           reloadingCartDataToClick(
             basketProducts,
             orderID,
-
             resultSummaBasketHTML
           );
 

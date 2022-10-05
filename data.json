@@ -497,7 +497,7 @@
       "name": "Пири-пири вингс",
       "description": "Пара крыльев в фирменной панировке пири-пири",
       "image": "/icons/chicken/2bolshih-kryla.png",
-      "price": 110,
+      "price": 1104,
       "category": "chicken",
       "market": "sfc",
       "type": "single",
@@ -1343,7 +1343,7 @@
     },
     "2x": {
       "name": "30 См",
-      "price": 110,
+      "price": 105,
       "image": "/icons/sizes/2x.jpg"
     }
   },

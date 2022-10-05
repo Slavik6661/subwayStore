@@ -14,8 +14,14 @@ function renderListFood(content, htmlCatalog, contentFoods, i, typeProduct) {
       
       </div>
       <div id="description-food">
+      <div class='name-food' style="height: 73px;">
         <p>${element.name}</p>
-        <hr><a id="add-ingredients" href="#">${element.description}</a>
+        </div>
+        <hr>
+
+        <div class='ingredients1'style="height: 70px;">
+        <a id="add-ingredients" href="#">${element.description}</a>
+        </div>
           <hr>
             <p>Цена:${element.price}</p><br>
             </div>

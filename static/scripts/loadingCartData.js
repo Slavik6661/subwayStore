@@ -3,6 +3,7 @@ function loadingCartData(basketProducts, resultSummaBasketHTML) {
   window.addEventListener("load", () => {
     resultSumma = sessionStorage.getItem("resultSumma");
     resultSumma = Number(resultSumma);
+    resultSumma = 0;
     localStorageOrder = localStorage.getItem("order");
     localStorageOrder = JSON.parse(localStorageOrder);
     orderID = 0;
@@ -13,7 +14,7 @@ function loadingCartData(basketProducts, resultSummaBasketHTML) {
         let cardItemHTML = /*html*/ `
           <div class="order" id='order'>
             <p>${value.name}</p> 
-            <p>${value.amount}</p>
+            <p>${value.amount}.шт</p>
             
             <button id="delete_products" data-order=${orderID}>X</button>
           <div>

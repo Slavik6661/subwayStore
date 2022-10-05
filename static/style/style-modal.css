@@ -1,4 +1,3 @@
-
 #modal-content {
   border: 0px;
   border-radius: 10px;
@@ -8,6 +7,23 @@
   display: grid;
   grid-template-rows: 70px 1fr;
   background-color: #ccc;
+}
+
+.modal-overlay{
+  position:fixed;
+  height:100%;
+  width:100%;
+  content: '';
+  display: block;
+  background-color: rgba(0, 0, 0, 0.165);
+  top:0;
+  left:0;
+}
+
+.modal-form{
+  display: flex;
+flex-direction: column;
+justify-content: space-between;
 }
 
 #modal-top {
@@ -55,7 +71,13 @@
   justify-content: space-around;
   background-color: #ffffff;
 }
-
+.active-modal-menu{
+  border-radius: 5px;
+  background-color: #c63;
+}
+.no-active-modal-menu{
+  background-color: #fff; 
+}
 #menu-modal input {
   margin-bottom: 0px;
   border-radius: 5px;
@@ -63,15 +85,15 @@
   font-family: Consola-Bold;
   font-size: 30px;
   border: 0px;
-  background-color: #fff;
+  /* background-color: #fff;  */
 }
 
-#menu-modal input:hover {
+/* #menu-modal input:hover {
   border-radius: 5px;
   background-color: #c63;
   color: rgb(255, 253, 253);
   transition: 0.2s;
-}
+} */
 
 #size-selection {
   margin-top: 0px;
@@ -96,6 +118,7 @@
   border-radius: 10px;
   width: 250px;
   height: 300px;
+  pointer-events: auto;
   background-color: #f6d846;
   box-shadow: 5px -1px 10px rgb(5 5 5 / 50%);
 }
@@ -114,7 +137,11 @@
   height: 300px;
   background-color: #70ec23;
   box-shadow: 5px -1px 10px rgb(5 5 5 / 50%);
-} 
+}
+.disabled-modal{
+  pointer-events: none;
+  background-color: #b4ad92;
+}
 
 .background {
   margin-left: 34px;
@@ -146,3 +173,37 @@
   height: 40px;
   font-size: 24px;
 }
+
+.button-next-Ingredients{
+  margin-bottom: 0px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+}
+
+.button-next-Ingredients input{
+  border-radius: 5px;
+  border: 0px;
+  width: 147px;
+  height: 46px;
+  color: #ffffff;
+  background-color:rgb(209, 55, 55) ;
+}
+
+
+.button-next-Ingredients :hover{
+  background-color: #c41d00;
+  color: rgb(255, 253, 253);
+  transition: 0.2s
+}
+#next{
+  margin-right:54px;
+  margin-left:692px;
+}
+#back{
+  margin-left:54px
+}
+
+/* display: flex;
+flex-direction: column;
+justify-content: space-between; */

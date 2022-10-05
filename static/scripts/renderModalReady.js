@@ -7,11 +7,12 @@ function renderModalReadyOrder(
   foodImg,
   nameFood,
   summaPriceModal,
-  modalBottom,
-  amountFood
+  modalBottom
 ) {
-  console.log("modalBottom", modalBottom);
   let resultSummaModal = sessionStorage.getItem("resultSummaModal");
+  firstPriceModal = +resultSummaModal;
+  let summPriceModal;
+  let amountFood = 1;
   for (let key in customBurger) {
     const element = `${key}: ${customBurger[key]}`;
     selectSize += `<p style="margin-top: 0px;">${element}</p>`;
@@ -57,29 +58,65 @@ function renderModalReadyOrder(
     <button type="submit" id="button-add-basket"> В КОРЗИНУ</button>
     </div>`;
 
-  window.addEventListener("click", (event) => {
-    let counter = document.getElementById("amount-foods");
+  // if (event.target.id === "amount-foods") {
+  //   event.target.addEventListener("input", (event) => {
+  //     if (event.target.value > 999) {
+  //       console.log(event.target.value);
+  //       counter.value = 999;
+  //       counter.innerText = counter.value;
+  //     }
 
-    if (event.target.id === "amount-foods") {
-      event.target.addEventListener("input", (event) => {
-        if (event.target.value > 999) {
-          console.log(event.target.value);
-          counter.value = 999;
-          counter.innerText = counter.value;
-        }
-
-        if (event.target.value < 1) {
-          console.log(event.target.value);
-          counter.value = 1;
-          counter.innerText = counter.value;
-        }
-      });
+  //     if (event.target.value < 1) {
+  //       console.log(event.target.value);
+  //       counter.value = 1;
+  //       counter.innerText = counter.value;
+  //     }
+  //   });
+  //}
+  function counterModalProduct(event) {
+    if (event.target.id === "close-modal") {
+      console.log("remove is completed");
+      removeEventListener("click", counterModalProduct);
+      sessionStorage.removeItem("resultSummaModal");
+      localStorage.removeItem("customBurger");
+      objActiveItemModal = {};
+    } else {
     }
-
+    let counter = document.getElementById("amount-foods");
     if (event.target.id === "add-foods") {
       if (counter.value < 999) {
         counter.innerText = counter.value++;
-        console.log(counter);
+        resultSummaModal = sessionStorage.getItem("resultSummaModal");
+        resultSummaModal = firstPriceModal * counter.value;
+        resultSummaModal = sessionStorage.setItem(
+          "resultSummaModal",
+          resultSummaModal
+        );
+        resultSummaModal = sessionStorage.getItem("resultSummaModal");
+        summPriceModal = resultSummaModal;
+        console.log("summPriceModal", summPriceModal);
+        modalBottom2 = /*html*/ `
+           <div class="select-amountFood">
+            <p>Количество</p>
+
+                    <button type="button" id="add-foods">+</button>
+
+                    <input type="number" class="amount-foods-modal"  id="amount-foods"
+                     name="amount-food" value=${counter.value}> </input>
+
+                    <button type="button" id="delete-foods">-</button><br>
+                    </div>
+
+                    <div class="summaPrice">
+            <p>Итого:${resultSummaModal} руб </p>
+            <button type="submit" id="button-add-basket"> В КОРЗИНУ</button>
+            </div>`;
+
+        sizeSelection.innerHTML = modalHtml;
+
+        modalBottom.innerHTML = modalBottom2;
+
+        return sizeSelection, modalBottom;
       }
     }
 
@@ -87,14 +124,42 @@ function renderModalReadyOrder(
       if (counter.value > 1) {
         counter.innerText = counter.value--;
         console.log(counter);
+        resultSummaModal = sessionStorage.getItem("resultSummaModal");
+        resultSummaModal = firstPriceModal * counter.value;
+        resultSummaModal = sessionStorage.setItem(
+          "resultSummaModal",
+          resultSummaModal
+        );
+        resultSummaModal = sessionStorage.getItem("resultSummaModal");
+
+        modalBottom2 = /*html*/ `
+          <div class="select-amountFood">
+          <p>Количество</p>
+
+            <button type="button" id="add-foods">+</button>
+
+            <input type="number" class="amount-foods-modal"  id="amount-foods"
+             name="amount-food" value=${counter.value}> </input>
+
+            <button type="button" id="delete-foods">-</button><br>
+            </div>
+
+            <div class="summaPrice">
+        <p>Итого:${resultSummaModal} руб </p>
+        <button type="submit" id="button-add-basket"> В КОРЗИНУ</button>
+        </div>`;
       }
+      // sizeSelection.innerHTML = modalHtml;
+
+      // modalBottom.innerHTML = modalBottom2;
+
+      // return sizeSelection, modalBottom;
     }
-  });
+  }
+
+  window.addEventListener("click", counterModalProduct);
 
   sizeSelection.innerHTML = modalHtml;
-  /* modalBottom.style =
-    "margin-top: 150px;height: 168px; background-color: rgb(255, 255, 255);";*/
   modalBottom.innerHTML = modalBottom2;
-
   return sizeSelection, modalBottom;
 }

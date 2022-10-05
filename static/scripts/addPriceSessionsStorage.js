@@ -4,6 +4,7 @@ function addPriceSessionsStorage(resultSummaModal, priceFood) {
     resultSummaModal
   );
   if (resultSummaModal === null) {
+    priceFood = 0;
     sessionStorage.setItem("resultSummaModal", priceFood);
   } else {
     resultSummaModal = sessionStorage.setItem(

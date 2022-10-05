@@ -19,6 +19,7 @@ function reloadingCartDataToClick(
         console.log("reloadingCartDataToClick", localStorageOrder);
         for (let key in localStorageOrder) {
           let value = localStorageOrder[key];
+          console.log(value);
 
           let cardItemHTML = /*html*/ `
           <div class="order" id='order'>
