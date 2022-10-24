@@ -1,8 +1,9 @@
 function renderListFood(content, htmlCatalog, contentFoods, i, typeProduct) {
   content.menu.forEach((element) => {
     if (element.category === typeProduct) {
+      // console.log(typeProduct);
       htmlCatalog += /*html*/ `
-    
+ 
     <div id='food-card' data-set='${i++}'>
       <div id="logo-food">
       <img src=https://logos-marques.com/wp-content/uploads/2021/03/Subway-Logo-2048x1158.png></div>
@@ -46,3 +47,11 @@ function renderListFood(content, htmlCatalog, contentFoods, i, typeProduct) {
 
   return (contentFoods.innerHTML = html);
 }
+
+// margin-left: 1028px;
+// border: none;
+// width: 45px;
+// height: 50px;
+// font-size: 30px;
+// background-color: #fc0;
+// border-radius: 100px;

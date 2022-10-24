@@ -1,23 +1,28 @@
 function loadingCartData(basketProducts, resultSummaBasketHTML) {
-  let summa = 0;
   window.addEventListener("load", () => {
     resultSumma = sessionStorage.getItem("resultSumma");
     resultSumma = Number(resultSumma);
     resultSumma = 0;
     localStorageOrder = localStorage.getItem("order");
-    localStorageOrder = JSON.parse(localStorageOrder);
+    localStorageOrder = localStorageOrder && JSON.parse(localStorageOrder);
     orderID = 0;
     if (localStorageOrder !== null) {
       for (let key in localStorageOrder) {
         let value = localStorageOrder[key];
 
         let cardItemHTML = /*html*/ `
-          <div class="order" id='order'>
-            <p>${value.name}</p> 
-            <p>${value.amount}.шт</p>
-            
-            <button id="delete_products" data-order=${orderID}>X</button>
-          <div>
+        <div class="order" id='order'>
+          <div class="nameFood">
+          <p>${value.name}<wbr></p> 
+          </div>
+          <div class="countFood">
+          <p>${value.amount}.шт</p>
+          </div>
+
+          <button id="delete_products" data-order=${orderID}>
+          </button>
+
+        </div>
           `;
 
         resultSumma = resultSumma + +value.price;
@@ -29,11 +34,19 @@ function loadingCartData(basketProducts, resultSummaBasketHTML) {
 
       resultSummaBasketHTML.innerText = `Итого: ${resultSumma} руб`;
     }
-    if (localStorageOrder.length === 0) {
+    if (localStorageOrder && localStorageOrder.length === 0) {
       resultSumma = sessionStorage.getItem("resultSumma");
       resultSumma = 0;
       resultSumma = sessionStorage.setItem("resultSumma", resultSumma);
     }
   });
   return basketProducts;
+}
+{
+  /* <div class="order" id='order'>
+<p>${value.name}</p> 
+<p>${value.amount}.шт</p>
+
+<button id="delete_products" data-order=${orderID}>X</button>
+<div> */
 }

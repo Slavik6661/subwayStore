@@ -12,7 +12,7 @@ function menuModalActivity(objActiveItemModal) {
   });
 
   window.addEventListener("click", (event) => {
-    if (index < 5) {
+    if (index < array.length - 1) {
       nextButton.style.display = "block";
     } else {
       nextButton.style.display = "none";
@@ -27,7 +27,7 @@ function menuModalActivity(objActiveItemModal) {
         index++;
         array[index].className = "active-modal-menu";
         nextElement = array[index];
-        let categoryMenu = nextElement.value;
+
         setTimeout(() => {
           array[index].click();
         }, 1);
@@ -35,19 +35,17 @@ function menuModalActivity(objActiveItemModal) {
         array[index].className = "active-modal-menu";
       }
     }
-    if (index < 5) {
+    if (index > 0) {
       backButton.style.display = "block";
     } else {
       backButton.style.display = "none";
     }
     if (event.target.id === "back") {
       array[index].className = "no-active-modal-menu";
-      if (index < 5) {
+      if (index < 6) {
         index--;
-        console.log(index);
         array[index].className = "active-modal-menu";
         nextElement = array[index];
-        console.log(nextElement);
         setTimeout(() => {
           nextElement.click();
         }, 1);

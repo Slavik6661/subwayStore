@@ -137,6 +137,7 @@
       src="/static/scripts/bottomModalPrice.js"
     ></script>
     <script type="text/javascript" src="/static/scripts/closeModal.js"></script>
+    <script type="text/javascript" src="/static/scripts/checkout.js"></script>
 
     <script>
       let contentFoods = document.getElementById("contentFoods");
@@ -157,15 +158,11 @@
         render() {
           let htmlCatalog = "";
           let i = 0;
-
           this.typeProduct = window.location.pathname.split("/")[1];
-          console.log(this.typeProduct);
+          //console.log(this.typeProduct);
           getResponse().then((content) => {
             this.foods = content;
-            // console.log(content);
             content.menu.forEach((element) => {
-              //console.log(element.category);
-
               if (element.category === this.typeProduct) {
                 renderListFood(
                   content,
@@ -179,11 +176,13 @@
           });
         }
         orderQuantity() {
+          let firstPrice = 0;
           window.addEventListener("click", (event) => {
             if (event.target.id === "amount-food") {
               let card = event.target.closest("#food-card");
               let price = card.querySelectorAll("#description-food p");
               let priceSplit = price[1].innerText.split(":")[1];
+
               event.target.addEventListener("input", (event) => {
                 price[1].innerText = `Цена:${(
                   event.target.value * priceSplit
@@ -198,12 +197,12 @@
 
               let counterWrapper = event.target.closest("#buy-food");
               let counter = counterWrapper.querySelector("#amount-food");
-              counter.innerText = counter.value++;
-
+              counter.defaultValue = counter.value++ + 1;
+              console.log(counter.value, counter);
               if (+counter.value > 2) {
-                priceSplit = +priceSplit / (+counter.value - 1);
+                firstPrice = +priceSplit / (+counter.value - 1);
                 price[1].innerText = `Цена:${(
-                  priceSplit * +counter.value
+                  firstPrice * +counter.value
                 ).toFixed(1)}`;
               } else {
                 price[1].innerText = `Цена:${+priceSplit * +counter.value}`;
@@ -218,13 +217,12 @@
               let counter = counterWrapper.querySelector("#amount-food");
 
               if (counter.value > 1) {
-                counter.innerText = counter.value--;
-
+                counter.defaultValue = counter.value--;
                 if (+counter.value > 1) {
-                  priceSplit = +priceSplit / (+counter.value + 1);
+                  firstPrice = +priceSplit / (+counter.value + 1);
 
                   price[1].innerText = `Цена:${(
-                    +priceSplit * +counter.value
+                    +firstPrice * +counter.value
                   ).toFixed(1)}`;
                 } else {
                   price[1].innerText = `Цена:${
@@ -273,7 +271,8 @@
               let nameFood = description[0].innerText;
               let priceFood = description[1].innerText.split(":")[1];
               let btn = card.querySelector("#button-buy");
-              let amountFood = card.querySelector("#amount-food").value;
+              let amountFood = card.querySelector("#amount-food").value; ///&&&&&&&&&&&&&&&&&&&
+              console.log("amountFood click button buy 1", amountFood);
               let categoryID = event.target.id;
               let addIngredients;
               addResultSummaSessionsStorage(resultSumma);
@@ -328,10 +327,8 @@
                     categoryID,
                     sizeSelection,
                     modalBottom,
-                    priceFood,
                     objActiveItemModal,
-                    addIngredients,
-                    objPriceModalCard
+                    addIngredients
                   );
                   let selected = [];
                   let selectedSizes = document.getElementById("size-selection");
@@ -450,6 +447,7 @@
                       modalBottom
                     );
                     console.log("summaPrice", modalReady);
+
                     modalReady.addEventListener("click", (e) => {
                       if (e.target.id === "button-add-basket") {
                         modalReady = document.getElementById("amount-foods");
@@ -464,6 +462,10 @@
                         );
                         console.log("summaPrice", summaPrice);
                         amountFood = +modalReady.value;
+                        console.log(
+                          "amountFood click button buy 2",
+                          amountFood
+                        );
                         customBurger.amount = amountFood;
                         customBurger.price = summaPrice;
                         localStorage.setItem(
@@ -563,6 +565,7 @@
 
           console.log("resultSummaBasketHTML", resultSummaBasketHTML);
           loadingCartData(basketProducts, resultSummaBasketHTML);
+          checkout();
         }
       }
       let products = new Products();
@@ -572,3 +575,4 @@
     </script>
   </body>
 </html>
+<!-- npm i -D webpack webpack-cli -->

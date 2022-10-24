@@ -12,7 +12,11 @@ function renderModalReadyOrder(
   let resultSummaModal = sessionStorage.getItem("resultSummaModal");
   firstPriceModal = +resultSummaModal;
   let summPriceModal;
-  let amountFood = 1;
+
+  let amount = document.getElementById("amount-food");
+  console.log(amount.defaultValue);
+  let amountFood = amount.defaultValue;
+
   for (let key in customBurger) {
     const element = `${key}: ${customBurger[key]}`;
     selectSize += `<p style="margin-top: 0px;">${element}</p>`;
@@ -73,6 +77,39 @@ function renderModalReadyOrder(
   //     }
   //   });
   //}
+  function summaPriceCounter() {
+    if (amountFood > 1) {
+      resultSummaModal = sessionStorage.getItem("resultSummaModal");
+      resultSummaModal = firstPriceModal * amount.defaultValue;
+      resultSummaModal = sessionStorage.setItem(
+        "resultSummaModal",
+        resultSummaModal
+      );
+      resultSummaModal = sessionStorage.getItem("resultSummaModal");
+      console.log("resultSummaModal", resultSummaModal);
+      modalBottom2 = /*html*/ `
+       <div class="select-amountFood">
+        <p>Количество</p>
+
+                <button type="button" id="add-foods">+</button>
+
+                <input type="number" class="amount-foods-modal"  id="amount-foods"
+                 name="amount-food" value=${amountFood}> </input>
+
+                <button type="button" id="delete-foods">-</button><br>
+                </div>
+
+                <div class="summaPrice">
+        <p>Итого:${resultSummaModal} руб </p>
+        <button type="submit" id="button-add-basket"> В КОРЗИНУ</button>
+        </div>`;
+
+      sizeSelection.innerHTML = modalHtml;
+
+      modalBottom.innerHTML = modalBottom2;
+    }
+  }
+  summaPriceCounter();
   function counterModalProduct(event) {
     if (event.target.id === "close-modal") {
       console.log("remove is completed");
@@ -85,7 +122,8 @@ function renderModalReadyOrder(
     let counter = document.getElementById("amount-foods");
     if (event.target.id === "add-foods") {
       if (counter.value < 999) {
-        counter.innerText = counter.value++;
+        counter.defaultValue = counter.value++ + 1;
+        console.log(counter);
         resultSummaModal = sessionStorage.getItem("resultSummaModal");
         resultSummaModal = firstPriceModal * counter.value;
         resultSummaModal = sessionStorage.setItem(
@@ -122,7 +160,7 @@ function renderModalReadyOrder(
 
     if (event.target.id === "delete-foods") {
       if (counter.value > 1) {
-        counter.innerText = counter.value--;
+        counter.defaultValue = counter.value-- - 1;
         console.log(counter);
         resultSummaModal = sessionStorage.getItem("resultSummaModal");
         resultSummaModal = firstPriceModal * counter.value;
@@ -149,11 +187,11 @@ function renderModalReadyOrder(
         <button type="submit" id="button-add-basket"> В КОРЗИНУ</button>
         </div>`;
       }
-      // sizeSelection.innerHTML = modalHtml;
+      sizeSelection.innerHTML = modalHtml;
 
-      // modalBottom.innerHTML = modalBottom2;
+      modalBottom.innerHTML = modalBottom2;
 
-      // return sizeSelection, modalBottom;
+      return sizeSelection, modalBottom;
     }
   }
 

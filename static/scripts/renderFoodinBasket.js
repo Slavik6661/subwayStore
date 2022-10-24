@@ -8,11 +8,14 @@ function renderFoodInBasket(order, cardItemHTML, orderID, resultSumma) {
 
     cardItemHTML = /*html*/ `
   <div class="order" id='order' data-order=${orderID}>
-    <p>${value.name}</p> 
-    <p>${value.amount}.шт</p>
-   
-  <div>
-    <button id="delete_products" data-order=${orderIDbtn}>X</button>
+    <div class="nameFood">
+      <p>${value.name}<wbr></p> 
+    </div>
+    <div class="countFood">
+      <p>${value.amount}.шт</p>
+    </div>
+    <button id="delete_products" data-order=${orderIDbtn}/>
+  </div>
   `;
     orderIDbtn++;
   }

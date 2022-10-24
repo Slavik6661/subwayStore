@@ -5,6 +5,7 @@ function reloadingCartDataToClick(
 ) {
   window.addEventListener("click", (e) => {
     if (e.target.id === "delete_products") {
+      console.log(e.target.className.baseVal);
       resultSumma = sessionStorage.getItem("resultSumma");
       resultSumma = Number(resultSumma);
 
@@ -22,12 +23,18 @@ function reloadingCartDataToClick(
           console.log(value);
 
           let cardItemHTML = /*html*/ `
-          <div class="order" id='order'>
-            <p>${value.name}</p> 
-            <p>${value.amount}.шт</p>
-            
-            <button id="delete_products" data-order=${orderID}>X</button>
-          <div>
+         
+
+        <div class="order" id='order'>
+          <div class="nameFood">
+          <p>${value.name}<wbr></p> 
+          </div>
+          <div class="countFood">
+          <p>${value.amount}.шт</p>
+          </div>
+          <button id="delete_products" data-order=${orderID}>
+          </button>
+        </div>
           `;
           resultSumma = resultSumma + +value.price;
           basketProducts.innerHTML += `${cardItemHTML}<br>`;
@@ -49,4 +56,12 @@ function reloadingCartDataToClick(
   });
 
   return { basketProducts };
+}
+{
+  /* <div class="order" id='order'>
+<p>${value.name}</p> 
+<p>${value.amount}.шт</p>
+
+<button id="delete_products" data-order=${orderID}>X</button>
+<div> */
 }

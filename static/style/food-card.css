@@ -8,9 +8,9 @@
 #food-card {
   margin-right: -100px;
   margin-left: 100px;
-  margin-bottom: 70px;
+  margin-bottom: 46px;
   width: auto;
-  height: 700px;
+  height: 740px;
 }
 
 #logo-food {
@@ -63,9 +63,9 @@
 }
 
 #description-food p {
-  margin-bottom: 0px;
+  /* margin-bottom: 0px;
   margin-top: 0px;
-  font-family: Consola-Bold;
+  font-family: Consola-Bold; */
   font-size: 24px;
 }
 
@@ -135,6 +135,7 @@
   border-radius: 5px;
   width: 200px;
   height: 50px;
+  font-size: 20px;
   background-color: #f5c300;
   color: rgb(250, 247, 247);
 }

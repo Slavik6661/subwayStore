@@ -1,5 +1,6 @@
 
 .products-list {
+  margin-top: -45px;
   padding-left: 32px;
   display: flex;
   flex-wrap: wrap;
@@ -8,6 +9,7 @@
 .products-list #food-card {
   margin-right: -100px;
   margin-left: 100px;
-  margin-bottom: 70px;
+  margin-bottom: 46px;
   width: auto;
+  height: 740px;
 }

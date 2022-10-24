@@ -1,21 +1,14 @@
 function deleteFood(orderID, resultSumma, basketProducts) {
-  localStorageOrder = localStorage.getItem("order");
-  let array = [];
-  let summa = 0;
-  let idElement;
-  localStorageOrder = JSON.parse(localStorageOrder);
+  const localStorageOrderString = localStorage.getItem("order");
+  const localStorageOrders = JSON.parse(localStorageOrderString);
+
   if (event.target.id === "delete_products") {
-    idOrder = +event.target.dataset.order;
-    idOrder = +idOrder;
+    console.log("currentTarget", event.currentTarget.id);
+    console.log("+++++");
+    const idOrder = Number(event.target.dataset.order);
+    localStorageOrders.splice(idOrder, 1);
 
-    localStorageOrder.forEach((element, index) => {
-      array.push(element);
-    });
-
-    array.splice(+idOrder, 1);
-
-    console.log(array);
-    localStorage.setItem("order", JSON.stringify(array));
+    localStorage.setItem("order", JSON.stringify(localStorageOrders));
     document.getElementById("order").remove();
   }
 }
