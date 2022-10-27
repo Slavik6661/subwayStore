@@ -127,6 +127,20 @@
   color: #000;
 }
 
+.amount-food {
+  margin-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom-width: 0px;
+  border-radius: 5px;
+  padding-bottom: 5px;
+  padding-top: 10px;
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  background-color: #ffffff;
+  color: #000;
+}
+
 #button-buy {
   border-bottom-width: 0px;
   border-left-width: 0px;

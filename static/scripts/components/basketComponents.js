@@ -9,8 +9,9 @@ class Basket {
   ordersArray = [];
   orderObj = {};
 
-  constructor(rootBasket) {
+  constructor(rootBasket, rootCard2) {
     this.rootBasket = rootBasket;
+    this.rootCard2 = rootCard2;
     this.render();
   }
   // set stateSet(newState) {
@@ -31,18 +32,7 @@ class Basket {
   }
 
   render() {
-    this.htmlOrder =
-      /*html*/
-      `
-    <div class="nameFood">
-    <p>${this.foodName}<wbr></p>
-    </div>
-    <div class="countFood">
-    <p>${this.amountFood}</p>
-    </div>
-    <button id="delete_products"/>
-    `;
-
+    console.log("render");
     this.htmlBasket =
       /*html*/
       `
@@ -50,14 +40,22 @@ class Basket {
          <p>Корзина</p>
        </div>
        <div class="basket-body">
-         <div class="basket-info">
-           <p>Название</p>
-           <p>Количество</p>
-         </div>
-         <div id ="basket" class="basket-products">
-         <div class="order" id='order'>
-       ${this.htmlOrder}
-       </div>
+          
+            <div class="basket-info">
+              <p>Название</p>
+              <p>Количество</p>
+            </div>
+
+          <div id ="basket" class="basket-products">
+
+          <div class="order" id='order'>
+          <div class="nameFood">
+          <p>${this.foodName}<wbr></p>
+          </div>
+
+          <div class="countFood">
+          <p>${this.amountFood}</p>
+          </div>
          </div>
          <hr />
          <p id="totalSumm">Итого: 0 руб</p>
@@ -67,12 +65,17 @@ class Basket {
    
      `;
     this.rootBasket.innerHTML = this.htmlBasket;
+    let contentFoods = document.body.children[0].children[2].children[0];
 
-    window.addEventListener("click", (e) => {
-      e.target.id === "button-buy" ? this.addProductInBasket(e.target) : "";
-    });
+    console.log(this.rootCard2.querySelector("#button-buy"));
+
+    this.rootBasket
+      .querySelector("#button-buy")
+      .addEventListener("click", (e) => {
+        e.target.id === "button-buy" ? this.addProductInBasket(e.target) : "";
+      });
   }
 }
-const rootBasket = document.querySelector("#basket-card");
-
-let basket = new Basket(rootBasket);
+// const rootBasket = document.querySelector("#basket-card");
+// const rootCard2 = document.querySelector("#products-list");
+// let basket = new Basket(rootBasket, rootCard2);
