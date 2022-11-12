@@ -1,9 +1,9 @@
-@font-face {
+/* @font-face {
   font-family: Consola-Bold;
-  /* Имя шрифта */
+
   src: url("font/consolab.ttf");
-  /* Путь к файлу со шрифтом */
-}
+  
+} */
 
 #food-card {
   margin-right: -100px;
@@ -89,27 +89,27 @@
   font-size: 25px;
 }
 
-#add-food {
+.add-food {
   border-radius: 100px;
   border-left-width: 1px;
   border-right-width: 1px;
   border-bottom-width: 1px;
   border-top-width: 1px;
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
+  width: 40px;
+  height: 40px;
+  font-size: 25px;
   text-align: center;
 }
 
-#delete-food {
+.delete-food {
   border-radius: 100px;
   border-left-width: 1px;
   border-right-width: 1px;
   border-bottom-width: 1px;
   border-top-width: 1px;
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
+  width: 40px;
+  height: 40px;
+  font-size: 25px;
   text-align: center;
 }
 
@@ -141,7 +141,7 @@
   color: #000;
 }
 
-#button-buy {
+.button-buy {
   border-bottom-width: 0px;
   border-left-width: 0px;
   border-right-width: 0px;

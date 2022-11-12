@@ -33,8 +33,8 @@ justify-content: space-between;
 }
 
 #modal-bottom {
-  margin-top: 60px;
-  height: 50px;
+  /* margin-top: 60px;
+  height: 50px; */
   background-color: rgb(255, 255, 255);
 }
 
@@ -98,12 +98,14 @@ justify-content: space-between;
 #size-selection {
   margin-top: 0px;
   margin-left: 0px;
+  padding-left: 10px;
   display: flex;
   display: flex;
   text-align: center;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-evenly;
+  scroll-behavior: auto;
 }
 
 #size-selection img {

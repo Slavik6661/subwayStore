@@ -82,11 +82,6 @@ function renderModalDialog2(
     resultSummaModal
   );
   console.log("resultSummaModal", resultSummaModal);
-  // let amount = document.getElementById("amount-food");
-  // console.log("amount", amount);
-  // console.log("amount", amountFood);
-  // amount.value = amountFood;
-  // console.log("amount", amount.value);
 
   for (let key in foodCategory) {
     const element = foodCategory[key];

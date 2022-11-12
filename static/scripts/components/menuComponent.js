@@ -1,12 +1,23 @@
+import EventBus from "../../../componentss/pubSub";
 class Menu {
   root;
+  arrMenu = [
+    "Сэндвичи",
+    "Бургеры",
+    "Тортилья & Салаты",
+    "Курица & Картофель",
+    "Напитки & Десерты",
+    "Пицца",
+    "Шаурма",
+  ];
+  arrayCategory = [];
   #state = {
     isActive: 0,
   };
 
-  constructor(root, arrMenu) {
+  constructor(root, content) {
     this.root = root;
-    this.arrMenu = arrMenu;
+    this.content = content;
     this.render();
   }
 
@@ -19,44 +30,42 @@ class Menu {
     this.render();
   }
 
-  addActiveIndex(index) {
+  addActiveIndex(value) {
     this.stateSet = {
-      isActive: index,
+      isActive: value,
     };
   }
 
   render() {
+    console.log("render menu");
+    let html = "";
     this.root.innerHTML = "";
-    this.arrMenu.map((element, index) => {
-      const html = /*html*/ `
-        <button id="${index}" value='${element}' class=${
-        Number(this.#state.isActive) === index ? "active" : "no-active"
-      }>${element}</button>
+    for (let i in this.content.menu) {
+      let category = this.content.menu[i].category;
+      if (!this.arrayCategory.includes(category)) {
+        this.arrayCategory.push(category);
+      }
+    }
+    for (let i in this.arrayCategory) {
+      html = /*html*/ `
+        <button id="${this.arrayCategory[i]}" value='${i}'
+        class=${
+          Number(this.#state.isActive) === parseInt(i) ? "active" : "no-active"
+        }>${this.arrMenu[i]}</button>
         </nav>
-        `;
-
+       `;
       this.root.innerHTML += html;
-    });
+    }
 
-    this.root.addEventListener("click", (e) => {
-      console.log(e.target.id);
-      console.log(e.target.value);
-      this.addActiveIndex(e.target.id);
-    });
+    for (let i in this.arrayCategory) {
+      this.root
+        .querySelector(`#${this.arrayCategory[i]}`)
+        .addEventListener("click", (e) => {
+          this.addActiveIndex(e.target.value);
+          EventBus.publish("menuValue", e.target.id);
+        });
+    }
   }
 }
 
-const root = document.querySelector("#menu");
-
-let arrMenu = [
-  "Блины!!",
-  "Шаурма",
-  "Пицца",
-  "Сэндвичи",
-  "Бургеры",
-  "Курица & Картофель",
-  "Тортилья & Салаты",
-  "Напитки & Десерты",
-];
-
-const button = new Menu(root, arrMenu);
+export default Menu;

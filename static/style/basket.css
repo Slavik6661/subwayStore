@@ -1,9 +1,4 @@
-@font-face {
-  font-family: Consola-Bold;
-  /* Имя шрифта */
-  src: url('font/RobotoCondensed-Regular.ttf');
-  /* Путь к файлу со шрифтом */
-}
+
 
 .basket-logo p {
   padding-bottom: 20px;
@@ -86,16 +81,20 @@
   }
 
   .order {
-    margin-bottom: -23px;
-    margin-top: 1px;
+    margin-bottom: -18px;
+    margin-top: -14px;
     display: flex;
     font-size: 25px;
     justify-content: space-around;
     font-family: Consola-Bold;
     color: #6c6545;
   }
-
-  #delete_products {
+  .delete-products{
+    width: 45px;
+    height: 45px;
+    margin-top: 18px;
+  }
+  .delete-products-order {
     height: 45px;
     width: 45px;
     border: 0px;
@@ -107,9 +106,9 @@
     background-position: center;
   }
 
-  #delete_products:hover {
+  .delete-products-order:hover {
     background-color: #a90800;
-    height: 49px;
+    height: 45px;
     border-radius: 5px;
     transition: 0.2s
   }
