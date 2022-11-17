@@ -1,6 +1,10 @@
 import EventBus from "../../../componentss/pubSub";
+import ModalOrderReady from "./modalReadyComponent";
 import BottomModal from "./bottomModalComponent";
-class Modal {
+import ModalMenu from "./modalMenuComponent";
+import ModalCard from "./modalCardComponent";
+
+class MainModal {
   sandwichesCustom = [];
   selectCardActive = {};
   summaModal = 0;
@@ -12,15 +16,27 @@ class Modal {
     menuActive: [],
     modalCardActive: [],
   };
-  constructor(rootCard, content, modalCard, modalMenu, modalBottom) {
-    this.rootCard = rootCard;
+  modalMenu;
+  modalBottom = "";
+  modalCard;
+  rootCard = "";
+
+  constructor(content, counter) {
+    // this.modalCard = modalCard;
+    // this.modalMenu = modalMenu;
+    // this.modalBottom = modalBottom;
     this.content = content;
-    this.modalCard = modalCard;
-    this.modalMenu = modalMenu;
-    this.modalBottom = modalBottom;
-    EventBus.subscribe("modalMenuValue", this.rerender.bind(this));
+    this.counter = counter;
+    EventBus.subscribe("addInBusket", this.render.bind(this));
+    EventBus.subscribe("modalMenuId", this.rerender.bind(this));
+    this.modalMenu = new ModalMenu();
+    this.modalCard = new ModalCard(this.content);
+    new BottomModal();
+    new ModalOrderReady(counter);
   }
-  rerender(menuValue) {
+  rerender(menuId) {
+    this.rootCard = document.querySelector("#contentFoods");
+
     document.querySelector("#modal-overlay").remove();
     let modalHtml = "";
     modalHtml = /*html*/ `
@@ -36,7 +52,7 @@ class Modal {
                     <input type="button" id="next" value="ВПЕРЕД >">
                 </div>
                 <ul id="size-selection">
-                    ${this.modalCard.render(menuValue)}
+                    ${this.modalCard.render(menuId)}
                 </ul>
                 <div id="modal-bottom">
                 <p>Итого:${this.summaModal} руб</p>
@@ -60,11 +76,12 @@ class Modal {
     this.selectModalCard(menuModalElement);
     this.consoleModal();
   }
-  render() {
+  render(cardId) {
+    this.rootCard = document.querySelector("#contentFoods");
     console.log("modalComponent Render");
     let modalHtml = "";
     modalHtml = /*html*/ `
-   
+
         <dialog id="modal-content">
             <div id="modal-top">
                 <input type="button" name="close-modal" id="close-modal" value="X"/>
@@ -83,30 +100,40 @@ class Modal {
                 </div>
             </form>
         </dialog>
-   
+
     `;
+
+    //let modalContents = new ModalContent();
 
     let modalContent = document.createElement("div");
     modalContent.id = "modal-overlay";
     modalContent.className = "modal-overlay";
     modalContent.innerHTML = modalHtml;
     this.rootCard.appendChild(modalContent);
+
     let modal = document.querySelector("#modal-content");
 
-    let menuModal = document.querySelector("#menu-modal");
+    //let menuModal = document.querySelector("#menu-modal");
+
     let btnNext = document.querySelector("#next");
     let btnBack = document.querySelector("#back");
-    let menuModalElement = menuModal.children;
+    // let menuModalElement = menuModal.children;
     modal.showModal();
+    let menuModal = document.querySelector("#menu-modal");
+    let menuModalElement = menuModal.children;
     this.menuActive();
     this.buttonSelectedMenu(btnNext, btnBack, menuModalElement);
     this.showAndHidingButton(btnNext, btnBack);
     this.selectModalCard(menuModalElement);
     this.consoleModal();
 
-    if (document.getElementById("modal-bottom")) {
-      new BottomModal(document.getElementById("modal-bottom"));
-    }
+    // if (document.getElementById("modal-bottom")) {
+    //   new BottomModal(document.getElementById("modal-bottom"));
+    // }
+
+    // if (document.getElementById("modal-bottom")) {
+    //   new BottomModal(document.getElementById("modal-bottom"));
+    // }
   }
   set setState(newState) {
     this.menuState = newState;
@@ -122,7 +149,8 @@ class Modal {
   }
 
   selectModalCard(menuModalElement) {
-    let menuCategories = menuModalElement[this.menuState.active].id;
+    let menuCategoriesId = menuModalElement[this.menuState.active].id;
+    let categoryMenuValue = menuModalElement[this.menuState.active].value;
     let foodName;
     let foodPrice;
     let cardProductObj;
@@ -132,19 +160,27 @@ class Modal {
       let card = document.querySelector(`#id-modal-card-${i}`);
 
       card.addEventListener("click", (e) => {
-        cardProductObj = Object.entries(this.content[menuCategories])[i][1];
+        cardProductObj = Object.entries(this.content[menuCategoriesId])[i][1];
         foodName = cardProductObj.name;
         foodPrice = +cardProductObj.price;
         if (e.currentTarget.className === "selected") {
           card.className = "active-modal";
-          this.createOrderObj(i, foodName, foodPrice, menuCategories);
+          this.createOrderObj(
+            i,
+            foodName,
+            foodPrice,
+            menuCategoriesId,
+            categoryMenuValue
+          );
           this.totalSummModal();
         } else {
           card.className = "selected";
-          if (Object.keys(this.sandwichesCustom).includes(menuCategories)) {
-            cardProductObj = Object.entries(this.content[menuCategories])[i][1];
+          if (Object.keys(this.sandwichesCustom).includes(menuCategoriesId)) {
+            cardProductObj = Object.entries(this.content[menuCategoriesId])[
+              i
+            ][1];
             let idCard = i;
-            this.deleteFood(menuCategories, idCard);
+            this.deleteFood(menuCategoriesId, idCard);
           }
         }
       });
@@ -153,21 +189,26 @@ class Modal {
     console.log(this.sandwichesCustom);
     this.customSandwichesModal = [];
   }
-  createOrderObj(i, foodName, foodPrice, menuCategories) {
-    this.customSandwichesModal.push({ id: i, foodName, foodPrice });
-    this.selectCardActive[menuCategories] = this.customSandwichesModal;
+  createOrderObj(i, foodName, foodPrice, menuCategoriesId, categoryMenuValue) {
+    this.customSandwichesModal.push({
+      id: i,
+      foodName,
+      foodPrice,
+      categoryMenuValue,
+    });
+    this.selectCardActive[menuCategoriesId] = this.customSandwichesModal;
     this.sandwichesCustom = this.selectCardActive;
     console.log(this.sandwichesCustom);
   }
 
-  deleteFood(menuCategories, idCard) {
-    Object.values(this.sandwichesCustom[menuCategories]).forEach(
+  deleteFood(menuCategoriesId, idCard) {
+    Object.values(this.sandwichesCustom[menuCategoriesId]).forEach(
       (element, index) => {
         if (element.id === idCard) {
           console.log("delete element", element.id, index);
-          this.sandwichesCustom[menuCategories].splice(index, 1);
+          this.sandwichesCustom[menuCategoriesId].splice(index, 1);
           // console.log(this.sandwichesCustom);
-          this.totalSummModal(menuCategories);
+          this.totalSummModal(menuCategoriesId);
         }
       }
     );
@@ -184,9 +225,9 @@ class Modal {
     // document.querySelector("#modal-bottom").innerHTML =
     //   this.modalBottomRender();
   }
-  addActiveModalCard(menuModalElement, categoryMenu) {
-    if (Object.keys(this.sandwichesCustom).includes(categoryMenu)) {
-      this.sandwichesCustom[categoryMenu].forEach((el) => {
+  addActiveModalCard(categoryMenuId) {
+    if (Object.keys(this.sandwichesCustom).includes(categoryMenuId)) {
+      this.sandwichesCustom[categoryMenuId].forEach((el) => {
         document.querySelector(`#id-modal-card-${el.id}`).className =
           "active-modal";
       });
@@ -202,11 +243,14 @@ class Modal {
           active: this.menuState.active + 1,
         })
       : "";
-    let categoryMenu = menuModalElement[this.menuState.active].id;
-    EventBus.publish("modalMenuValue", categoryMenu);
-    this.addActiveModalCard(menuModalElement, categoryMenu);
-    if (categoryMenu === "ready") {
-      EventBus.publish("modalRender", this.sandwichesCustom);
+    let categoryMenuId = menuModalElement[this.menuState.active].id;
+    let categoryMenuValue = menuModalElement[this.menuState.active].value;
+    EventBus.publish("modalMenuId", categoryMenuId);
+
+    this.addActiveModalCard(categoryMenuId);
+    if (categoryMenuId === "ready") {
+      EventBus.publish("modalRenderReady", this.sandwichesCustom);
+      this.summaModal;
     }
   }
 
@@ -217,10 +261,11 @@ class Modal {
           active: this.menuState.active - 1,
         })
       : "";
-    let categoryMenu = menuModalElement[this.menuState.active].id;
-    EventBus.publish("modalMenuValue", categoryMenu);
+    let categoryMenuId = menuModalElement[this.menuState.active].id;
+    let categoryMenuValue = menuModalElement[this.menuState.active].value;
+    EventBus.publish("modalMenuId", categoryMenuId);
 
-    this.addActiveModalCard(menuModalElement, categoryMenu);
+    this.addActiveModalCard(categoryMenuId);
   }
 
   resetMenuState() {
@@ -267,4 +312,4 @@ class Modal {
   }
 }
 
-export default Modal;
+export default MainModal;

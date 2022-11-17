@@ -2,7 +2,7 @@ import EventBus from "../../../componentss/pubSub";
 class ModalCard {
   constructor(content) {
     this.content = content;
-    EventBus.subscribe("modalMenuValue", this.render.bind(this));
+    EventBus.subscribe("modalMenuId", this.render.bind(this));
     this.render();
   }
   upRender(modalElement) {

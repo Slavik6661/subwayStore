@@ -109,9 +109,9 @@ justify-content: space-between;
 }
 
 #size-selection img {
-  margin-top: 20px;
-  border-radius: 30%;
-  width: 150px;
+  margin-top: 10px;
+  border-radius: 100%;
+  width: 170px;
 }
 
 .selected {
@@ -141,6 +141,12 @@ justify-content: space-between;
   box-shadow: 5px -1px 10px rgb(5 5 5 / 50%);
 }
 .disabled-modal{
+  margin-right: 10px;
+  margin-top: 20px;
+  border-radius: 10px;
+  width: 250px;
+  height: 300px;
+  box-shadow: 5px -1px 10px rgb(5 5 5 / 50%);
   pointer-events: none;
   background-color: #b4ad92;
 }
@@ -166,6 +172,14 @@ justify-content: space-between;
   height: 187px;
   width: 185px;
   background-color: #fc0;
+}
+
+.img_food-modal{
+  margin-top: 10px;
+  width: 165px;
+  height: 166px;
+  border-radius: 100px;
+  background-color: white;
 }
 
 .amount-food-modal {

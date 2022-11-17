@@ -57,14 +57,15 @@
   }
   
   .basket-body .btn {
-    margin-bottom: 0px;
+    margin-bottom: 20px;
     margin-right: 0px;
-    margin-left: 25px;
+    margin-left: 31px;
     border-left-width: 0px;
     border-right-width: 0px;
     border-bottom-width: 0px;
     border-top-width: 0px;
     border-radius: 5px;
+    height: 60px;
     font-family: Consola-Bold;
     font-size: 30px;
     color: rgb(249, 249, 249);

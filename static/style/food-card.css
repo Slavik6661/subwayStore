@@ -27,7 +27,7 @@
   height: 150px;
 }
 
-#photo-food {
+.photo-food {
   margin-left: 60px;
   padding-top: 1px;
   border-radius: 360px;
@@ -46,8 +46,8 @@
   background-color: rgb(255, 255, 255);
 }
 
-#photo-food img {
-  margin-top: 10px;
+.photo-food img {
+  margin-top: 5px;
   border-radius: 118px;
   width: 210px;
   height: 210px;
