@@ -1,56 +1,69 @@
 import EventBus from "../../../componentss/pubSub";
-class Basket {
+import store from "../../store";
+
+class Bucket {
   foodName = "";
+
   amountFood = "";
+
   foodPrice = 0;
+
   htmlBasket = "";
+
   orderHtml = "";
+
   totalSum = "";
+
   sumOrders = 0;
-  ordersArray = [];
+
   orderObj = {};
 
-  constructor(rootBasket, rootCard2, content, contentRender) {
-    this.rootBasket = rootBasket;
-    this.rootCard2 = rootCard2;
-    this.content = content;
-    this.contentRender = contentRender;
+  constructor() {
+    // this.rootBasket = rootBasket;
+    // this.rootCard2 = rootCard2;
     EventBus.subscribe("idCard", this.addProductInBasket.bind(this));
-    this.render();
+    EventBus.subscribe("clickButtonAddBasketModal", this.addModalOrder.bind(this));
   }
 
-  addProductInBasket(i) {
-    console.log(this.content.menu);
-    ////////////////Как иначе получить данные для цены ,количества //////////////////////////
-    this.foodName = this.contentRender.querySelector(
-      `#name-food-${i}`
-    ).innerText;
-    this.amountFood = parseInt(
-      this.contentRender.querySelector(`#amount-food-${i}`).value
-    );
-    this.foodPrice = parseInt(
-      this.contentRender.querySelector(`#price-${i}`).innerText.split(":")[1]
-    );
-    ///////////////////////////////////////////////////////////////////////////////
+  addModalOrder(idCard) {
+    console.log(store.ordersArray);
+    this.foodName = store.productsFromTheCurrentPage[idCard].name;
+    this.amountFood = store.productsFromTheCurrentPage[idCard].weight;
+    this.foodPrice = store.modalSum;
+
     this.orderObj = {
       foodName: this.foodName,
       amountFood: this.amountFood,
       foodPrice: this.foodPrice,
     };
-    this.ordersArray.push(this.orderObj);
-    console.log(this.ordersArray);
-    this.updateRenderOrders(i);
+    store.ordersArray.push(this.orderObj);
+    this.updateRenderOrders();
+  }
+
+  addProductInBasket(i) {
+    this.foodName = store.productsFromTheCurrentPage[i].name;
+    this.amountFood = store.productsFromTheCurrentPage[i].weight;
+    this.foodPrice = store.productsFromTheCurrentPage[i].price;
+
+    this.orderObj = {
+      foodName: this.foodName,
+      amountFood: this.amountFood,
+      foodPrice: this.foodPrice,
+    };
+    store.ordersArray.push(this.orderObj);
+    console.log(store.ordersArray);
+    this.updateRenderOrders();
   }
 
   updateRenderOrders(i) {
     this.sumOrders = 0;
     this.orderHtml = "";
-    for (let key in this.ordersArray) {
-      let value = this.ordersArray[key];
+    for (const key in store.ordersArray) {
+      const value = store.ordersArray[key];
 
-      this.orderHtml +=
-        /*html*/
-        `
+      this.orderHtml
+        /* html */
+        += `
     <div class="order" id='order-${key}'>
       <div class="nameFood">
       <p>${value.foodName}<wbr></p>
@@ -68,20 +81,17 @@ class Basket {
     `;
     }
 
-    for (let i = 0; i < this.ordersArray.length; i++) {
-      this.sumOrders +=
-        this.ordersArray[i].amountFood * this.ordersArray[i].foodPrice;
-      console.log(typeof this.ordersArray[i].foodPrice);
+    for (let i = 0; i < store.ordersArray.length; i += 1) {
+      this.sumOrders
+        += store.ordersArray[i].amountFood * store.ordersArray[i].foodPrice;
     }
-    console.log(parseInt(this.sumOrders));
+    console.log(parseInt(this.sumOrders, 10));
 
-    this.totalSum = /*html*/ `
+    this.totalSum = /* html */ `
     <p id="totalSumm">Итого: ${this.sumOrders} руб</p>
     <button class="btn" type="submit">ОФОРМИТЬ ЗАКАЗ</button>
     `;
-    this.htmlBasket =
-      /*html*/
-      `
+    this.htmlBasket = /* html */ `
          <div class="basket-logo">
          <p>Корзина</p>
        </div>
@@ -99,10 +109,10 @@ class Basket {
      `;
     this.rootBasket.innerHTML = this.htmlBasket;
 
-    for (let i in this.ordersArray) {
+    for (const i in store.ordersArray) {
       this.rootBasket
         .querySelector(`#delete_products-${i}`)
-        .addEventListener("click", (e) => {
+        .addEventListener("click", () => {
           this.deleteOrder(i);
         });
     }
@@ -110,15 +120,13 @@ class Basket {
 
   deleteOrder(i) {
     console.log("delete", i);
-    this.ordersArray.splice(this.ordersArray.length - 1, 1);
+    store.ordersArray.splice(store.ordersArray.length - 1, 1);
     this.rootBasket.querySelector(`#order-${i}`).remove();
     this.updateRenderOrders();
   }
 
   render() {
-    this.orderHtml =
-      /*html*/
-      `
+    this.orderHtml = /* html */ `
     <div class="order" id='order'>
       <div class="nameFood">
       <p>${this.foodName}<wbr></p>
@@ -131,9 +139,7 @@ class Basket {
     </div>
     `;
 
-    this.htmlBasket =
-      /*html*/
-      `
+    this.htmlBasket = /* html */ `
          <div class="basket-logo">
          <p>Корзина</p>
        </div>
@@ -151,8 +157,8 @@ class Basket {
      </div>
    
      `;
-    this.rootBasket.innerHTML = this.htmlBasket;
+    return this.htmlBasket;
   }
 }
 
-export default Basket;
+export default Bucket;

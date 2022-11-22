@@ -1,5 +1,5 @@
 import EventBus from "../../../componentss/pubSub";
-import ModalOrderReady from "./modalReadyComponent";
+import ModalOrderReady from "./modlFinishOrderConfiguration";
 import BottomModal from "./bottomModalComponent";
 import ModalMenu from "./modalMenuComponent";
 import ModalCard from "./modalCardComponent";
@@ -35,6 +35,7 @@ class MainModal {
     this.content = content;
     EventBus.subscribe("addInBusket", this.render.bind(this));
     EventBus.subscribe("modalMenuId", this.rerender.bind(this));
+    EventBus.subscribe("deleteModalData", this.deleteModalData.bind(this));
 
     this.modalMenu = new ModalMenu();
     this.modalCard = new ModalCard(this.content);
@@ -45,9 +46,57 @@ class MainModal {
   }
 
   rerender(menuId) {
-    this.rootCard = document.querySelector("#contentFoods");
-
     document.querySelector("#modal-overlay").remove();
+    this.render(menuId);
+  }
+  // rerender(menuId) {
+  //   this.rootCard = document.querySelector("#contentFoods");
+
+  //   document.querySelector("#modal-overlay").remove();
+  //   let modalHtml = "";
+  //   modalHtml = /* html */ `
+
+  //       <dialog id="modal-content">
+  //           <div id="modal-top">
+  //               <input type="button" name="close-modal" id="close-modal" value="X"/>
+  //           </div>
+  //           <form method="dialog" class='modal-form'>
+  //               ${this.modalMenu.render()}
+  //               <div class="button-next-Ingredients">
+  //                   <input type="button" id="back" value="< НАЗАД"/>
+  //                   <input type="button" id="next" value="ВПЕРЕД >">
+  //               </div>
+  //               <ul id="size-selection">
+  //                   ${this.modalCard.render(menuId)}
+  //               </ul>
+  //               <div id="modal-bottom">
+  //               <p>Итого:${this.summaModal} руб</p>
+  //               </div>
+  //           </form>
+  //       </dialog>
+
+  //   `;
+
+  //   this.createModalContent(modalHtml);
+  //   const modal = document.querySelector("#modal-content");
+  //   const menuModal = document.querySelector("#menu-modal");
+  //   const btnNext = document.querySelector("#next");
+  //   const btnBack = document.querySelector("#back");
+  //   const menuModalElement = menuModal.children;
+  //   modal.showModal();
+
+  //   this.menuActive();
+  //   this.RestrictionOnAddProduct(menuModalElement);
+  //   this.buttonSelectedMenu(btnNext, btnBack, menuModalElement);
+  //   this.showAndHidingButton(btnNext, btnBack);
+  //   this.selectModalCard(menuModalElement);
+  //   this.consoleModal();
+  // }
+
+  render(menuId) {
+    console.log(this.stateModal.active);
+    this.rootCard = document.querySelector("#contentFoods");
+    console.log("modalComponent Render");
     let modalHtml = "";
     modalHtml = /* html */ `
 
@@ -71,52 +120,6 @@ class MainModal {
         </dialog>
 
     `;
-
-    this.createModalContent(modalHtml);
-    const modal = document.querySelector("#modal-content");
-    const menuModal = document.querySelector("#menu-modal");
-    const btnNext = document.querySelector("#next");
-    const btnBack = document.querySelector("#back");
-    const menuModalElement = menuModal.children;
-    modal.showModal();
-
-    this.menuActive();
-    this.RestrictionOnAddProduct(menuModalElement);
-    this.buttonSelectedMenu(btnNext, btnBack, menuModalElement);
-    this.showAndHidingButton(btnNext, btnBack);
-    this.selectModalCard(menuModalElement);
-    this.consoleModal();
-  }
-
-  render() {
-    this.rootCard = document.querySelector("#contentFoods");
-    console.log("modalComponent Render");
-    let modalHtml = "";
-    modalHtml = /* html */ `
-
-        <dialog id="modal-content">
-            <div id="modal-top">
-                <input type="button" name="close-modal" id="close-modal" value="X"/>
-            </div>
-            <form method="dialog" class='modal-form'>
-                ${this.modalMenu.render()}
-                <div class="button-next-Ingredients">
-                    <input type="button" id="back" value="< НАЗАД"/>
-                    <input type="button" id="next" value="ВПЕРЕД >">
-                </div>
-                <ul id="size-selection">
-                    ${this.modalCard.render()}
-                </ul>
-                <div id="modal-bottom">
-                <p>Итого:${this.summaModal} руб</p>
-                </div>
-            </form>
-        </dialog>
-
-    `;
-
-    // let modalContents = new ModalContent();
-
     const modalContent = document.createElement("div");
     modalContent.id = "modal-overlay";
     modalContent.className = "modal-overlay";
@@ -134,18 +137,11 @@ class MainModal {
     this.showAndHidingButton(btnNext, btnBack);
     this.selectModalCard(menuModalElement);
     this.consoleModal();
-
-    // if (document.getElementById("modal-bottom")) {
-    //   new BottomModal(document.getElementById("modal-bottom"));
-    // }
-
-    // if (document.getElementById("modal-bottom")) {
-    //   new BottomModal(document.getElementById("modal-bottom"));
-    // }
   }
 
   set setState(newState) {
     this.menuState = newState;
+    store.menuStateModal = this.menuState.active;
     this.rerender();
   }
 
@@ -165,12 +161,13 @@ class MainModal {
     let cardProductObj;
 
     const sizeSelection = document.querySelector("#size-selection");
-    for (let i = 0; i <= sizeSelection.children.length - 1; i++) {
+    for (let i = 0; i <= sizeSelection.children.length - 1; i += 1) {
       const card = document.querySelector(`#id-modal-card-${i}`);
 
       // eslint-disable-next-line no-loop-func
       card.addEventListener("click", (e) => {
-        cardProductObj = Object.entries(this.content[menuCategoriesId])[i][1];
+        const [_, productObject] = Object.entries(this.content[menuCategoriesId])[i];
+        cardProductObj = productObject;
         foodName = cardProductObj.name;
         foodPrice = +cardProductObj.price;
 
@@ -189,9 +186,10 @@ class MainModal {
           card.className = "selected";
 
           if (Object.keys(this.sandwichesCustom).includes(menuCategoriesId)) {
-            cardProductObj = Object.entries(this.content[menuCategoriesId])[
+            const [, productObject] = Object.entries(this.content[menuCategoriesId])[
               i
-            ][1];
+            ];
+            cardProductObj = productObject;
             const idCard = i;
             this.deleteFood(menuCategoriesId, idCard);
             this.RestrictionOnAddProduct(menuModalElement);
@@ -219,8 +217,9 @@ class MainModal {
   modalCardAddDisable() {
     const modalCardList = document.querySelector("#size-selection");
     Object.values(modalCardList.children).forEach((el) => {
-      if (el.className === "disabled-modal") {
-        el.className = "selected";
+      const card = el;
+      if (card.className === "disabled-modal") {
+        card.className = "selected";
       }
     });
   }
@@ -282,7 +281,6 @@ class MainModal {
         if (element.id === idCard) {
           console.log("delete element", element.id, index);
           this.sandwichesCustom[menuCategoriesId].splice(index, 1);
-          // console.log(this.sandwichesCustom);
           this.totalSummModal(menuCategoriesId);
         }
       },
@@ -291,15 +289,15 @@ class MainModal {
 
   totalSummModal() {
     this.summaModal = 0;
-    for (let i = 0; i < Object.values(this.sandwichesCustom).length; i++) {
-      for (let j = 0; j < Object.values(this.sandwichesCustom)[i].length; j++) {
+    for (let i = 0; i < Object.values(this.sandwichesCustom).length; i += 1) {
+      for (let j = 0; j < Object.values(this.sandwichesCustom)[i].length; j += 1) {
         this.summaModal += Object.values(this.sandwichesCustom)[i][j].foodPrice;
       }
     }
     store.modalSum = this.summaModal;
+    store.orderModal = { ...this.sandwichesCustom };
+    console.log("orderModal", store.orderModal);
     EventBus.publish("modalSum", this.summaModal);
-    // document.querySelector("#modal-bottom").innerHTML =
-    //   this.modalBottomRender();
   }
 
   addActiveModalCard(categoryMenuId) {
@@ -307,8 +305,6 @@ class MainModal {
       this.sandwichesCustom[categoryMenuId].forEach((el) => {
         document.querySelector(`#id-modal-card-${el.id}`).className = "active-modal";
       });
-    } else {
-      console.log("");
     }
   }
 
@@ -342,7 +338,6 @@ class MainModal {
       })
       : "";
     const categoryMenuId = menuModalElement[this.menuState.active].id;
-    // const categoryMenuValue = menuModalElement[this.menuState.active].value;
     EventBus.publish("modalMenuId", categoryMenuId);
 
     this.addActiveModalCard(categoryMenuId);
@@ -356,13 +351,19 @@ class MainModal {
   }
 
   showAndHidingButton(btnNext, btnBack) {
-    this.menuState.active > 0
-      ? (btnBack.style.display = "block")
-      : (btnBack.style.display = "none");
+    const newBtnBack = btnBack;
+    const newBtnNext = btnNext;
+    if (this.menuState.active > 0) {
+      newBtnBack.style.display = "block";
+    } else {
+      newBtnBack.style.display = "none";
+    }
 
-    this.menuState.active < 5
-      ? (btnNext.style.display = "block")
-      : (btnNext.style.display = "none");
+    if (this.menuState.active < 5) {
+      newBtnNext.style.display = "block";
+    } else {
+      newBtnNext.style.display = "none";
+    }
   }
 
   menuActive() {
@@ -383,13 +384,26 @@ class MainModal {
     });
   }
 
+  deleteModalData() {
+    document.querySelector("#modal-overlay").remove();
+    this.selectCardActive = {};
+    this.sandwichesCustom = {};
+    this.customSandwichesModal = [];
+    store.orderModal = {};
+    this.summaModal = 0;
+    this.resetMenuState();
+  }
+
   consoleModal() {
+    const closeModalOutOfRange = (e) => {
+      if (e.target.id === "modal-content") {
+        this.deleteModalData();
+      }
+    };
+    if (document.querySelector("#modal-content") !== null) { document.querySelector("#modal-content").addEventListener("click", closeModalOutOfRange); }
     const modalClose = document.querySelector("#close-modal");
     modalClose.addEventListener("click", () => {
-      document.querySelector("#modal-overlay").remove();
-      this.sandwichesCustom = [];
-      this.summaModal = 0;
-      this.resetMenuState();
+      this.deleteModalData();
     });
   }
 }

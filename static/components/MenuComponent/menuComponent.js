@@ -1,6 +1,8 @@
 import EventBus from "../../../componentss/pubSub";
+import store from "../../store";
+import Main from "../main";
+
 class Menu {
-  root;
   arrMenu = [
     "Сэндвичи",
     "Бургеры",
@@ -10,15 +12,15 @@ class Menu {
     "Пицца",
     "Шаурма",
   ];
+
   arrayCategory = [];
+
   #state = {
     isActive: 0,
   };
 
-  constructor(root, content) {
-    this.root = root;
+  constructor(content) {
     this.content = content;
-    this.render();
   }
 
   /**
@@ -30,6 +32,13 @@ class Menu {
     this.render();
   }
 
+  upRender() {
+    const menu = document.querySelector("#menu");
+    menu.innerHTML = "";
+    const html = this.render();
+    menu.insertAdjacentHTML("afterbegin", html);
+  }
+
   addActiveIndex(value) {
     this.stateSet = {
       isActive: value,
@@ -37,32 +46,36 @@ class Menu {
   }
 
   render() {
-    console.log("render menu");
+    console.log("render menu", this.content);
     let html = "";
-    this.root.innerHTML = "";
-    for (let i in this.content.menu) {
-      let category = this.content.menu[i].category;
-      if (!this.arrayCategory.includes(category)) {
-        this.arrayCategory.push(category);
+    for (const i in this.content.menu) {
+      const categorys = this.content.menu[i].category;
+      if (!this.arrayCategory.includes(categorys)) {
+        this.arrayCategory.push(categorys);
       }
     }
-    for (let i in this.arrayCategory) {
-      html = /*html*/ `
+
+    for (const i in this.arrayCategory) {
+      html += /* html */ `
         <button id="${this.arrayCategory[i]}" value='${i}'
         class=${
-          Number(this.#state.isActive) === parseInt(i) ? "active" : "no-active"
+          Number(this.#state.isActive) === Number(i) ? "active" : "no-active"
         }>${this.arrMenu[i]}</button>
-        </nav>
+      
        `;
-      this.root.innerHTML += html;
     }
 
-    for (let i in this.arrayCategory) {
-      this.root
+    return html;
+  }
+
+  eventlistener(html) {
+    for (const i in this.arrayCategory) {
+      html
         .querySelector(`#${this.arrayCategory[i]}`)
         .addEventListener("click", (e) => {
           this.addActiveIndex(e.target.value);
           EventBus.publish("menuValue", e.target.id);
+          store.menuCategory = e.target.id;
         });
     }
   }

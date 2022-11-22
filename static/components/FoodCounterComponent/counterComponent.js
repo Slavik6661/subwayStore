@@ -1,8 +1,12 @@
+import store from "../../store";
+
 class Counter {
   htmlDiv = "";
+
   state = {
     counter: 1,
   };
+
   html = "";
 
   constructor() {
@@ -10,37 +14,34 @@ class Counter {
   }
 
   render(idCard) {
-    this.html = /*html*/ `
+    this.html = /* html */ `
+    <div class="counter-1">
         <button type="button" id="add-food-${idCard}" class="add-food">+</button>
         <input  type="number" class='amount-food' id="amount-food-${idCard}" name="amount-food" value='1'/>
         <button type="button" id="delete-food-${idCard}"class="delete-food">-</button><br>
-      `;
-    this.htmlDiv = document.createElement("div");
-    this.htmlDiv.className = "counter-1";
-    this.htmlDiv.innerHTML = this.html;
-    return this.htmlDiv;
+    </div>  
+        `;
+    return this.html;
   }
 
-  addEventListeners(idCard) {
-    console.log(this.htmlDiv.querySelector(`#add-food-${idCard}`));
-    this.htmlDiv
+  addEventListeners(idCard, root) {
+    root
       .querySelector(`#add-food-${idCard}`)
       .addEventListener("click", () => {
-        console.log("click");
+        store.productsFromTheCurrentPage[idCard].weight += 1;
+        this.state.counter = store.productsFromTheCurrentPage[idCard].weight;
+        const htmlCounter = root.querySelector(`#amount-food-${idCard}`);
+        htmlCounter.value = this.state.counter;
+      });
+
+    root
+      .querySelector(`#delete-food-${idCard}`)
+      .addEventListener("click", () => {
+        if (this.state.counter > 1) { store.productsFromTheCurrentPage[idCard].weight -= 1; }
+        this.state.counter = store.productsFromTheCurrentPage[idCard].weight;
+        const htmlCounter = root.querySelector(`#amount-food-${idCard}`);
+        htmlCounter.value = this.state.counter;
       });
   }
 }
 export default Counter;
-
-//console.log(this.htmlDiv);
-// this.htmlDiv
-//   .querySelector(`#add-food-${this.i}`)
-//   .addEventListener(
-//     "click",
-//     this.increment.bind(this),
-//     console.log("click")
-//   );
-
-// this.htmlDiv
-//   .querySelector("#delete-food")
-//   .addEventListener("click", this.decrement.bind(this));

@@ -1,12 +1,15 @@
 import EventBus from "../../../componentss/pubSub";
+
 class BottomModal {
   rootBottomComponent = "";
+
   constructor() {
     EventBus.subscribe("modalSum", this.modalBottomRender.bind(this));
   }
+
   modalBottomRender(summaModal) {
     console.log("modalBottomRender");
-    let modalBottom = /*html*/ `
+    const modalBottom = /*html*/ `
         <p>Итого:${summaModal} руб</p>
         `;
     this.rootBottomComponent = document.querySelector("#modal-bottom");

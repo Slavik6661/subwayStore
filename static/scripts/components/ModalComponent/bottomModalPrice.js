@@ -11,12 +11,12 @@ function bottomModalPrice(
     summaPriceModalHTML = `<p>Итого:${priceElementFoodModal} руб</p> `;
     modalBottom.innerHTML = summaPriceModalHTML;
     return modalBottom;
-  } else {
+  } 
     resultSummaModal = +resultSummaModal;
     console.log(resultSummaModal + "+" + priceElementFoodModal);
     sessionStorage.setItem("resultSummaModal", resultSummaModal);
     summaPriceModalHTML = `<p>Итого:${resultSummaModal} руб</p> `;
     modalBottom.innerHTML = summaPriceModalHTML;
     return modalBottom;
-  }
+  
 }

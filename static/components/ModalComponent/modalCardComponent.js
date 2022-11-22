@@ -1,24 +1,20 @@
 import EventBus from "../../../componentss/pubSub";
+
 class ModalCard {
   constructor(content) {
     this.content = content;
     EventBus.subscribe("modalMenuId", this.render.bind(this));
-    this.render();
   }
-  upRender(modalElement) {
-    // console.log(modalElement);
-  }
-  render(modalElement) {
+
+  render(categoryMenu) {
     console.log("modalCardRender");
     let modalCardHtml = "";
     let i = 0;
-    modalElement === undefined
-      ? (modalElement = "sizes")
-      : (modalElement = modalElement);
+    categoryMenu === undefined ? (categoryMenu = "sizes") : (categoryMenu = categoryMenu);
 
-    for (let key in this.content[`${modalElement}`]) {
-      let element = this.content[`${modalElement}`][key];
-      modalCardHtml += /*html*/ `
+    for (const key in this.content[`${categoryMenu}`]) {
+      const element = this.content[`${categoryMenu}`][key];
+      modalCardHtml += /* html */ `
         <div class='selected' id = 'id-modal-card-${i}'>
             <div class="background">
               <image src="static/${element.image}"/>

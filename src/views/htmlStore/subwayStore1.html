@@ -448,62 +448,62 @@
                     );
                     console.log("summaPrice", modalReady);
 
-                    modalReady.addEventListener("click", (e) => {
-                      if (e.target.id === "button-add-basket") {
-                        modalReady = document.getElementById("amount-foods");
-                        let summaPrice =
-                          document.getElementsByClassName("summaPrice")[0];
-                        console.log(
-                          "summaPrice",
-                          summaPrice.innerText.slice(0, 10).split(":")[1]
-                        );
-                        summaPrice = Number(
-                          summaPrice.innerText.slice(0, 10).split(":")[1]
-                        );
-                        console.log("summaPrice", summaPrice);
-                        amountFood = +modalReady.value;
-                        console.log(
-                          "amountFood click button buy 2",
-                          amountFood
-                        );
-                        customBurger.amount = amountFood;
-                        customBurger.price = summaPrice;
-                        localStorage.setItem(
-                          "customBurger",
-                          JSON.stringify(customBurger)
-                        );
+                //     modalReady.addEventListener("click", (e) => {
+                //       if (e.target.id === "button-add-basket") {
+                //         modalReady = document.getElementById("amount-foods");
+                //         let summaPrice =
+                //           document.getElementsByClassName("summaPrice")[0];
+                //         console.log(
+                //           "summaPrice",
+                //           summaPrice.innerText.slice(0, 10).split(":")[1]
+                //         );
+                //         summaPrice = Number(
+                //           summaPrice.innerText.slice(0, 10).split(":")[1]
+                //         );
+                //         console.log("summaPrice", summaPrice);
+                //         amountFood = +modalReady.value;
+                //         console.log(
+                //           "amountFood click button buy 2",
+                //           amountFood
+                //         );
+                //         customBurger.amount = amountFood;
+                //         customBurger.price = summaPrice;
+                //         localStorage.setItem(
+                //           "customBurger",
+                //           JSON.stringify(customBurger)
+                //         );
 
-                        this.order = setSandwichesInOrder(
-                          this.order,
-                          customBurger
-                        );
+                //         this.order = setSandwichesInOrder(
+                //           this.order,
+                //           customBurger
+                //         );
 
-                        let renderBasket = renderFoodInBasket(
-                          this.order,
-                          cardItemHTML,
-                          orderID,
-                          resultSumma
-                        );
+                //         let renderBasket = renderFoodInBasket(
+                //           this.order,
+                //           cardItemHTML,
+                //           orderID,
+                //           resultSumma
+                //         );
 
-                        let resultSummaBasketHTML =
-                          document.getElementById("totalSumm");
+                //         let resultSummaBasketHTML =
+                //           document.getElementById("totalSumm");
 
-                        calculationOfTheTotalPriceModal(
-                          basketProducts,
-                          renderBasket,
-                          resultSummaBasketHTML
-                        );
-                        localStorage.removeItem("customBurger");
-                        sessionStorage.removeItem("resultSummaModal");
-                        modal.remove();
-                        let modalOverlay =
-                          document.getElementsByClassName("modal-overlay")[0];
-                        modalOverlay.remove();
-                        objActiveItemModal = {};
-                      }
-                    });
-                  }
-                });
+                //         calculationOfTheTotalPriceModal(
+                //           basketProducts,
+                //           renderBasket,
+                //           resultSummaBasketHTML
+                //         );
+                //         localStorage.removeItem("customBurger");
+                //         sessionStorage.removeItem("resultSummaModal");
+                //         modal.remove();
+                //         let modalOverlay =
+                //           document.getElementsByClassName("modal-overlay")[0];
+                //         modalOverlay.remove();
+                //         objActiveItemModal = {};
+                //       }
+                //     });
+                //   }
+                // });
                 menuModalActivity(objActiveItemModal);
                 modalClose.addEventListener(
                   "click",

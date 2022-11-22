@@ -1,5 +1,7 @@
 import EventBus from "../../../componentss/pubSub";
 import Counter from "../FoodCounterComponent/counterComponent";
+import Basket from "../BucketComponent/basketComponents";
+import Content from "../MainPage/contentRender";
 import store from "../../store";
 
 class ModalOrderReady {
@@ -15,6 +17,8 @@ class ModalOrderReady {
 
   idCard;
 
+  mainModal;
+
   counter;
 
   constructor() {
@@ -27,7 +31,7 @@ class ModalOrderReady {
   modalInfo(i) {
     this.foodImg = document.querySelector(`#photo-food-${i} img`).src;
     this.foodName = document.querySelector(`#name-food-${i}`).innerText;
-    this.idCard = `idCard-${i}`;
+    this.idCard = i;
   }
 
   modalSum(modalSum) {
@@ -64,26 +68,26 @@ class ModalOrderReady {
       /* html */
       `
     <div class="select-amountFood">
-    <p>Количество</p>
+      <p>Количество</p>
+          ${this.counter.render(this.idCard)}
+    </div>
 
-     ${this.counter.render(this.idCard).innerHTML}
-            </div>
-
-            <div class="summaPrice">
-    <p>Итого:${store.modalSum} руб </p>
-    <button type="submit" id="button-add-basket"> В КОРЗИНУ</button>
+    <div class="summaPrice">
+      <p>Итого:${store.modalSum} руб </p>
+      <button type="submit" id="button-add-basket"> В КОРЗИНУ</button>
     </div>
     `;
+
+    this.counter.addEventListeners(this.idCard, this.rootModalReadyBottom);
+    console.log(this.rootModalReadyBottom.querySelector("#button-add-basket"));
+    this.addCustomSandwichesInBucket();
   }
 
-  addEventListeners() {
-    this.counter.render(this.idCard);
-    this.counter.addEventListeners(this.idCard);
-    document
-      .querySelector("#button-add-basket")
-      .addEventListener("click", () => {
-        console.log("add bucket");
-      });
+  addCustomSandwichesInBucket() {
+    this.rootModalReadyBottom.querySelector("#button-add-basket").addEventListener("click", () => {
+      EventBus.publish("clickButtonAddBasketModal", this.idCard);
+      EventBus.publish("deleteModalData");
+    });
   }
 }
 export default ModalOrderReady;

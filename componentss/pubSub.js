@@ -17,4 +17,4 @@ const EventBus = {
   },
 };
 
-export default  EventBus 
+export default EventBus;
