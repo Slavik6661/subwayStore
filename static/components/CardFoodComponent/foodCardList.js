@@ -54,7 +54,7 @@ class FoodCardList {
           EventBus.publish("addInBusket");
           EventBus.publish("cardInfo", idCard);
         } else {
-          EventBus.publish("idCard", idCard);
+          EventBus.publish("addFood", idCard);
         }
       });
   }

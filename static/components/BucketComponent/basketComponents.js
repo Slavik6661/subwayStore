@@ -18,11 +18,14 @@ class Bucket {
 
   orderObj = {};
 
+  rootBasket = "";
+
   constructor() {
-    // this.rootBasket = rootBasket;
-    // this.rootCard2 = rootCard2;
-    EventBus.subscribe("idCard", this.addProductInBasket.bind(this));
-    EventBus.subscribe("clickButtonAddBasketModal", this.addModalOrder.bind(this));
+    EventBus.subscribe("addFood", this.addProductInBasket.bind(this));
+    EventBus.subscribe(
+      "clickButtonAddBasketModal",
+      this.addModalOrder.bind(this)
+    );
   }
 
   addModalOrder(idCard) {
@@ -55,15 +58,16 @@ class Bucket {
     this.updateRenderOrders();
   }
 
-  updateRenderOrders(i) {
+  updateRenderOrders() {
+    this.rootBasket = document.querySelector("#basket-card");
     this.sumOrders = 0;
     this.orderHtml = "";
     for (const key in store.ordersArray) {
       const value = store.ordersArray[key];
 
-      this.orderHtml
+      this.orderHtml +=
         /* html */
-        += `
+        `
     <div class="order" id='order-${key}'>
       <div class="nameFood">
       <p>${value.foodName}<wbr></p>
@@ -82,10 +86,9 @@ class Bucket {
     }
 
     for (let i = 0; i < store.ordersArray.length; i += 1) {
-      this.sumOrders
-        += store.ordersArray[i].amountFood * store.ordersArray[i].foodPrice;
+      this.sumOrders +=
+        store.ordersArray[i].amountFood * store.ordersArray[i].foodPrice;
     }
-    console.log(parseInt(this.sumOrders, 10));
 
     this.totalSum = /* html */ `
     <p id="totalSumm">Итого: ${this.sumOrders} руб</p>
@@ -107,8 +110,9 @@ class Bucket {
      </div>
 
      `;
-    this.rootBasket.innerHTML = this.htmlBasket;
 
+    this.rootBasket.innerHTML = "";
+    this.rootBasket.insertAdjacentHTML("afterbegin", this.htmlBasket);
     for (const i in store.ordersArray) {
       this.rootBasket
         .querySelector(`#delete_products-${i}`)

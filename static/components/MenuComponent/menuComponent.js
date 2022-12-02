@@ -32,7 +32,7 @@ class Menu {
     this.render();
   }
 
-  upRender() {
+  rerender() {
     const menu = document.querySelector("#menu");
     menu.innerHTML = "";
     const html = this.render();

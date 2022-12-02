@@ -3,6 +3,10 @@
   background-color:white;
 }
 
+.info p{
+  margin-top: 0px;
+}
+
 #add-foods {
   border-radius: 160px;
   width: 30px;

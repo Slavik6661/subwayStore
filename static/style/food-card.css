@@ -1,16 +1,17 @@
-/* @font-face {
-  font-family: Consola-Bold;
-
-  src: url("font/consolab.ttf");
-  
-} */
-
 #food-card {
   margin-right: -100px;
   margin-left: 100px;
   margin-bottom: 46px;
   width: auto;
   height: 740px;
+}
+
+.name-food{
+  height: 73px;
+}
+
+.ingredients1{
+  height: 70px; 
 }
 
 #logo-food {
@@ -154,7 +155,7 @@
   color: rgb(250, 247, 247);
 }
 
-#button-buy:hover {
+.button-buy:hover {
   background-color: #0db634;
   transition: 0.2;
 }

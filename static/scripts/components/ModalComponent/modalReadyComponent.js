@@ -1,10 +1,16 @@
 import EventBus from "../../../componentss/pubSub";
+
 class ModalOrderReady {
   foodImg;
+
   foodName;
+
   rootModalReady = "";
+
   rootModalReadyBottom = "";
+
   idCard;
+
   constructor(counter) {
     EventBus.subscribe("cardInfo", this.modalInfo.bind(this));
     EventBus.subscribe("modalMenuValue", this.modalInfo.bind(this));
@@ -27,11 +33,11 @@ class ModalOrderReady {
     this.rootModalReady = document.querySelector("#size-selection");
     Object.entries(sandwichesCustom).forEach((element, index) => {
       element[1].forEach((el) => {
-        let order = `${el.categoryMenuValue}:${el.foodName}`;
+        const order = `${el.categoryMenuValue}:${el.foodName}`;
         selectSize += `<p style="margin-top: 0px;">${order}</p>`;
       });
     });
-    let htmlModalReady = /*html*/ ` 
+    const htmlModalReady = /*html*/ ` 
       <div class="img_food">
         <img src =${this.foodImg} style=" background-color: white;
           border-radius: 100px;
@@ -53,7 +59,7 @@ class ModalOrderReady {
     this.rootModalReady.innerHTML = htmlModalReady;
     this.rootModalReadyBottom = document.querySelector("#modal-bottom");
     this.rootModalReadyBottom.innerHTML =
-      /*html*/
+      /* html */
       `
     <div class="select-amountFood">
     <p>Количество</p>

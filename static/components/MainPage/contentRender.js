@@ -11,15 +11,13 @@ class Content {
   counter;
 
   constructor(content) {
-    //  this.rootCard = rootCard;
     this.content = content;
 
     this.counter = new Counter();
     this.card = new FoodCardList(content, this.counter);
-   // EventBus.subscribe("menuValue", this.upRender.bind(this));
   }
 
-  upRender(menuValue) {
+  rerender(menuValue) {
     console.log("Render menuValue");
     store.stateCounter = [];
     store.productsFromTheCurrentPage = [];
@@ -39,20 +37,16 @@ class Content {
     ${this.card.render(menuValue)}
     </ul>
     `;
+
     return htmlContent;
+  }
+
+  contentListners(htmlContent) {
+    for (let idCard = 0; idCard < store.stateCounter.length; idCard += 1) {
+      this.counter.addEventListeners(idCard, htmlContent);
+      this.card.addEventListeners(idCard, htmlContent);
+    }
   }
 }
 
 export default Content;
-
-// const productsList = document.createElement("ul");
-// productsList.id = "products-list";
-// productsList.className = "products-list";
-// productsList.innerHTML = this.card.renderCardFood(menuValue).html;
-// this.rootCard.innerHTML = "";
-// this.rootCard.appendChild(productsList);
-
-// for (let idCard = 0; idCard < store.stateCounter.length; idCard += 1) {
-//   this.counter.addEventListeners(idCard, htmlContent);
-//   this.card.addEventListeners(idCard, htmlContent);
-// }

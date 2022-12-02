@@ -15,21 +15,17 @@ class Main {
     this.content = content;
     this.menu = new Menu(this.content);
     this.mainContent = new Content(this.content);
-    this.bucket = new Bucket(
-      document.querySelector("#basket-card"),
-      document.querySelector("#products-list")
-    );
-    EventBus.subscribe("menuValue", this.update.bind(this));
+    this.bucket = new Bucket(document.querySelector("#basket-card"));
+    EventBus.subscribe("menuValue", this.rerender.bind(this));
   }
 
-  update(menuValue) {
-    this.mainContent.upRender(menuValue);
-    this.menu.upRender();
+  rerender(menuValue) {
+    this.mainContent.rerender(menuValue);
+    this.menu.rerender();
     this.addListeners();
   }
 
   render(menuValue) {
-    console.log("1");
     let html = "";
     html = /* html */ `
     <div class="wrapper">
@@ -58,6 +54,7 @@ class Main {
   addListeners() {
     const menuHtml = document.querySelector("#menu");
     this.menu.eventlistener(menuHtml);
+    this.mainContent.contentListners(document.querySelector("#contentFoods"));
   }
 }
 export default Main;

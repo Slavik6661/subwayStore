@@ -29,11 +29,14 @@ class MainModal {
 
   modalCard;
 
+  idCard;
+
   rootCard = "";
 
   constructor(content) {
     this.content = content;
-    EventBus.subscribe("addInBusket", this.render.bind(this));
+    // EventBus.subscribe("addInBusket", this.render.bind(this));
+    EventBus.subscribe("cardInfo", this.sumModal.bind(this));
     EventBus.subscribe("modalMenuId", this.rerender.bind(this));
     EventBus.subscribe("deleteModalData", this.deleteModalData.bind(this));
 
@@ -48,6 +51,12 @@ class MainModal {
   rerender(menuId) {
     document.querySelector("#modal-overlay").remove();
     this.render(menuId);
+  }
+
+  sumModal(idCard) {
+    this.summaModal = store.productsFromTheCurrentPage[idCard].price;
+    this.idCard = idCard;
+    this.render();
   }
   // rerender(menuId) {
   //   this.rootCard = document.querySelector("#contentFoods");
@@ -94,7 +103,6 @@ class MainModal {
   // }
 
   render(menuId) {
-    console.log(this.stateModal.active);
     this.rootCard = document.querySelector("#contentFoods");
     console.log("modalComponent Render");
     let modalHtml = "";
@@ -166,7 +174,9 @@ class MainModal {
 
       // eslint-disable-next-line no-loop-func
       card.addEventListener("click", (e) => {
-        const [_, productObject] = Object.entries(this.content[menuCategoriesId])[i];
+        const [_, productObject] = Object.entries(
+          this.content[menuCategoriesId]
+        )[i];
         cardProductObj = productObject;
         foodName = cardProductObj.name;
         foodPrice = +cardProductObj.price;
@@ -178,7 +188,7 @@ class MainModal {
             foodName,
             foodPrice,
             menuCategoriesId,
-            categoryMenuValue,
+            categoryMenuValue
           );
           this.RestrictionOnAddProduct(menuModalElement);
           this.totalSummModal();
@@ -186,9 +196,9 @@ class MainModal {
           card.className = "selected";
 
           if (Object.keys(this.sandwichesCustom).includes(menuCategoriesId)) {
-            const [, productObject] = Object.entries(this.content[menuCategoriesId])[
-              i
-            ];
+            const [, productObject] = Object.entries(
+              this.content[menuCategoriesId]
+            )[i];
             cardProductObj = productObject;
             const idCard = i;
             this.deleteFood(menuCategoriesId, idCard);
@@ -229,12 +239,12 @@ class MainModal {
     console.log(menuCategoriesId);
     if (this.sandwichesCustom[menuCategoriesId]) {
       const countCardActive = Object.keys(
-        this.sandwichesCustom[menuCategoriesId],
+        this.sandwichesCustom[menuCategoriesId]
       ).length;
 
       if (
-        menuCategoriesId === "vegetables"
-        || menuCategoriesId === "fillings"
+        menuCategoriesId === "vegetables" ||
+        menuCategoriesId === "fillings"
       ) {
         if (countCardActive === 3) {
           this.modalCardAddActive();
@@ -246,8 +256,6 @@ class MainModal {
       } else {
         this.modalCardAddDisable();
       }
-    } else {
-      console.log("");
     }
   }
 
@@ -283,14 +291,19 @@ class MainModal {
           this.sandwichesCustom[menuCategoriesId].splice(index, 1);
           this.totalSummModal(menuCategoriesId);
         }
-      },
+      }
     );
   }
 
   totalSummModal() {
-    this.summaModal = 0;
+    console.log(store.productsFromTheCurrentPage[this.idCard].price);
+    this.summaModal = store.productsFromTheCurrentPage[this.idCard].price;
     for (let i = 0; i < Object.values(this.sandwichesCustom).length; i += 1) {
-      for (let j = 0; j < Object.values(this.sandwichesCustom)[i].length; j += 1) {
+      for (
+        let j = 0;
+        j < Object.values(this.sandwichesCustom)[i].length;
+        j += 1
+      ) {
         this.summaModal += Object.values(this.sandwichesCustom)[i][j].foodPrice;
       }
     }
@@ -303,7 +316,8 @@ class MainModal {
   addActiveModalCard(categoryMenuId) {
     if (Object.keys(this.sandwichesCustom).includes(categoryMenuId)) {
       this.sandwichesCustom[categoryMenuId].forEach((el) => {
-        document.querySelector(`#id-modal-card-${el.id}`).className = "active-modal";
+        document.querySelector(`#id-modal-card-${el.id}`).className =
+          "active-modal";
       });
     }
   }
@@ -312,9 +326,9 @@ class MainModal {
     // eslint-disable-next-line no-unused-expressions
     this.menuState.active < menuModalElement.length - 1
       ? (this.setState = {
-        ...this.menuState,
-        active: this.menuState.active + 1,
-      })
+          ...this.menuState,
+          active: this.menuState.active + 1,
+        })
       : "";
     const categoryMenuId = menuModalElement[this.menuState.active].id;
     // const categoryMenuValue = menuModalElement[this.menuState.active].value;
@@ -325,7 +339,7 @@ class MainModal {
     this.addActiveModalCard(categoryMenuId);
     if (categoryMenuId === "ready") {
       EventBus.publish("modalRenderReady", this.sandwichesCustom);
-      EventBus.publish("modalSum2", this.summaModal);
+      // EventBus.publish("modalSum2", this.summaModal);
     }
   }
 
@@ -333,9 +347,9 @@ class MainModal {
     // eslint-disable-next-line no-unused-expressions
     this.menuState.active > 0
       ? (this.setState = {
-        ...this.menuState,
-        active: this.menuState.active - 1,
-      })
+          ...this.menuState,
+          active: this.menuState.active - 1,
+        })
       : "";
     const categoryMenuId = menuModalElement[this.menuState.active].id;
     EventBus.publish("modalMenuId", categoryMenuId);
@@ -372,7 +386,8 @@ class MainModal {
     menuModalActive.forEach((element) => {
       this.stateModal.menuActive.push(element);
     });
-    this.stateModal.menuActive[this.menuState.active].className = "active-modal-menu";
+    this.stateModal.menuActive[this.menuState.active].className =
+      "active-modal-menu";
   }
 
   buttonSelectedMenu(btnNext, btnBack, menuModalElement) {
@@ -400,7 +415,11 @@ class MainModal {
         this.deleteModalData();
       }
     };
-    if (document.querySelector("#modal-content") !== null) { document.querySelector("#modal-content").addEventListener("click", closeModalOutOfRange); }
+    if (document.querySelector("#modal-content") !== null) {
+      document
+        .querySelector("#modal-content")
+        .addEventListener("click", closeModalOutOfRange);
+    }
     const modalClose = document.querySelector("#close-modal");
     modalClose.addEventListener("click", () => {
       this.deleteModalData();

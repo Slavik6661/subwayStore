@@ -7,10 +7,12 @@ class ModalMenu {
     "fillings",
     "ready",
   ];
+
   constructor() {}
+
   render() {
     let modalMenu = "";
-    modalMenu += /*html*/ `
+    modalMenu += /* html */ `
     <menu id="menu-modal">
     <input type="button" id="sizes" class='no-active-modal-menu' value="Размер">
     <input type="button" id="breads" class='no-active-modal-menu' value="Хлеб">

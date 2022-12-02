@@ -1,7 +1,5 @@
 import EventBus from "../../../componentss/pubSub";
 import Counter from "../FoodCounterComponent/counterComponent";
-import Basket from "../BucketComponent/basketComponents";
-import Content from "../MainPage/contentRender";
 import store from "../../store";
 
 class ModalOrderReady {
@@ -28,14 +26,10 @@ class ModalOrderReady {
     EventBus.subscribe("modalRenderReady", this.render.bind(this));
   }
 
-  modalInfo(i) {
-    this.foodImg = document.querySelector(`#photo-food-${i} img`).src;
-    this.foodName = document.querySelector(`#name-food-${i}`).innerText;
-    this.idCard = i;
-  }
-
-  modalSum(modalSum) {
-    this.summaModal = modalSum;
+  modalInfo(idCard) {
+    this.foodImg = document.querySelector(`#photo-food-${idCard} img`).src;
+    this.foodName = document.querySelector(`#name-food-${idCard}`).innerText;
+    this.idCard = idCard;
   }
 
   render(sandwichesCustom) {
@@ -44,7 +38,7 @@ class ModalOrderReady {
     Object.entries(sandwichesCustom).forEach((element) => {
       element[1].forEach((el) => {
         const order = `${el.categoryMenuValue}:${el.foodName}`;
-        selectSize += `<p style="margin-top: 0px;">${order}</p>`;
+        selectSize += `<p>${order}</p>`;
       });
     });
     const htmlModalReady = /* html */ ` 
@@ -53,9 +47,9 @@ class ModalOrderReady {
         </div>
       <div class=info>
      
-      <p style="margin-top: 0px;">Ваш ${this.foodName} сендвич готов!</p>
+      <p>Ваш ${this.foodName} сендвич готов!</p>
       <hr>
-      <p style="margin-top: 0px;">${selectSize}
+      <p >${selectSize}
       <hr>
       <p>${this.foodName}</p>
       </div>
@@ -84,10 +78,12 @@ class ModalOrderReady {
   }
 
   addCustomSandwichesInBucket() {
-    this.rootModalReadyBottom.querySelector("#button-add-basket").addEventListener("click", () => {
-      EventBus.publish("clickButtonAddBasketModal", this.idCard);
-      EventBus.publish("deleteModalData");
-    });
+    this.rootModalReadyBottom
+      .querySelector("#button-add-basket")
+      .addEventListener("click", () => {
+        EventBus.publish("clickButtonAddBasketModal", this.idCard);
+        EventBus.publish("deleteModalData");
+      });
   }
 }
 export default ModalOrderReady;

@@ -10,7 +10,9 @@ class ModalCard {
     console.log("modalCardRender");
     let modalCardHtml = "";
     let i = 0;
-    categoryMenu === undefined ? (categoryMenu = "sizes") : (categoryMenu = categoryMenu);
+    categoryMenu === undefined
+      ? (categoryMenu = "sizes")
+      : (categoryMenu = categoryMenu);
 
     for (const key in this.content[`${categoryMenu}`]) {
       const element = this.content[`${categoryMenu}`][key];
@@ -19,7 +21,7 @@ class ModalCard {
             <div class="background">
               <image src="static/${element.image}"/>
             </div>
-                <p style="margin-top: 10px;">${element.name}</p>
+                <p>${element.name}</p>
                     <hr>
               <p>${element.price} руб</p>
   

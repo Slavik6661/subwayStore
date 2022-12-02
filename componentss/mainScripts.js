@@ -1,5 +1,4 @@
 import getResponse from "./API/content";
-import EventBus from "./pubSub";
 import Main from "../static/components/main";
 import "../static/style/navbar-menu.css";
 import "../static/style/food-card.css";

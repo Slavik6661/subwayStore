@@ -9,9 +9,9 @@ class FoodCard {
 
   render(idCard, element) {
     let html = "";
-    html
-        /* html */
-        += `
+    html +=
+      /* html */
+      `
       <div id="food-card-${idCard}" class="food-card">
         <div id="logo-food">
         <img src=https://logos-marques.com/wp-content/uploads/2021/03/Subway-Logo-2048x1158.png></div>
@@ -23,12 +23,12 @@ class FoodCard {
         </div>
 
         <div id="description-food">
-          <div id ='name-food-${idCard}',class='name-food' style="height: 73px;">
+          <div id ='name-food-${idCard}',class='name-food'>
             <p>${element.name}</p>
           </div>
             <hr>
 
-          <div class='ingredients1'style="height: 70px;">
+          <div class='ingredients1'>
             <a id="add-ingredients" href="#">${element.description}</a>
           </div>
             <hr>
