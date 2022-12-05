@@ -208,7 +208,7 @@ class MainModal {
       });
     }
 
-    console.log(this.sandwichesCustom);
+    console.log("!!!!!!!!!!", this.sandwichesCustom);
     this.customSandwichesModal = [];
     if (this.sandwichesCustom[menuCategoriesId]) {
       this.customSandwichesModal = [...this.sandwichesCustom[menuCategoriesId]];
@@ -278,6 +278,7 @@ class MainModal {
         },
       ];
     }
+
     this.selectCardActive[menuCategoriesId] = this.customSandwichesModal;
     this.sandwichesCustom = this.selectCardActive;
     console.log("11111", this.sandwichesCustom);
@@ -309,6 +310,7 @@ class MainModal {
     }
     store.modalSum = this.summaModal;
     store.orderModal = { ...this.sandwichesCustom };
+
     console.log("orderModal", store.orderModal);
     EventBus.publish("modalSum", this.summaModal);
   }

@@ -33,6 +33,10 @@ class ModalOrderReady {
   }
 
   render(sandwichesCustom) {
+    if (sandwichesCustom.length === 0) {
+      sandwichesCustom = { ...store.orderDefolt };
+      store.modalSum = store.productsFromTheCurrentPage[this.idCard].price;
+    }
     let selectSize = "";
     this.rootModalReady = document.querySelector("#size-selection");
     Object.entries(sandwichesCustom).forEach((element) => {
