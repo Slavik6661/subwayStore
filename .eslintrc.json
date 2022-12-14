@@ -26,47 +26,9 @@
         "guard-for-in": "off",
         "no-restricted-syntax": "off",
         "eslint indent": "off",
-        // "no-restricted-imports": [
-        //     "error",
-        //     {
-        //         "paths": [
-        //             "import1",
-        //             "import2"
-        //         ],
-        //         "patterns": [
-        //             "import1/private/*",
-        //             "import2/*",
-        //             "!import2/good"
-        //         ]
-        //     }
-        // ],
-        // "no-plusplus": [
-        //     "error",
-        //     {
-        //         "allowForLoopAfterthoughts": true
-        //     }
-        // ],
-        // "no-new": "off",
-        // "prefer-destructuring": [
-        //     "error",
-        //     {
-        //         "object": true,
-        //         "array": false
-        //     }
-        // ],
-        // "no-unused-expressions": [
-        //     "error",
-        //     {
-        //         "allowShortCircuit": true,
-        //         "allowTernary": true
-        //     }
-        // ],
-        // "no-param-reassign": [
-        //     "error",
-        //     {
-        //         "props": false
-        //     }
-        // ],
+        "no-param-reassign":"off",
+        "comma-dangle": "off",
+        "indent":"off",
         "class-methods-use-this": "off",
         "linebreak-style": "off"
     }

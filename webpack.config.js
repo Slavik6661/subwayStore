@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   mode: "development",
   devtool: "eval-source-map",
-  entry: path.join(__dirname, "./componentss/mainScripts.js"),
+  entry: path.join(__dirname, "./component/mainScripts.js"),
   output: {
     path: path.resolve(__dirname, "dist"),
     //clean: true,

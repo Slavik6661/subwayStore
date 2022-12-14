@@ -1,4 +1,4 @@
-import EventBus from "../../../componentss/pubSub";
+import EventBus from "../../../component/pubSub";
 import Counter from "../FoodCounterComponent/counterComponent";
 import store from "../../store";
 

@@ -25,6 +25,14 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "express": "^4.18.1"
+    "axios": "^1.2.1",
+    "express": "^4.18.1",
+    "koa": "^2.14.1",
+    "koa-html-render": "^1.0.3",
+    "koa-mongo": "^1.9.3",
+    "koa-router": "^12.0.0",
+    "koa-static": "^5.0.0",
+    "mongodb": "^4.12.1",
+    "mongoose": "^6.8.0"
   }
 }

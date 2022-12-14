@@ -1,4 +1,4 @@
-import EventBus from "../../../componentss/pubSub";
+import EventBus from "../../../component/pubSub";
 import store from "../../store";
 
 class ModalCard {
