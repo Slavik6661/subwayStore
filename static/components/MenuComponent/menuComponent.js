@@ -1,6 +1,5 @@
-import EventBus from "../../../componentss/pubSub";
+import EventBus from "../../../component/pubSub";
 import store from "../../store";
-import Main from "../main";
 
 class Menu {
   arrMenu = [

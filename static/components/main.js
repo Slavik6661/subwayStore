@@ -1,8 +1,7 @@
 import Menu from "./MenuComponent/menuComponent";
 import Content from "./MainPage/contentRender";
 import Bucket from "./BucketComponent/basketComponents";
-import store from "../store";
-import EventBus from "../../componentss/pubSub";
+import EventBus from "../../component/pubSub";
 
 class Main {
   menu;
@@ -30,7 +29,10 @@ class Main {
     html = /* html */ `
     <div class="wrapper">
       <div id="box1">
-        <p>Сделай заказ</p>
+        <p>Сделай заказ
+        <button class='auth'></button>
+        </p>
+       
       </div>
       <div id="box2">
         <nav class="navbar-menu" id="menu">

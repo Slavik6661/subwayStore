@@ -1,8 +1,10 @@
 import ModalMenu from "./modalMenuComponent";
 import ModalCard from "./modalCardComponent";
-import getResponse from "../../../componentss/API/content";
+import getResponse from "../../../component/API/content";
+
 class ModalContent {
   modalHtml = "";
+
   //   modalMenu;
   //   modalCard;
   constructor() {}
@@ -18,7 +20,7 @@ class ModalContent {
       modalMenu = new ModalMenu();
       modalCard = new ModalCard(content);
 
-      this.modalHtml = /*html*/ `
+      this.modalHtml = /* html */ `
        
             <dialog id="modal-content">
                 <div id="modal-top">

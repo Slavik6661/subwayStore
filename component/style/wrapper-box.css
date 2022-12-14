@@ -1,0 +1,33 @@
+/* @font-face {
+  font-family: Consola-Bold;
+ 
+  src: url("font/consolab.ttf");
+ 
+} */
+
+.wrapper {
+  margin-left: 20px;
+  margin-right: 20px;
+  display: grid;
+  /* background-image: url("img/fon.png"); */
+}
+
+#box1 {
+  grid-column-start: 1;
+  grid-column-end: 12;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  font-family: Consola-Bold;
+  font-size: 30px;
+  text-align: center;
+  color: #444444;
+}
+
+#box2 {
+  width: 350px;
+}
+
+#contentFoods {
+  margin-left: 47px;
+  display: flex;
+}

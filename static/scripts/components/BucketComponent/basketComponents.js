@@ -1,13 +1,22 @@
-import EventBus from "../../../componentss/pubSub";
+import EventBus from "../../../component/pubSub";
+
 class Basket {
   foodName = "";
+
   amountFood = "";
+
   foodPrice = 0;
+
   htmlBasket = "";
+
   orderHtml = "";
+
   totalSum = "";
+
   sumOrders = 0;
+
   ordersArray = [];
+
   orderObj = {};
 
   constructor(rootBasket, rootCard2, content, contentRender) {
@@ -21,7 +30,7 @@ class Basket {
 
   addProductInBasket(i) {
     console.log(this.content.menu);
-    ////////////////Как иначе получить данные для цены ,количества //////////////////////////
+    /// /////////////Как иначе получить данные для цены ,количества //////////////////////////
     this.foodName = this.contentRender.querySelector(
       `#name-food-${i}`
     ).innerText;
@@ -31,7 +40,7 @@ class Basket {
     this.foodPrice = parseInt(
       this.contentRender.querySelector(`#price-${i}`).innerText.split(":")[1]
     );
-    ///////////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////////
     this.orderObj = {
       foodName: this.foodName,
       amountFood: this.amountFood,
@@ -45,8 +54,8 @@ class Basket {
   updateRenderOrders(i) {
     this.sumOrders = 0;
     this.orderHtml = "";
-    for (let key in this.ordersArray) {
-      let value = this.ordersArray[key];
+    for (const key in this.ordersArray) {
+      const value = this.ordersArray[key];
 
       this.orderHtml +=
         /*html*/
@@ -75,12 +84,12 @@ class Basket {
     }
     console.log(parseInt(this.sumOrders));
 
-    this.totalSum = /*html*/ `
+    this.totalSum = /* html */ `
     <p id="totalSumm">Итого: ${this.sumOrders} руб</p>
     <button class="btn" type="submit">ОФОРМИТЬ ЗАКАЗ</button>
     `;
     this.htmlBasket =
-      /*html*/
+      /* html */
       `
          <div class="basket-logo">
          <p>Корзина</p>
@@ -99,7 +108,7 @@ class Basket {
      `;
     this.rootBasket.innerHTML = this.htmlBasket;
 
-    for (let i in this.ordersArray) {
+    for (const i in this.ordersArray) {
       this.rootBasket
         .querySelector(`#delete_products-${i}`)
         .addEventListener("click", (e) => {
@@ -117,7 +126,7 @@ class Basket {
 
   render() {
     this.orderHtml =
-      /*html*/
+      /* html */
       `
     <div class="order" id='order'>
       <div class="nameFood">
@@ -132,7 +141,7 @@ class Basket {
     `;
 
     this.htmlBasket =
-      /*html*/
+      /* html */
       `
          <div class="basket-logo">
          <p>Корзина</p>

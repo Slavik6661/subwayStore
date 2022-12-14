@@ -6,8 +6,10 @@ import "../static/style/products-list.css";
 import "../static/style/wrapper-box.css";
 import "../static/style/basket.css";
 import "../static/style/style-modal.css";
+import "../static/style/auth.css";
 
 getResponse().then((content) => {
+  content = { ...content[0] };
   const main = new Main(content);
   const html = main.render();
   document.body.insertAdjacentHTML("afterbegin", html);

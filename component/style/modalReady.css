@@ -1,0 +1,63 @@
+.select-amountFood {
+  text-align: center;
+  background-color:white;
+}
+.select-amountFood  p{
+  margin-top: 5px;
+}
+
+#add-foods {
+  border-radius: 160px;
+  width: 30px;
+  height: 30px;
+}
+
+#delete-foods {
+  border-radius: 160px;
+  width: 30px;
+  height: 30px; 
+}
+
+.amount-foods-modal {
+  margin-bottom: 13px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-bottom-width: 2px;
+  border-radius: 10%;
+  padding: 0px;
+  width: 60px;
+  height: 33px;
+  text-align: center;
+}
+
+.summaPrice {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+}
+
+.summaPrice p {
+  margin-top: 0px;
+}
+
+#button-add-basket {
+  margin-top: 0px;
+  margin-left: 10px;
+  border: 0px;
+  border-radius: 8%;
+  width: 140px;
+  height: 40px;
+  background-color: #fc0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#button-add-basket:hover {
+  border-radius: 5px;
+  background-color: #df0808;
+  color: rgb(254, 250, 250);
+  width: 135px;
+  height: 35px;
+  transition: 0.2s
+}

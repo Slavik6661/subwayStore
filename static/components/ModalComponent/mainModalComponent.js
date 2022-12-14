@@ -1,4 +1,4 @@
-import EventBus from "../../../componentss/pubSub";
+import EventBus from "../../../component/pubSub";
 import ModalOrderReady from "./modlFinishOrderConfiguration";
 import BottomModal from "./bottomModalComponent";
 import ModalMenu from "./modalMenuComponent";

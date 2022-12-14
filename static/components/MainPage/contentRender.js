@@ -1,4 +1,3 @@
-import EventBus from "../../../componentss/pubSub";
 import FoodCardList from "../CardFoodComponent/foodCardList";
 import Counter from "../FoodCounterComponent/counterComponent";
 import store from "../../store";
@@ -25,7 +24,6 @@ class Content {
     contentFood.innerHTML = "";
     const html = this.render(menuValue);
     contentFood.insertAdjacentHTML("afterbegin", html);
-    // this.render(menuValue);
   }
 
   render(menuValue) {
