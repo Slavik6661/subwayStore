@@ -1,0 +1,49 @@
+.auth{
+    margin-left: 412px;
+    border: 0px;
+    width: 50px;
+    height: 50px;
+    background-image: url(/static/style/svg/login.svg);
+    background-color: rgba(18, 91, 154, 0);
+    
+}
+
+.form-auth{
+    display: grid;
+    justify-content: inherit;
+}
+.form-auth input{
+    margin-bottom: 10px;
+    border-radius: 5px;
+    height: 40px;
+   
+}
+.container-signin{
+    text-align: center;
+}
+.register-btn{
+    height: 50px;
+    border: 0px;
+    border-radius: 7px;
+    font-size: 18px;
+   
+}
+.register-btn :hover{
+    background-color: rgb(60, 204, 31);
+    transition: 0.2;
+}
+#login-form{
+    border-radius: 10px;
+    border: 0px;
+    width: 400px;
+}
+#loginForm-overlay{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    content: '';
+    display: block;
+    background-color: rgba(0, 0, 0, 0.165);
+    top: 0;
+    left: 0;
+}
