@@ -1,4 +1,4 @@
-/node_modules
+../node_modules
 /static/icons
 /src/views/htmlStore/img
 /src/views/htmlStore/font

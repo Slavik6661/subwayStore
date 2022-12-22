@@ -1,5 +1,1 @@
-/node_modules
-/static/icons
-/src/views/htmlStore/img
-/src/views/htmlStore/font
-/dist/static
+node_modules

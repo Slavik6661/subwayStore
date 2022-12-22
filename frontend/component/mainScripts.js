@@ -8,8 +8,10 @@ import "../static/style/basket.css";
 import "../static/style/style-modal.css";
 import "../static/style/auth.css";
 
-getResponse().then((content) => {
-  content = { ...content[0] };
+getResponse().then(({ content, content2 }) => {
+  console.log("token");
+  content = { ...content[0], ...content2[0] };
+  console.log("new ", content);
   const main = new Main(content);
   const html = main.render();
   document.body.insertAdjacentHTML("afterbegin", html);

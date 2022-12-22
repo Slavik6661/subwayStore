@@ -117,3 +117,17 @@
   #totalSumm{
     text-align: center;;
   }
+  .order-without-registration{
+    border-radius: 10px;
+    border: 0px;
+    width: 400px;
+    display: grid;
+    justify-content: inherit;
+  }
+  
+.order-without-registration input{
+    margin-bottom: 10px;
+    border-radius: 5px;
+    height: 40px;
+    font-size: 20px;
+}

@@ -61,8 +61,8 @@ class Main {
     const menuHtml = document.querySelector("#menu");
     this.menu.eventlistener(menuHtml);
     this.mainContent.contentListners(document.querySelector("#contentFoods"));
-
     this.auth.eventListeners();
+    this.bucket.eventListener();
   }
 }
 export default Main;

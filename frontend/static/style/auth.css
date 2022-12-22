@@ -32,11 +32,12 @@
     background-color: rgb(60, 204, 31);
     transition: 0.2;
 }
-#login-form{
+.login-form{
     border-radius: 10px;
     border: 0px;
     width: 400px;
 }
+
 #loginForm-overlay{
     position: fixed;
     height: 100%;

@@ -20,6 +20,8 @@ class Bucket {
 
   rootBasket = "";
 
+  html = "";
+
   constructor() {
     EventBus.subscribe("addFood", this.addProductInBasket.bind(this));
     EventBus.subscribe(
@@ -54,7 +56,7 @@ class Bucket {
       foodPrice: this.foodPrice,
     };
     store.ordersArray.push(this.orderObj);
-    console.log(store.ordersArray);
+    console.log("store.ordersArray >>", store.ordersArray);
     this.updateRenderOrders();
   }
 
@@ -79,7 +81,6 @@ class Bucket {
       <div class="delete-products">
       <button id="delete_products-${key}"class="delete-products-order"/>
       </div>
-
     </div>
     
     `;
@@ -92,7 +93,7 @@ class Bucket {
 
     this.totalSum = /* html */ `
     <p id="totalSumm">Итого: ${this.sumOrders} руб</p>
-    <button class="btn" type="submit">ОФОРМИТЬ ЗАКАЗ</button>
+    <button id='checkout' class="btn" type="submit">ОФОРМИТЬ ЗАКАЗ</button>
     `;
     this.htmlBasket = /* html */ `
          <div class="basket-logo">
@@ -113,6 +114,7 @@ class Bucket {
 
     this.rootBasket.innerHTML = "";
     this.rootBasket.insertAdjacentHTML("afterbegin", this.htmlBasket);
+    this.eventListener();
     for (const i in store.ordersArray) {
       this.rootBasket
         .querySelector(`#delete_products-${i}`)
@@ -156,12 +158,123 @@ class Bucket {
 
         
          <p id="totalSumm">Итого: 0 руб</p>
-         <button class="btn" type="submit">ОФОРМИТЬ ЗАКАЗ</button>
+         <button  id ='checkout' class="btn" type="submit">ОФОРМИТЬ ЗАКАЗ</button>
        </div>
      </div>
    
      `;
+
     return this.htmlBasket;
+  }
+
+  renderDialogOrder() {
+    this.html =
+      /* html */
+      `
+<div id ='loginForm-overlay'>
+    <dialog id='reg-form' class="login-form" open>
+
+        <div class='order-without-registration'>
+        <h1>Register Order</h1>
+        <label for="Phone"><b>Enter your Phone</b></label>
+        <input id="telNo" name="telNo" type="tel" sizes='12' maxlength="12"  placeholder="+7(...)"  />
+        <button type="submit" class="register-btn">Send</button>
+        </div>
+     
+        <div class="container-signin">
+            <p>Already have an account? <button id='login'>Sign in</button>.</p>
+        </div>
+    </dialog>
+</div>
+
+  `;
+    return this.html;
+  }
+
+  closeFormLogin(loginForm, loginFormOverlay) {
+    loginFormOverlay.addEventListener("click", (e) => {
+      console.log(e.target.id);
+      if (e.target.id === "loginForm-overlay") {
+        loginForm.remove();
+        loginFormOverlay.remove();
+      }
+    });
+  }
+
+  orderWithoutReg(inputValue) {
+    console.log(inputValue.value);
+    const { ordersArray } = store;
+    const valueInput = inputValue.value;
+    fetch("http://localhost:3000/without-reg", {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        data: ordersArray,
+        value: valueInput,
+      }),
+    })
+      .then((response) => {
+        console.log(response.status);
+
+        response.json();
+      })
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  }
+
+  eventListener() {
+    const checkoutBtn = document.getElementById("checkout");
+    console.log("XXXX", checkoutBtn);
+
+    checkoutBtn.addEventListener("click", () => {
+      console.log(store.ordersArray);
+      if (store.ordersArray.length > 0) {
+        fetch("http://localhost:3000/addOrder", {
+          method: "POST", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify(store.ordersArray),
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              response.json();
+            } else {
+              console.log("error", response.status);
+
+              document.body.insertAdjacentHTML(
+                "afterbegin",
+                this.renderDialogOrder()
+              );
+              const loginFormOverlay =
+                document.querySelector("#loginForm-overlay");
+              const loginForm = document.querySelector("#reg-form");
+              const sendBtn = document.querySelector(".register-btn");
+              const inputValue = document.querySelector("#telNo");
+              sendBtn.addEventListener("click", () => {
+                this.orderWithoutReg(inputValue);
+              });
+              this.closeFormLogin(loginForm, loginFormOverlay);
+            }
+          })
+          .then((data) => {
+            console.log("Success:", data);
+          })
+          .catch((error) => {
+            console.log("Error:", error);
+          });
+      } else {
+        console.error("Error: Order", store.ordersArray);
+      }
+    });
   }
 }
 

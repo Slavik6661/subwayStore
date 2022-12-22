@@ -3,9 +3,22 @@ async function getResponse() {
     method: "GET",
   });
   const content = await response.json();
-
+  console.log("!!!", content);
   /// http://myjson.dit.upm.es/api/bins/9np0
-  return content;
+
+  const response2 = await fetch("http://localhost:3000/modalData", {
+    method: "GET",
+  });
+  const content2 = await response2.json();
+  console.log("!!!", content2);
+
+  // const token = await fetch("http://localhost:3000/login", {
+  //   method: "POST",
+  // });
+  // const contentToken = await token.json();
+  // console.log("!!!", contentToken);
+
+  return { content, content2 };
 }
 
 export default getResponse;
