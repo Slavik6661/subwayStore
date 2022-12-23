@@ -4,4 +4,4 @@ async function withoutReg(ctx) {
   console.log(data);
   console.log(value);
 }
-module.exports = withoutReg;
+module.exports = { withoutReg };

@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Order = require("../dbSchema/orderSchema");
 
 async function addOrder(ctx) {
@@ -11,7 +10,6 @@ async function addOrder(ctx) {
     date = `Date:${date.getDate()}:${date.getHours()}:${date.getFullYear()} Time:${date.getHours()}:${date.getMinutes()}`;
     console.log(date);
     const order = new Order({
-      _id: new mongoose.Types.ObjectId(),
       userId,
       order: data,
       date,

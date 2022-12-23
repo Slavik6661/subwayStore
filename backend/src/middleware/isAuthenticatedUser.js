@@ -19,4 +19,4 @@ const isAuthenticatedUser = (ctx, next) => {
     console.log("error invalid token");
   }
 };
-module.exports = isAuthenticatedUser;
+module.exports = { isAuthenticatedUser };
