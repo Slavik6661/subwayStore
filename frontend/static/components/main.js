@@ -32,16 +32,17 @@ class Main {
     let html = "";
     html = /* html */ `
     <div class="wrapper">
-      <div id="box1">
-        <p class='logo-Header'>Сделай заказ
+      <div id="header">
+        <p class='logo-Header'>Сделай заказ!!!!
         <button id='auth' class='auth' ></button>
         </p>
        
       </div>
-      <div id="box2">
+      <div id="menu">
         <nav class="navbar-menu" id="menu">
           ${this.menu.render()}
         </nav>
+        </div>
         <div id="basket-card">
           <div id="basket" class="basket-products">
             ${this.bucket.render()}
@@ -50,7 +51,7 @@ class Main {
         <div id="contentFoods">
           ${this.mainContent.render(menuValue)}
         </div>
-      </div>
+      
     </div>
     `;
 

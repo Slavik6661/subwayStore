@@ -1,5 +1,5 @@
 /node_modules
-/static/icons
+/dist/static/i/
 /src/views/htmlStore/img
 /src/views/htmlStore/font
 /dist/static

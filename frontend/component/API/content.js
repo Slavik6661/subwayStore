@@ -12,12 +12,6 @@ async function getResponse() {
   const content2 = await response2.json();
   console.log("!!!", content2);
 
-  // const token = await fetch("http://localhost:3000/login", {
-  //   method: "POST",
-  // });
-  // const contentToken = await token.json();
-  // console.log("!!!", contentToken);
-
   return { content, content2 };
 }
 

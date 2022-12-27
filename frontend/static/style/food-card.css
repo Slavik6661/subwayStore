@@ -91,6 +91,7 @@
 }
 
 .add-food {
+  margin-right: 3px;
   border-radius: 100px;
   border-left-width: 1px;
   border-right-width: 1px;
@@ -103,6 +104,7 @@
 }
 
 .delete-food {
+  margin-left: 3px;
   border-radius: 100px;
   border-left-width: 1px;
   border-right-width: 1px;
