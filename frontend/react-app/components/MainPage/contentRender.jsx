@@ -1,20 +1,17 @@
-// import FoodCardList from "../CardFoodComponent/foodCardList";
-// import Counter from "../FoodCounterComponent/counterComponent";
-// import store from "../../store";
 import React, { useEffect, useState } from "react";
 import FoodCard from "../CardFoodComponent/foodCard.jsx";
 import "../../../static/style/food-card.css";
 
 const MainContent = (props) => {
-
   let menuProductsList;
   let products = { ...props.foodData };
-  menuProductsList = products.menu || {};
+  menuProductsList = products.menu || [];
 
   return (
     <ul id="products-list" className="products-list">
-      <FoodCard menuList={menuProductsList} />
-      {/* {this.card.render(menuValue)} */}
+      {menuProductsList.map((elem, idCard) => (
+        <FoodCard elem={elem} idCard={idCard} key={idCard} />
+      ))}
     </ul>
   );
 };

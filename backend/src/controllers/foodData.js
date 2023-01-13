@@ -3,7 +3,11 @@ const dataFood = require("../dbSchema/dataFood");
 
 async function modalData(ctx) {
   const modalFoods = await ingredients.find({});
-  ctx.body = modalFoods;
+  const modalData = [];
+  modalFoods.forEach((food) => {
+    modalData.push(food);
+  });
+  ctx.body = modalData;
 }
 
 async function foodsData(ctx) {

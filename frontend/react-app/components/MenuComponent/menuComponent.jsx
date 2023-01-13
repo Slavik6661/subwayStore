@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "../../../static/style/navbar-menu.css";
+import store from "../../store/createStore";
 const Menu = (props) => {
   let arrayCategory = [];
   let arrMenu = [
@@ -11,8 +13,13 @@ const Menu = (props) => {
     "Пицца",
     "Шаурма",
   ];
-  let htmlMenuComponent;
+  let menu = props.menuItems;
   let [menuItemActive, setMenuItemActive] = useState(0);
+  const dispatch = useDispatch();
+  const menuItem = useSelector((state) => state.menuItem);
+  const setMenuState = (elem) => {
+    dispatch({ type: "GET_MENU_ITEM", payload: elem });
+  };
 
   for (let i in props.menuItems) {
     const categorys = props.menuItems[i].category;
@@ -31,6 +38,7 @@ const Menu = (props) => {
             key={elem}
             onClick={() => {
               setMenuItemActive((menuItemActive = index));
+              setMenuState(elem);
             }}
             className={
               Number(menuItemActive) === Number(index) ? "active" : "no-active"

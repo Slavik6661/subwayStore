@@ -1,13 +1,18 @@
-import React, { useState } from "react";
-const Counter = () => {
+import React, { useEffect, useState } from "react";
+const Counter = (props) => {
   let [counter, setCounter] = useState(1);
-  let idCard = -1;
+  let idCard = props.idCard;
+
+  useEffect(() => {
+    props.onChange?.(counter);
+  }, [counter]);
+
   return (
-    <div class="counter-1">
+    <div className="counter-1">
       <button
         type="button"
-        id="add-food-${idCard}"
-        class="add-food"
+        id={"add-food-" + idCard}
+        className="add-food"
         onClick={() => {
           setCounter((counter += 1));
         }}
@@ -15,16 +20,17 @@ const Counter = () => {
         +
       </button>
       <input
-        type="number"
-        class="amount-food"
-        id={"amount-food-" + idCard++}
+        type="text"
+        className="amount-food"
+        id={"amount-food-" + idCard}
         name="amount-food"
         value={counter}
+        readOnly
       />
       <button
         type="button"
-        id="delete-food-${idCard}"
-        class="delete-food"
+        id={"delete-food-" + idCard}
+        className="delete-food"
         onClick={() => {
           setCounter((counter -= 1));
         }}
