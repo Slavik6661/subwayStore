@@ -1,4 +1,5 @@
 .select-amountFood {
+  margin-bottom: -18px;
   text-align: center;
   background-color:white;
 }
@@ -35,14 +36,96 @@
   display: flex;
   justify-content: center;
   background-color: white;
+  border-radius: 10px;
 }
 
 #button-add-basket {
+  margin-top: 8px;
+  margin-bottom: 10px;
   margin-left: 10px;
-  margin-top: 6px;
   border: 0px;
   border-radius: 8%;
   height: 40px;
   background-color: #fc0;
   font-weight: 600;
+}
+
+#button-add-basket:hover{
+  transition: 0.5s;
+  background-color: rgb(40, 199, 40);
+}
+
+.ready{
+  overflow: scroll;
+  margin-top: 0px;
+  margin-left: 0px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  height: 450px;
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  scroll-behavior:  auto; 
+}
+
+.amount-food-modal{
+  margin-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom-width: 0px;
+  border-radius: 5px;
+  padding-bottom: 5px;
+  padding-top: 10px;
+  width: 90px;
+  height: 20px;
+  text-align: center;
+  background-color: #ffffff;
+  color: #000;
+}
+
+.amount-food-footer {
+  margin-bottom: 10px;
+  border-bottom-width: 0px;
+  border-radius: 5px;
+  padding-bottom: 5px;
+  padding-top: 10px;
+  width: 70px;
+  height: 14px;
+  text-align: center;
+  background-color: #ffffff;
+  color: #000;
+}
+
+.add-food-footer{
+  margin-right: 3px;
+  border-radius: 100px;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-top-width: 1px;
+  width: 30px;
+  height: 30px;
+  font-size: 25px;
+  text-align: center;
+}
+.add-food-footer:hover{
+  transition: 0.5s;
+  background-color: #fc0;
+}
+.delete-food-footer {
+  margin-left: 3px;
+  border-radius: 100px;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-top-width: 1px;
+  width: 30px;
+  height: 30px;
+  font-size: 25px;
+  text-align: center;
+}
+.delete-food-footer:hover{
+  transition: 0.5s;
+  background-color: rgb(216, 14, 14);
 }

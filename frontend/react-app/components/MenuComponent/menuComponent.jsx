@@ -1,9 +1,18 @@
 import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../../../static/style/navbar-menu.css";
-import store from "../../store/createStore";
-const Menu = (props) => {
-  let arrayCategory = [];
+const Menu = () => {
+  const dispatch = useDispatch();
+  const arrayCategory = [
+    "sandwiches",
+    "burgers",
+    "salads",
+    "chicken",
+    "drinks",
+    "pizza",
+    "shaurma",
+  ];
+
   let arrMenu = [
     "Сэндвичи",
     "Бургеры",
@@ -13,20 +22,12 @@ const Menu = (props) => {
     "Пицца",
     "Шаурма",
   ];
-  let menu = props.menuItems;
   let [menuItemActive, setMenuItemActive] = useState(0);
-  const dispatch = useDispatch();
-  const menuItem = useSelector((state) => state.menuItem);
+  let currentPageProducts = useSelector((state) => state.currentPageProducts);
   const setMenuState = (elem) => {
     dispatch({ type: "GET_MENU_ITEM", payload: elem });
+    currentPageProducts = [];
   };
-
-  for (let i in props.menuItems) {
-    const categorys = props.menuItems[i].category;
-    if (!arrayCategory.includes(categorys)) {
-      arrayCategory.push(categorys);
-    }
-  }
 
   return (
     <>

@@ -1,28 +1,49 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ModalCard from "./modalCard.jsx";
+import ModalMenu from "./menuModal.jsx";
+import ModalCardReady from "./modalReady.jsx";
+import ModalFooter from "./moalFooter.jsx";
 import "../../../static/style/style-modal.css";
-
-const MainModal = (props) => {
+import store from "../../store/createStore.js";
+import {
+  getNewModalState,
+  getNewModalCategory,
+  addIdActiveModalCard,
+} from "../../store/store.js";
+const MainModal = () => {
   const dispatch = useDispatch();
-  const modalWindow = useSelector((state) => state.modalWindow);
-  const [stateModalMenu, setModalMenu] = useState(0);
-
-  let modalMenu = props.modalMenu;
-  // for (let [key, value] of Object.entries(modalMenu)) {
-  //   if (key === "sizes") {
-  //     console.log(key, value);
-  //   }
-  // }
-  const menuModal = Object.entries(modalMenu);
-  console.log(menuModal);
-  menuModal.map((key, value) => {
-    if (key[0] === "sizes") {
-      console.log(key[1]);
+  const showModal = useSelector((state) => state.showModal);
+  const stateModal = useSelector((state) => state.menuModalState);
+  const categoriesEN = useSelector((state) => state.categoriesEN);
+  const menuModalCategories = useSelector((state) => state.menuModalCategories);
+  const modalSum = useSelector((state) => state.modalSum);
+  const ingredients = useSelector((state) => state.products);
+  let idActiveCard = useSelector((state) => state.idModalCardActive);
+  console.log(store.getState());
+  const Next = () => {
+    if (categoriesEN.length > stateModal + 1) {
+      dispatch(getNewModalState(1));
+      dispatch(getNewModalCategory(stateModal + 1));
     }
-  });
+  };
+  const Back = () => {
+    if (stateModal > 0) {
+      dispatch(getNewModalState(-1));
+      dispatch(getNewModalCategory(stateModal - 1));
+    }
+  };
+  const menuModalIngredients = Object.entries(ingredients);
   const closeModal = () => {
+    console.log(idActiveCard);
+    dispatch(getNewModalState(-stateModal));
+    dispatch(getNewModalCategory(stateModal));
     dispatch({ type: "MODAL_STATE", payload: false });
+
+    dispatch(addIdActiveModalCard({}));
+    console.log(store.getState());
+
+    console.log(idActiveCard);
   };
   return (
     <>
@@ -38,19 +59,38 @@ const MainModal = (props) => {
             />
           </div>
           <form method="dialog" className="modal-form">
+            <menu id="menu-modal">
+              <ModalMenu />
+            </menu>
             <div className="button-next-Ingredients">
-              <input type="button" id="back" value="< НАЗАД" />
-              <input type="button" id="next" value="ВПЕРЕД >" />
+              <input
+                type="button"
+                id="back"
+                value="< НАЗАД"
+                onClick={() => Back()}
+              />
+              <input
+                type="button"
+                id="next"
+                value="ВПЕРЕД >"
+                onClick={() => Next()}
+              />
             </div>
-
-            <div id="size-selection">
-              {menuModal.map((item, i) => (
-                <ModalCard modalMenuItem={item} active={stateModalMenu === i} />
-              ))}
-              {/* <ModalCard modalMenuItem={menuModal} /> */}
+            <div>
+              {menuModalCategories === "ready" ? (
+                <ModalCardReady />
+              ) : (
+                menuModalIngredients.map((item, i) => (
+                  <ModalCard modalCards={item} key={i} />
+                ))
+              )}
             </div>
             <div id="modal-bottom">
-              <p>Итого: руб</p>
+              {menuModalCategories === "ready" ? (
+                <ModalFooter />
+              ) : (
+                <p>Итого:{modalSum} руб</p>
+              )}
             </div>
           </form>
         </dialog>
@@ -58,7 +98,7 @@ const MainModal = (props) => {
     </>
   );
 };
-
+export default MainModal;
 // const menuActive = () => {
 //   const menuModalActive = document.querySelectorAll("#menu-modal input");
 //   console.log(menuModalActive);
@@ -69,4 +109,3 @@ const MainModal = (props) => {
 //   menuActive[0].className = "active-modal-menu";
 // };
 // menuActive();
-export default MainModal;

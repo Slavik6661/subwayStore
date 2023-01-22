@@ -3,16 +3,16 @@ const dataFood = require("../dbSchema/dataFood");
 
 async function modalData(ctx) {
   const modalFoods = await ingredients.find({});
-  const modalData = [];
   modalFoods.forEach((food) => {
-    modalData.push(food);
+    ctx.body = food;
   });
-  ctx.body = modalData;
+  // ctx.body = modalFoods;
 }
 
 async function foodsData(ctx) {
-  const foodMenu = await dataFood.find({});
-  ctx.body = foodMenu;
+  const foodMenu = await dataFood.find();
+  // eslint-disable-next-line prefer-destructuring
+  ctx.body = foodMenu[0].menu;
 }
 
 async function mainPage(ctx) {

@@ -1,19 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import FoodCard from "../CardFoodComponent/foodCard.jsx";
 import "../../../static/style/food-card.css";
+import { getCurrentProductsThisPage } from "../../store/store.js";
 
-const MainContent = (props) => {
-  let menuProductsList;
-  let products = { ...props.foodData };
-  menuProductsList = products.menu || [];
+const MainContent = () => {
+  const dispatch = useDispatch();
+  const menuCategory = useSelector((state) => state.menuCategory);
+  const menuProducts = useSelector((state) => state.menuItems);
+  const currentPageProducts = useSelector((state) => state.currentPageProducts);
+  useEffect(() => {
+    console.log("useEffect");
+
+    const addCurrentPageProducts = () => {
+      let arrayProduct = [];
+      menuProducts.map((elem, idCard) => {
+        if (elem.category === menuCategory) {
+          arrayProduct.push(elem);
+        }
+      });
+      dispatch(getCurrentProductsThisPage(arrayProduct));
+    };
+    addCurrentPageProducts();
+  }, [menuProducts, menuCategory]);
+  let id = -1;
 
   return (
     <ul id="products-list" className="products-list">
-      {menuProductsList.map((elem, idCard) => (
-        <FoodCard elem={elem} idCard={idCard} key={idCard} />
-      ))}
+      {menuProducts &&
+        menuProducts.map((elem, idCard) =>
+          elem.category === menuCategory
+            ? (id++, (<FoodCard elem={elem} idCard={id} key={idCard} />))
+            : ""
+        )}
     </ul>
   );
+  //}
 };
 
 export default MainContent;

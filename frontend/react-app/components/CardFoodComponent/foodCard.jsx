@@ -2,19 +2,28 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Counter from "../FoodCounterComponent/counterComponent.jsx";
 import "../../../static/style/products-list.css";
+import { modalSum, cardInfo } from "../../store/store.js";
 
 const FoodCard = (props) => {
   const dispatch = useDispatch();
-  const menuItem = useSelector((state) => state.menuItem);
+  const activeMenuItem = useSelector((state) => state.menuCategory);
   const idOrder = useSelector((state) => state.idOrder);
-  const modalWindow = useSelector((state) => state.modalWindow);
+  const currentPageProducts = useSelector((state) => state.currentPageProducts);
+  let selectedCardInfo = useSelector((state) => state.selectedCardInfo);
   const [count, setCount] = useState(0);
 
   let idCard = props.idCard;
+  const carInfo = () => {
+    selectedCardInfo = {};
+    currentPageProducts[idCard].weight = count;
+    currentPageProducts[idCard]["idCard"] = idCard;
+    dispatch(cardInfo(currentPageProducts[idCard]));
+  };
   const addProductInBucket = () => {
-    if (menuItem === "sandwiches") {
+    if (activeMenuItem === "sandwiches") {
       dispatch({ type: "MODAL_STATE", payload: true });
-      console.log(modalWindow);
+      dispatch(modalSum(props.elem.price));
+      carInfo();
     } else {
       let orderObj = {
         id: idOrder,
@@ -27,7 +36,6 @@ const FoodCard = (props) => {
       dispatch({ type: "INCREMENT_ID_ORDER" });
     }
   };
-
   const onCountChange = (count) => {
     console.log("count", count);
     setCount(count);
@@ -35,54 +43,52 @@ const FoodCard = (props) => {
 
   return (
     <>
-      {props.elem.category === menuItem && (
-        <div id={`food-card-` + idCard} className="food-card">
-          <div id="logo-food">
-            <img src="https://logos-marques.com/wp-content/uploads/2021/03/Subway-Logo-2048x1158.png" />
-          </div>
+      <div id={`food-card-` + idCard} className="food-card">
+        <div id="logo-food">
+          <img src="https://logos-marques.com/wp-content/uploads/2021/03/Subway-Logo-2048x1158.png" />
+        </div>
 
-          <div id={"photo-food-" + idCard} className="photo-food">
-            <div className="backgroundFood">
-              <img src={`/static/` + props.elem.image} />
-            </div>
-          </div>
-
-          <div id="description-food">
-            <div id={"name-food-" + idCard} className="name-food">
-              <p>{props.elem.name}</p>
-            </div>
-            <hr />
-
-            <div className="ingredients1">
-              <a id="add-ingredients" href="#">
-                {props.elem.description}
-              </a>
-            </div>
-            <hr />
-            <div id={`price-` + idCard}>
-              <p>Цена:{props.elem.price}</p>
-              <br />
-            </div>
-          </div>
-          <div id="buy-food">
-            <p>Количество</p>
-            <div id="counter">
-              <Counter idCard={idCard} onChange={onCountChange} />
-            </div>
-            <button
-              type="button"
-              id={"button-buy-" + idCard}
-              className="button-buy"
-              //data={}
-              onClick={() => {
-                addProductInBucket();
-              }}
-            >
-              В КОРЗИНУ
-            </button>
+        <div id={"photo-food-" + idCard} className="photo-food">
+          <div className="backgroundFood">
+            <img src={`/static/` + props.elem.image} />
           </div>
         </div>
-      )}
+
+        <div id="description-food">
+          <div id={"name-food-" + idCard} className="name-food">
+            <p>{props.elem.name}</p>
+          </div>
+          <hr />
+
+          <div className="ingredients1">
+            <a id="add-ingredients" href="#">
+              {props.elem.description}
+            </a>
+          </div>
+          <hr />
+          <div id={`price-` + idCard}>
+            <p>Цена:{props.elem.price}</p>
+            <br />
+          </div>
+        </div>
+        <div id="buy-food">
+          <p>Количество</p>
+          <div id="counter">
+            <Counter idCard={idCard} onChange={onCountChange} />
+          </div>
+          <button
+            type="button"
+            id={"button-buy-" + idCard}
+            className="button-buy"
+            //data={}
+            onClick={() => {
+              addProductInBucket();
+            }}
+          >
+            В КОРЗИНУ
+          </button>
+        </div>
+      </div>
     </>
   );
 };

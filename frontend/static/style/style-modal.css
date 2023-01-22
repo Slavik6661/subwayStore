@@ -1,12 +1,13 @@
 #modal-content {
   margin-left: 596px;
-  margin-top: 104px;
-  bottom: 65px;
+  margin-top: 50px;
+  top: 0px;
+  bottom: 100px;
   border: 0px;
   border-radius: 10px;
   padding: 0px;
   width: 1107px;
-  /* height: 630px; */
+  height: 800px;
   display: grid;
   grid-template-rows: 70px 1fr;
   background-color: #ccc;
@@ -44,10 +45,10 @@
 }
 
 #modal-bottom p {
-  margin-bottom: 15px;
-  margin-top: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   text-align: center;
-  font-size: 30px;
+  font-size: 25px;
   color: red;
 }
 
@@ -128,8 +129,6 @@
   scroll-behavior:  auto; 
 }
 
-
-
 #size-selection img {
   margin-top: 10px;
   border-radius: 100%;
@@ -200,7 +199,6 @@
   width: 185px;
   background-color: #fc0;
 }
-
 
 .amount-food-modal {
   border: 0px;
