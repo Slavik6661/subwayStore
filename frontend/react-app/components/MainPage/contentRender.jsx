@@ -9,6 +9,7 @@ const MainContent = () => {
   const menuCategory = useSelector((state) => state.menuCategory);
   const menuProducts = useSelector((state) => state.menuItems);
   const currentPageProducts = useSelector((state) => state.currentPageProducts);
+  const searchParams = useSelector((state) => state.searchValueProduct);
   useEffect(() => {
     console.log("useEffect");
 
@@ -28,11 +29,21 @@ const MainContent = () => {
   return (
     <ul id="products-list" className="products-list">
       {menuProducts &&
-        menuProducts.map((elem, idCard) =>
-          elem.category === menuCategory
-            ? (id++, (<FoodCard elem={elem} idCard={id} key={idCard} />))
-            : ""
-        )}
+        menuProducts
+          .filter((product) => {
+            if (product.category === menuCategory) {
+              if (
+                product.name.toLowerCase().includes(searchParams.toLowerCase())
+              ) {
+                return true;
+              }
+            }
+          })
+          .map((elem, idCard) =>
+            elem.category === menuCategory
+              ? (id++, (<FoodCard elem={elem} idCard={id} key={idCard} />))
+              : ""
+          )}
     </ul>
   );
   //}

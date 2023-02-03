@@ -6,7 +6,7 @@ function createJWT(foundUser) {
       data: foundUser.id,
     },
     process.env.SECRET_KEY,
-    { expiresIn: 60 }
+    { expiresIn: "1h" }
   );
   return jwtToken;
 }

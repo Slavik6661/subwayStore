@@ -32,7 +32,9 @@ const Counter = (props) => {
         id={"delete-food-" + idCard}
         className="delete-food"
         onClick={() => {
-          setCounter((counter -= 1));
+          if (counter > 1) {
+            setCounter((counter -= 1));
+          }
         }}
       >
         -

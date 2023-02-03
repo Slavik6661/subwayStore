@@ -5,11 +5,14 @@ const { createJWT } = require("../helpers/createJWT");
 async function registration(ctx) {
   try {
     const { email, psw } = ctx.request.body;
-    console.log(email, psw);
+    console.log("!!", email, psw);
     const findUser = await User.findOne({ email });
     if (findUser) {
-      ctx.body = "такой пользователь уже есть ";
-      return console.error("error");
+      ctx.response.body = {
+        message: "Такой пользователь уже есть !",
+      };
+      ctx.status = 400;
+      return false;
     }
     const hashPassword = bcrypt.hashSync(psw, 5);
     const user = new User({
@@ -17,12 +20,12 @@ async function registration(ctx) {
       password: hashPassword,
     });
     await user.save();
-    ctx.body = "Регистрация прошла успешно!";
-    return true;
+    ctx.response.body = {
+      message: "Регистрация прошла успешно!",
+    };
+    ctx.status = 200;
   } catch (err) {
-    ctx.body = "registration error";
     console.log(err);
-    return true;
   }
 }
 
@@ -40,14 +43,17 @@ async function login(ctx) {
         key: "token",
         value: token,
       });
-      ctx.body = "Авторизация прошла успошно ";
-      ctx.redirect("http://localhost:3000/main.html");
-    } else {
-      ctx.body = "password error";
+      ctx.response.body = { message: "Авторизация прошла успошно !" };
+      ctx.status = 200;
+      return true;
     }
-  } else {
-    ctx.body = "login error";
+    ctx.response.body = { message: "Неверный пароль !" };
+    ctx.status = 400;
+    return false;
   }
+  ctx.response.body = { message: "Неверный логин !" };
+  ctx.status = 400;
+  return false;
 }
 
 module.exports = { registration, login };

@@ -5,7 +5,6 @@ import ModalMenu from "./menuModal.jsx";
 import ModalCardReady from "./modalReady.jsx";
 import ModalFooter from "./moalFooter.jsx";
 import "../../../static/style/style-modal.css";
-import store from "../../store/createStore.js";
 import {
   getNewModalState,
   getNewModalCategory,
@@ -13,18 +12,20 @@ import {
 } from "../../store/store.js";
 const MainModal = () => {
   const dispatch = useDispatch();
-  const showModal = useSelector((state) => state.showModal);
   const stateModal = useSelector((state) => state.menuModalState);
   const categoriesEN = useSelector((state) => state.categoriesEN);
   const menuModalCategories = useSelector((state) => state.menuModalCategories);
   const modalSum = useSelector((state) => state.modalSum);
   const ingredients = useSelector((state) => state.products);
   let idActiveCard = useSelector((state) => state.idModalCardActive);
-  console.log(store.getState());
+  let allIdModalCards = [];
+
+  //console.log(store.getState());
   const Next = () => {
     if (categoriesEN.length > stateModal + 1) {
       dispatch(getNewModalState(1));
       dispatch(getNewModalCategory(stateModal + 1));
+      allIdModalCards = [];
     }
   };
   const Back = () => {
@@ -39,11 +40,7 @@ const MainModal = () => {
     dispatch(getNewModalState(-stateModal));
     dispatch(getNewModalCategory(stateModal));
     dispatch({ type: "MODAL_STATE", payload: false });
-
     dispatch(addIdActiveModalCard({}));
-    console.log(store.getState());
-
-    console.log(idActiveCard);
   };
   return (
     <>
@@ -81,7 +78,11 @@ const MainModal = () => {
                 <ModalCardReady />
               ) : (
                 menuModalIngredients.map((item, i) => (
-                  <ModalCard modalCards={item} key={i} />
+                  <ModalCard
+                    modalCards={item}
+                    modalCardID={allIdModalCards}
+                    key={i}
+                  />
                 ))
               )}
             </div>

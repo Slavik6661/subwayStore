@@ -7,7 +7,6 @@ const isAuthenticatedUser = (ctx, next) => {
     const checkToken = jwt.verify(token, process.env.SECRET_KEY);
     console.log("data", checkToken.data);
     if (checkToken) {
-      ctx.body = "OK";
       ctx.request.userid = checkToken.data;
       next();
     } else {

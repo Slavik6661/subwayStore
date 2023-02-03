@@ -9,6 +9,9 @@ const defaultState = {
   productsFromTheCurrentPage: [],
   idOrder: 0,
   showModal: false,
+  showRegForm: false,
+  showLoginForm: false,
+  isAuth: false,
   menuModalState: 0,
   menuModalCategories: "sizes",
   menuModalCategoriesRU: "Размер",
@@ -23,9 +26,10 @@ const defaultState = {
   categoriesRU: ["Размер", "Хлеб", "Овощи", "Соусы", "Начинка", "Готово"],
   modalSum: 0,
   selectedCardInfo: [],
-  // categoriesModalMenuActive: {},
   modalOrder: [],
   idModalCardActive: {},
+  allModalCardId: [],
+  searchValueProduct: "",
 };
 // eslint-disable-next-line import/prefer-default-export
 export const counterReducer = (state = defaultState, action) => {
@@ -36,8 +40,14 @@ export const counterReducer = (state = defaultState, action) => {
         menuCategory: action.payload,
         // currentPageProducts: [],
       };
+
     case "ADD_PRODUCT_BUCKET":
-      return { ...state, ordersArray: [...state.ordersArray, action.payload] };
+      // eslint-disable-next-line no-return-assign
+      return {
+        ...state,
+        ordersArray: (state.ordersArray = [...action.payload]),
+      };
+
     case "DELETE_PRODUCT_BUCKET":
       // eslint-disable-next-line no-return-assign
       return {
@@ -60,6 +70,22 @@ export const counterReducer = (state = defaultState, action) => {
         menuModalCategoriesRU: "Размер",
         idModalCardActive: {},
       };
+    case "SHOW_REG_FORM":
+      return {
+        ...state,
+        showRegForm: action.payload,
+      };
+    case "SHOW_LOGIN_FORM":
+      return {
+        ...state,
+        showLoginForm: action.payload,
+      };
+    case "IS_AUTH":
+      return {
+        ...state,
+        isAuth: action.payload,
+      };
+
     case "GET_PRODUCT_BD":
       return {
         ...state,
@@ -97,11 +123,6 @@ export const counterReducer = (state = defaultState, action) => {
         ...state,
         selectedCardInfo: action.payload,
       };
-    case "CARD_MODAL_ACTIVE":
-      return {
-        ...state,
-        categoriesModalMenuActive: action.payload,
-      };
     case "ADD_PRODUCT_MODAL_ORDER":
       // eslint-disable-next-line no-return-assign
       return {
@@ -117,6 +138,19 @@ export const counterReducer = (state = defaultState, action) => {
         idModalCardActive: action.payload,
       };
     }
+
+    case "ALL_MODAL_CARD_ID":
+      return {
+        ...state,
+        allModalCardId: [...state.allModalCardId, action.payload],
+      };
+
+    case "SEARCH_VALUE":
+      return {
+        ...state,
+        searchValueProduct: action.payload,
+      };
+
     default:
       return state;
   }
@@ -159,6 +193,32 @@ export const addIdActiveModalCard = (payload) => ({
   type: "ACTIVE_CARD_PRODUCT_MODAL",
   payload,
 });
+
+export const stateRegForm = (payload) => ({
+  type: "SHOW_REG_FORM",
+  payload,
+});
+
+export const stateLoginForm = (payload) => ({
+  type: "SHOW_LOGIN_FORM",
+  payload,
+});
+
+export const isAuth = (payload) => ({
+  type: "IS_AUTH",
+  payload,
+});
+
+export const allModalCardID = (payload) => ({
+  type: "ALL_MODAL_CARD_ID",
+  payload,
+});
+
+export const searchValue = (payload) => ({
+  type: "SEARCH_VALUE",
+  payload,
+});
+
 // eslint-disable-next-line import/prefer-default-export
 // export const counterReducerMultiply = (state = defaultState, action) => {
 //   switch (action.type) {

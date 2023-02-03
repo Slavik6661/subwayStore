@@ -17,13 +17,12 @@ const ModalCardReady = () => {
         />
       </div>
       <div className="info">
-        <p>Ваш {selectedCardInfo.name} сендвич готов!</p>
+        <p>Ваш {<b>{selectedCardInfo.name}</b>} сендвич готов!</p>
         <hr />
-        {Object.entries(modalOrderObj).map((element) => (
-          <p>{element[0] + "-" + element[1]}</p>
+        {Object.entries(modalOrderObj).map((element, i) => (
+          <p key={i}>{element[0] + "-" + element[1]}</p>
         ))}
         <hr />
-        <p>{selectedCardInfo.name}</p>
       </div>
     </div>
   );

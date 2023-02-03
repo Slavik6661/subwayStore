@@ -1,23 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Counter from "../FoodCounterComponent/counterComponent.jsx";
 import "../../../static/style/products-list.css";
 import { modalSum, cardInfo } from "../../store/store.js";
+import store from "../../store/createStore.js";
 
 const FoodCard = (props) => {
   const dispatch = useDispatch();
+
   const activeMenuItem = useSelector((state) => state.menuCategory);
   const idOrder = useSelector((state) => state.idOrder);
+  const order = useSelector((state) => state.ordersArray);
   const currentPageProducts = useSelector((state) => state.currentPageProducts);
   let selectedCardInfo = useSelector((state) => state.selectedCardInfo);
   const [count, setCount] = useState(0);
-
+  let productArray = [...order];
   let idCard = props.idCard;
   const carInfo = () => {
     selectedCardInfo = {};
     currentPageProducts[idCard].weight = count;
     currentPageProducts[idCard]["idCard"] = idCard;
     dispatch(cardInfo(currentPageProducts[idCard]));
+  };
+
+  const combiningDuplicateProducts = (orderObj) => {
+    let i = 0;
+    if (productArray.length > 0) {
+      productArray.find((product) => {
+        if (product.foodName === orderObj.foodName) {
+          product.amountFood = product.amountFood + orderObj.amountFood;
+        } else {
+          i++;
+        }
+        if (i === productArray.length) {
+          productArray.push(orderObj);
+        }
+      });
+    } else {
+      productArray.push(orderObj);
+    }
   };
   const addProductInBucket = () => {
     if (activeMenuItem === "sandwiches") {
@@ -31,8 +52,8 @@ const FoodCard = (props) => {
         amountFood: count,
         foodPrice: props.elem.price,
       };
-
-      dispatch({ type: "ADD_PRODUCT_BUCKET", payload: orderObj });
+      combiningDuplicateProducts(orderObj);
+      dispatch({ type: "ADD_PRODUCT_BUCKET", payload: productArray });
       dispatch({ type: "INCREMENT_ID_ORDER" });
     }
   };
@@ -80,7 +101,6 @@ const FoodCard = (props) => {
             type="button"
             id={"button-buy-" + idCard}
             className="button-buy"
-            //data={}
             onClick={() => {
               addProductInBucket();
             }}

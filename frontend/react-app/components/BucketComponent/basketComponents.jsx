@@ -1,18 +1,48 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch, useState } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "../../../static/style/basket.css";
+import axios from "axios";
 import Order from "../BucketComponent/oredr.jsx";
+import { stateLoginForm, stateRegForm, isAuth } from "../../store/store.js";
+import AlertReg from "../auth/alertsAuth/registerAlerts.jsx";
 const Busked = () => {
-  const ordersArray = useSelector((state) => state.ordersArray);
   const dispatch = useDispatch();
+  const [statusCode, setStatusCode] = useState("");
+  const [textMessage, setTextMessage] = useState("");
+  let showAlert = useSelector((state) => state.isAuth);
+  const ordersArray = useSelector((state) => state.ordersArray);
 
   let totalSum = 0;
+  console.log(ordersArray);
   ordersArray.map((order) => (totalSum += order.foodPrice * order.amountFood));
+
+  const temporaryNotice = () => {
+    dispatch(isAuth(!showAlert));
+    setTimeout(() => {
+      dispatch(isAuth(false));
+    }, 3000);
+  };
+  const checkout = () => {
+    axios
+      .post("/addOrder", {
+        data: ordersArray,
+        sum: totalSum,
+      })
+      .then((response) => {
+        setStatusCode(response.status);
+        setTextMessage(response.data.message);
+        temporaryNotice();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
       <div className="basket-logo">
         <p>Корзина</p>
+        {showAlert && <AlertReg status={statusCode} textRes={textMessage} />}
       </div>
 
       <div className="basket-body">
@@ -21,20 +51,27 @@ const Busked = () => {
           <p>Количество</p>
         </div>
         {ordersArray.map((order, id) => (
-          <Order order={order} id={id} />
+          <Order order={order} id={id} key={id} />
         ))}
         <p id="totalSumm">
           Итого: {ordersArray.length === 0 ? "0" : totalSum} руб
         </p>
-        <button id="checkout" className="btn" type="submit">
+        <button
+          id="checkout"
+          className="btn"
+          type="submit"
+          onClick={() =>
+            ordersArray.length !== 0 ? checkout() : temporaryNotice()
+          }
+        >
           ОФОРМИТЬ ЗАКАЗ
         </button>
       </div>
     </>
   );
 };
-export default Busked;
 
+export default Busked;
 // import EventBus from "../../../component/pubSub";
 // import store from "../../store";
 

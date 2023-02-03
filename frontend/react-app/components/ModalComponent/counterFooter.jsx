@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 const CounterFooter = (props) => {
-  let [counter, setCounter] = useState(1);
+  let [counter, setCounter] = useState(props.foodCount);
   let idCard = props.idCard;
 
   useEffect(() => {
@@ -32,7 +32,9 @@ const CounterFooter = (props) => {
         id={"delete-food-" + idCard}
         className="delete-food-footer"
         onClick={() => {
-          setCounter((counter -= 1));
+          if (counter > 1) {
+            setCounter((counter -= 1));
+          }
         }}
       >
         -

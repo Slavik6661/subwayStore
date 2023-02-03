@@ -3,24 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import MainContent from "./components/MainPage/contentRender.jsx";
 import Menu from "./components/MenuComponent/menuComponent.jsx";
 import Busked from "./components/BucketComponent/basketComponents.jsx";
+import Auth from "./components/auth/auth.jsx";
 import { getProducts, getMenu } from "../component/API/products";
 import "../static/style/wrapper-box.css";
 import MainModal from "./components/ModalComponent/mainModal.jsx";
+import Search from "./components/MainPage/search.jsx";
 
 const App = () => {
   const dispatch = useDispatch();
-  const showModal = useSelector((state) => state.showModal); // rename
-  const menuProducts = useSelector((state) => state.menuItems); // rename
-  const ingredients = useSelector((state) => state.products); // rename
-  console.log(ingredients);
-  console.log(menuProducts);
-  // useEffect(() => {
-  //   getProducts().then(({ menu, filings }) => {
-  //     console.log(menu, filings);
-  //     setProducts({ ...menu[0], ...filings[0] });
-  //     setModal(filings[0]);
-  //   });
-  // }, []);
+  const showModal = useSelector((state) => state.showModal);
+  const product = useSelector((state) => state.products);
+  const menuItem = useSelector((state) => state.menuItems);
+
+  console.log(product);
+  console.log(menuItem);
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getMenu());
@@ -29,8 +25,8 @@ const App = () => {
     <div className="wrapper">
       <div id="header">
         <p className="logo-Header">
-          Сделай заказ
-          <button id="auth" className="auth"></button>
+          <Search />
+          <Auth />
         </p>
       </div>
       <div id="menu">
@@ -46,7 +42,6 @@ const App = () => {
       </div>
       <div id="contentFoods">
         {showModal && <MainModal />}
-
         <MainContent />
       </div>
     </div>
