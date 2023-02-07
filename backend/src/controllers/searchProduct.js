@@ -3,9 +3,12 @@ const dataFood = require("../dbSchema/product");
 async function searchProduct(ctx) {
   const products = ctx.request.query;
   console.log("query", products.searchProduct);
-  console.log(dataFood);
+  const { searchProduct } = products;
+  const { menuCategory } = products;
+  console.log(searchProduct, menuCategory);
   const foodMenu = await dataFood.find({
-    name: `/${products.searchProduct}/`,
+    name: { $regex: new RegExp(searchProduct, "i") },
+    category: menuCategory,
   });
   ctx.body = foodMenu;
   ctx.status = 200;

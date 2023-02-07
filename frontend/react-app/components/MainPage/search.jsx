@@ -1,17 +1,19 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { searchValue } from "../../store/store";
+import { foundProducts } from "../../store/store";
 import "../../../static/style/search.css";
 const Search = () => {
   const dispatch = useDispatch();
-  let searchParams = useSelector((state) => state.searchValueProduct);
+  let searchParams = useSelector((state) => state.foundProducts);
   const menuCategory = useSelector((state) => state.menuCategory);
   let searchProduct = "";
-  const postSearchProduct = () => {
+  const postSearchProduct = (e) => {
+    console.log(e);
+    searchProduct = e;
     axios
       .get(`/search?`, { params: { searchProduct, menuCategory } })
-      .then((response) => console.log(response));
+      .then((response) => dispatch(foundProducts(response.data)));
   };
   console.log(searchParams);
   return (
@@ -20,7 +22,8 @@ const Search = () => {
         type="search"
         // value={searchParams}
         className="search-input"
-        onChange={(e) => (searchProduct = e.target.value)}
+        onChange={(e) => postSearchProduct(e.target.value)}
+        //onChange={(e) => (searchProduct = e.target.value)}
         //onChange={(e) => dispatch(searchValue(e.target.value))}
       />
       <button className="search-button" onClick={() => postSearchProduct()}>

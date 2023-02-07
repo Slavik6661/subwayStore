@@ -7,6 +7,9 @@ async function modalData(ctx) {
 
   const modalFoods = await Stuffing.find({});
 
+  // img - alt
+  // title
+
   // for (const [key, value] of Object.entries(stuffingJSON[0])) {
   //   obj[key] = arr;
   //   const stuffing = new Stuffing({
@@ -19,10 +22,14 @@ async function modalData(ctx) {
 }
 
 async function foodsData(ctx) {
-  // const object = {};
-  // const foodMenu = await dataFood.find();
-  const productMenu = await ProductMenu.find();
+  // filter by category, pagination
+  const dataQuery = ctx.request.query;
+  console.log(dataQuery);
+  const { menuCategory } = dataQuery;
+  console.log("----", menuCategory);
+  const productMenu = await ProductMenu.find({ category: menuCategory }).limit(5);
   ctx.body = productMenu;
+  ctx.status = 200;
   // foodMenu[0].menu.forEach((el, index) => {
   //   if (el.category === "sandwiches") {
   //     // eslint-disable-next-line no-const-assign

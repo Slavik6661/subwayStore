@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FoodCard from "../CardFoodComponent/foodCard.jsx";
 import "../../../static/style/food-card.css";
@@ -9,9 +9,16 @@ const MainContent = () => {
   const menuCategory = useSelector((state) => state.menuCategory);
   const menuProducts = useSelector((state) => state.menuItems);
   const currentPageProducts = useSelector((state) => state.currentPageProducts);
-  const searchParams = useSelector((state) => state.searchValueProduct);
+  const searchParams = useSelector((state) => state.foundProducts);
+  const [foundProduct, setFoundProduct] = useState([searchParams]);
   useEffect(() => {
     console.log("useEffect");
+    if (searchParams.length <= 0) {
+      setFoundProduct(menuProducts);
+      console.log("dsadasd", menuProducts);
+    } else {
+      setFoundProduct(searchParams);
+    }
 
     const addCurrentPageProducts = () => {
       let arrayProduct = [];
@@ -23,30 +30,18 @@ const MainContent = () => {
       dispatch(getCurrentProductsThisPage(arrayProduct));
     };
     addCurrentPageProducts();
-  }, [menuProducts, menuCategory]);
+  }, [menuProducts, menuCategory, searchParams]);
   let id = -1;
 
   return (
     <ul id="products-list" className="products-list">
-      {menuProducts &&
-        menuProducts
-          .filter((product) => {
-            if (product.category === menuCategory) {
-              if (
-                product.name.toLowerCase().includes(searchParams.toLowerCase())
-              ) {
-                return true;
-              }
-            }
-          })
-          .map((elem, idCard) =>
-            elem.category === menuCategory
-              ? (id++, (<FoodCard elem={elem} idCard={id} key={idCard} />))
-              : ""
-          )}
+      {foundProduct.map((elem, idCard) =>
+        elem.category === menuCategory
+          ? (id++, (<FoodCard elem={elem} idCard={id} key={idCard} />))
+          : ""
+      )}
     </ul>
   );
-  //}
 };
 
 export default MainContent;

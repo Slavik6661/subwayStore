@@ -18,8 +18,8 @@ const App = () => {
   console.log(product);
   console.log(menuItem);
   useEffect(() => {
-    dispatch(getProducts());
-    dispatch(getMenu());
+    // dispatch(getProducts());
+    // dispatch(getMenu());
   }, []);
   return (
     <div className="wrapper">

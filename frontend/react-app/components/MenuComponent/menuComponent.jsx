@@ -1,17 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { getProducts, getMenu } from "../../../component/API/products";
 import "../../../static/style/navbar-menu.css";
 const Menu = () => {
   const dispatch = useDispatch();
-  const arrayCategory = [
-    "sandwiches",
-    "burgers",
-    "salads",
-    "chicken",
-    "drinks",
-    "pizza",
-    "shaurma",
-  ];
+  const arrayCategory = ["sandwiches", "burgers", "salads", "chicken", "drinks", "pizza", "shaurma"];
 
   let arrMenu = [
     "Сэндвичи",
@@ -24,11 +18,24 @@ const Menu = () => {
   ];
   let [menuItemActive, setMenuItemActive] = useState(0);
   let currentPageProducts = useSelector((state) => state.currentPageProducts);
+  let menuCategory = useSelector((state) => state.menuCategory);
   const setMenuState = (elem) => {
     dispatch({ type: "GET_MENU_ITEM", payload: elem });
     currentPageProducts = [];
   };
-
+  useEffect(() => {
+    getCardProduct();
+  }, []);
+  const getCardProduct = (elem) => {
+    console.log("getCardProduct", menuCategory);
+    //menuCategory = elem;
+    console.log("getCardProduct", menuCategory);
+    axios.get(`/data?`, { params: { menuCategory } }).then((response) => {
+      console.log(response);
+      // dispatch(getProducts());
+      dispatch(getMenuBD(response.data));
+    });
+  };
   return (
     <>
       {arrayCategory.map((elem, index) => {
@@ -40,10 +47,9 @@ const Menu = () => {
             onClick={() => {
               setMenuItemActive((menuItemActive = index));
               setMenuState(elem);
+              getCardProduct(elem);
             }}
-            className={
-              Number(menuItemActive) === Number(index) ? "active" : "no-active"
-            }
+            className={Number(menuItemActive) === Number(index) ? "active" : "no-active"}
           >
             {arrMenu[index]}
           </button>

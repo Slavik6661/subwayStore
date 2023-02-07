@@ -1,4 +1,5 @@
 .search-input{
+    margin-left: 550px;
     margin-top: 0px;
     height: 40px;
     width: 400px;
@@ -8,7 +9,7 @@
 }
 .search-product{
     padding-right: 200px;
-    margin-left: -200px;
+    margin-left: -254px;
 }
 .search-button{
     margin-left: 5px;

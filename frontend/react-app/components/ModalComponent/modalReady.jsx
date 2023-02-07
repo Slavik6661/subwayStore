@@ -11,16 +11,16 @@ const ModalCardReady = () => {
   return (
     <div className="ready">
       <div className="img_food">
-        <img
-          className="img_food-modal"
-          src={"/static/" + selectedCardInfo.image}
-        />
+        <img className="img_food-modal" src={"/static/" + selectedCardInfo.image} />
       </div>
       <div className="info">
         <p>Ваш {<b>{selectedCardInfo.name}</b>} сендвич готов!</p>
         <hr />
         {Object.entries(modalOrderObj).map((element, i) => (
-          <p key={i}>{element[0] + "-" + element[1]}</p>
+          <p key={i}>
+            {" "}
+            <b>{element[0]}</b> - {element[1] + ","}
+          </p>
         ))}
         <hr />
       </div>

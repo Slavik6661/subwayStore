@@ -87,11 +87,7 @@ const Login = () => {
               password = e.target.value;
             }}
           />
-          <button
-            type="submit"
-            className="register-btn"
-            onClick={() => sendRegistrationData()}
-          >
+          <button type="submit" className="register-btn" onClick={() => sendRegistrationData()}>
             Sign in
           </button>
         </div>

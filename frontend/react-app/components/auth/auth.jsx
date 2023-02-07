@@ -14,12 +14,8 @@ const Auth = () => {
   };
   return (
     <>
-      {/* <p>Вход/Регистрация</p> */}
-      <button
-        id="auth"
-        className="auth"
-        onClick={() => openLoginForm()}
-      ></button>
+      <p>Вход/Регистрация</p>
+      <button id="auth" className="auth" onClick={() => openLoginForm()}></button>
       {showLoginForm && <Login />}
       {showRegForm && <Registration />}
     </>

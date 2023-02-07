@@ -27,5 +27,9 @@
 }
 
 .logo-Header{
-  margin-left: 600px;
+  font-size: 18px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

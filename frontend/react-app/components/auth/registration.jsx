@@ -45,16 +45,8 @@ const Registration = () => {
       });
   };
   return (
-    <div
-      id="loginForm-overlay"
-      onClick={() => dispatch(stateRegForm(!showRegForm))}
-    >
-      <dialog
-        id="reg-form"
-        className="login-form"
-        onClick={(e) => e.stopPropagation()}
-        open
-      >
+    <div id="loginForm-overlay" onClick={() => dispatch(stateRegForm(!showRegForm))}>
+      <dialog id="reg-form" className="login-form" onClick={(e) => e.stopPropagation()} open>
         <div className="form-auth">
           <h1>Register</h1>
           {isAuthReg && <AlertReg status={statusCode} textRes={textMessage} />}
