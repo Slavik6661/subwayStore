@@ -11,7 +11,6 @@ const Registration = () => {
   let showRegForm = useSelector((state) => state.showRegForm);
   let isAuthReg = useSelector((state) => state.isAuth);
   const openLoginForm = () => {
-    dispatch(stateLoginForm(!showLoginForm));
     dispatch(stateRegForm(!showRegForm));
   };
   let login = "";
@@ -31,14 +30,14 @@ const Registration = () => {
         setTextMessage(response.data.message);
         dispatch(isAuth(!isAuthReg));
         setTimeout(() => {
-          dispatch(isAuth(false));
+          dispatch(showRegForm(!showRegForm));
         }, 3000);
       })
       .catch((err) => {
         console.log(err);
         setStatusCode(err.response.status);
         setTextMessage(err.response.data.message);
-        dispatch(isAuth(!isAuthReg));
+        // dispatch(isAuth(!isAuthReg));
         setTimeout(() => {
           dispatch(isAuth(false));
         }, 3000);

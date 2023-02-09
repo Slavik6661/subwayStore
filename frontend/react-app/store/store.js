@@ -23,6 +23,8 @@ const defaultState = {
   allModalCardId: [],
   foundProducts: [],
   totalPageCount: 0,
+  userName: "",
+  searchText: "",
 };
 // eslint-disable-next-line import/prefer-default-export
 export const counterReducer = (state = defaultState, action) => {
@@ -148,6 +150,17 @@ export const counterReducer = (state = defaultState, action) => {
         totalPageCount: action.payload,
       };
 
+    case "SET_USER_NAME":
+      return {
+        ...state,
+        userName: action.payload,
+      };
+    case "SET_SEARCH_TEXT":
+      return {
+        ...state,
+        searchText: action.payload,
+      };
+
     default:
       return state;
   }
@@ -219,6 +232,16 @@ export const foundProducts = (payload) => ({
 
 export const totalPage = (payload) => ({
   type: "TOTAL_PAGE",
+  payload,
+});
+
+export const setUserName = (payload) => ({
+  type: "SET_USER_NAME",
+  payload,
+});
+
+export const setSearchText = (payload) => ({
+  type: "SET_SEARCH_TEXT",
   payload,
 });
 

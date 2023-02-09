@@ -7,19 +7,20 @@ import { stateLoginForm, stateRegForm, isAuth } from "../../store/store.js";
 import AlertReg from "../auth/alertsAuth/registerAlerts.jsx";
 const Busked = () => {
   const dispatch = useDispatch();
-  const [statusCode, setStatusCode] = useState("");
-  const [textMessage, setTextMessage] = useState("");
-  let showAlert = useSelector((state) => state.isAuth);
+  let [statusCode, setStatusCode] = useState("");
+  let [textMessage, setTextMessage] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  let Alert = useSelector((state) => state.isAuth);
   const ordersArray = useSelector((state) => state.ordersArray);
 
   let totalSum = 0;
   console.log(ordersArray);
   ordersArray.map((order) => (totalSum += order.foodPrice * order.amountFood));
-
+  console.log(showAlert);
   const temporaryNotice = () => {
-    dispatch(isAuth(!showAlert));
+    setShowAlert(true);
     setTimeout(() => {
-      dispatch(isAuth(false));
+      setShowAlert(false);
     }, 3000);
   };
   const checkout = () => {
@@ -42,7 +43,7 @@ const Busked = () => {
     <>
       <div className="basket-logo">
         <p>Корзина</p>
-        {showAlert && <AlertReg status={statusCode} textRes={textMessage} />}
+        {showAlert && <AlertReg status={statusCode} textRes={(textMessage = "Корзина пуста ")} />}
       </div>
 
       <div className="basket-body">
@@ -53,16 +54,12 @@ const Busked = () => {
         {ordersArray.map((order, id) => (
           <Order order={order} id={id} key={id} />
         ))}
-        <p id="totalSumm">
-          Итого: {ordersArray.length === 0 ? "0" : totalSum} руб
-        </p>
+        <p id="totalSumm">Итого: {ordersArray.length === 0 ? "0" : totalSum} руб</p>
         <button
           id="checkout"
           className="btn"
           type="submit"
-          onClick={() =>
-            ordersArray.length !== 0 ? checkout() : temporaryNotice()
-          }
+          onClick={() => (ordersArray.length !== 0 ? checkout() : temporaryNotice())}
         >
           ОФОРМИТЬ ЗАКАЗ
         </button>

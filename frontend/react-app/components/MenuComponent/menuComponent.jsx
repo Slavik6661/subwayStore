@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { getCardProduct } from "../../../component/API/products";
+import { getMenuBD } from "../../../react-app/store/store";
 import "../../../static/style/navbar-menu.css";
 
 const Menu = () => {
@@ -19,7 +20,6 @@ const Menu = () => {
   ];
   let [menuItemActive, setMenuItemActive] = useState(0);
   let currentPageProducts = useSelector((state) => state.currentPageProducts);
-  let menuCategory = useSelector((state) => state.menuCategory);
   const setMenuState = (elem) => {
     dispatch({ type: "GET_MENU_ITEM", payload: elem });
     currentPageProducts = [];

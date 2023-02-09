@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import AlertReg from "./alertsAuth/registerAlerts.jsx";
 import "../../../static/style/auth.css";
-import { stateLoginForm, stateRegForm, isAuth } from "../../store/store.js";
+import { stateLoginForm, stateRegForm, isAuth, setUserName } from "../../store/store.js";
 
 const Login = () => {
   const dispatch = useDispatch();
   let showLoginForm = useSelector((state) => state.showLoginForm);
   let showRegForm = useSelector((state) => state.showRegForm);
   let isAuthReg = useSelector((state) => state.isAuth);
+  let userName = useSelector((state) => state.userName);
   const openRegForm = () => {
     dispatch(stateLoginForm(!showLoginForm));
     dispatch(stateRegForm(!showRegForm));
@@ -27,16 +28,17 @@ const Login = () => {
       .then((response) => {
         setStatusCode(response.status);
         setTextMessage(response.data.message);
+        dispatch(setUserName(login));
         dispatch(isAuth(!isAuthReg));
         setTimeout(() => {
-          dispatch(isAuth(false));
+          // dispatch(isAuth(false));
           dispatch(stateLoginForm(!showLoginForm));
         }, 3000);
       })
       .catch((err) => {
         setStatusCode(err.response.status);
         setTextMessage(err.response.data.message);
-        dispatch(isAuth(!isAuthReg));
+        // dispatch(isAuth(!isAuthReg));
         setTimeout(() => {
           dispatch(isAuth(false));
         }, 3000);

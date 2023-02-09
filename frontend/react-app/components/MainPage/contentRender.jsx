@@ -9,14 +9,13 @@ const MainContent = () => {
   const dispatch = useDispatch();
   const menuCategory = useSelector((state) => state.menuCategory);
   const menuProducts = useSelector((state) => state.menuItems);
-  const currentPageProducts = useSelector((state) => state.currentPageProducts);
   const searchParams = useSelector((state) => state.foundProducts);
-  const [foundProduct, setFoundProduct] = useState([searchParams]);
+  const searchText = useSelector((state) => state.searchText);
+  let [foundProduct, setFoundProduct] = useState([searchParams]);
+
   useEffect(() => {
-    console.log("useEffect");
-    if (searchParams.length <= 0) {
+    if (searchText.length <= 0) {
       setFoundProduct(menuProducts);
-      console.log("dsadasd", menuProducts);
     } else {
       setFoundProduct(searchParams);
     }
@@ -31,7 +30,7 @@ const MainContent = () => {
       dispatch(getCurrentProductsThisPage(arrayProduct));
     };
     addCurrentPageProducts();
-  }, [menuProducts, menuCategory, searchParams]);
+  }, [menuProducts, menuCategory, searchParams, searchText]);
   let id = -1;
 
   return (

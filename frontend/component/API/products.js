@@ -1,31 +1,15 @@
 import { modalIngredientsBD, getMenuBD, totalPage } from "../../react-app/store/store";
 import axios from "axios";
 
-// export function getMenu() {
-//   return (dispatch) => {
-//     fetch("http://localhost:3000/data")
-//       .then((response) => response.json())
-//       .then((json) => dispatch(getMenuBD(json)));
-//   };
-// }
-// export function getProducts() {
-//   return (dispatch) => {
-//     fetch("http://localhost:3000/modalData")
-//       .then((response) => response.json())
-//       .then((json) => dispatch(getProductsBD(json)));
-//   };
-// }
+// export const getCardProduct = async (elem) => {
+//   let test = {};
+//   let menuCategory = elem ?? "sandwiches";
+//   await axios.get(`/data?`, { params: { menuCategory } }).then((response) => {
+//     test = response.data;
+//   });
 
-// export function getCardProduct(elem) {
-//   return (dispatch) => {
-//     let menuCategory = "";
-//     menuCategory = elem ?? "sandwiches";
-//     axios.get(`/data?`, { params: { menuCategory } }).then((response) => {
-//       console.log(response);
-//       dispatch(getMenuBD(response.data));
-//     });
-//   };
-// }
+//   return test;
+// };
 
 export const getCardProduct = (elem) => {
   return (dispatch) => {

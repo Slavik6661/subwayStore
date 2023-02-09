@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { foundProducts } from "../../store/store";
+import { foundProducts, setSearchText } from "../../store/store";
 import "../../../static/style/search.css";
 const Search = () => {
   const dispatch = useDispatch();
@@ -9,11 +9,13 @@ const Search = () => {
   const menuCategory = useSelector((state) => state.menuCategory);
   let searchProduct = "";
   const postSearchProduct = (e) => {
-    console.log(e);
     searchProduct = e;
-    axios
-      .get(`/search?`, { params: { searchProduct, menuCategory } })
-      .then((response) => dispatch(foundProducts(response.data)));
+    dispatch(setSearchText(searchProduct));
+    if (searchProduct !== "") {
+      axios
+        .get(`/search?`, { params: { searchProduct, menuCategory } })
+        .then((response) => dispatch(foundProducts(response.data)));
+    }
   };
   console.log(searchParams);
   return (
@@ -22,11 +24,12 @@ const Search = () => {
         type="search"
         // value={searchParams}
         className="search-input"
+        placeholder=" Найти продукт 🔎"
         onChange={(e) => postSearchProduct(e.target.value)}
       />
-      <button className="search-button" onClick={() => postSearchProduct()}>
+      {/* <button className="search-button" onClick={() => postSearchProduct()}>
         Найти 🔎
-      </button>
+      </button> */}
     </div>
   );
 };
