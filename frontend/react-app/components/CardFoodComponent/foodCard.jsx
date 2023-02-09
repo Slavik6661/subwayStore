@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Counter from "../FoodCounterComponent/counterComponent.jsx";
 import "../../../static/style/products-list.css";
-import { modalSum, cardInfo } from "../../store/store.js";
-import store from "../../store/createStore.js";
+import { modalSum, cardInfo, modalIngredientsBD } from "../../store/store.js";
+import { getModalIngredients } from "../../../component/API/products";
+import axios from "axios";
 
 const FoodCard = (props) => {
   const dispatch = useDispatch();
@@ -13,9 +14,11 @@ const FoodCard = (props) => {
   const order = useSelector((state) => state.ordersArray);
   const currentPageProducts = useSelector((state) => state.currentPageProducts);
   let selectedCardInfo = useSelector((state) => state.selectedCardInfo);
+
   const [count, setCount] = useState(0);
   let productArray = [...order];
   let idCard = props.idCard;
+
   const carInfo = () => {
     selectedCardInfo = {};
     currentPageProducts[idCard].weight = count;
@@ -40,8 +43,10 @@ const FoodCard = (props) => {
       productArray.push(orderObj);
     }
   };
+
   const addProductInBucket = () => {
     if (activeMenuItem === "sandwiches") {
+      dispatch(getModalIngredients());
       dispatch({ type: "MODAL_STATE", payload: true });
       dispatch(modalSum(props.elem.price));
       carInfo();

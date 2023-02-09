@@ -1,0 +1,82 @@
+.form-pagination{
+    margin-left: 112px;
+    margin-top: 30px;
+    width: 1000px;
+    height: 50px;
+  
+}
+
+.pagination{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.numberPage{
+    margin-left: 10px;
+    padding: 0 12px;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    /* margin: auto 4px; */
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    letter-spacing: 0.01071em;
+    border-radius: 100px;
+    line-height: 1.43;
+    min-width: 32px;
+    font-size: 24px;
+    list-style-type:none;
+}
+
+.numberPage:hover{
+    background-color: rgba(108, 85, 85, 0.2);
+}
+
+.no-active{
+    background-color: #ffffff;
+    color: rgb(4, 0, 0);
+  }
+
+.pagination-active{
+    background-color: rgba(108, 85, 85, 0.518);
+    color: rgb(4, 0, 0);
+  }
+
+  .arrow {
+    margin-top: 10px;
+    position: relative;
+    /* top: 3pt; Uncomment this to lower the icons as requested in comments*/
+    content: '';
+    /* By using an em scale, the arrows will size with the font */
+    display: inline-block;
+    width: 0.4em;
+    height: 0.4em;
+    border-right: 0.12em solid rgba(0, 0, 0, 0.87);
+    border-top: 0.12em solid rgba(0, 0, 0, 0.87);
+  }
+  .arrows-hover{
+    list-style-type:none;
+    width: 40px;
+  }
+  .arrows-hover:hover{
+    width: 40px;
+    background-color: rgba(108, 85, 85, 0.518);
+    border-radius: 100px;
+    list-style-type:none;
+  }
+
+  .left {
+    margin-left: 8px;
+    transform: rotate(-135deg) translate(-50%); 
+    font-size: 24px;
+  }
+
+  .right {
+    margin-top: 13px;
+    margin-left: 10px;
+    transform: rotate(45deg);
+    font-size: 24px;
+  }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FoodCard from "../CardFoodComponent/foodCard.jsx";
 import "../../../static/style/food-card.css";
+import Pagination from "../../components/Pagination/Pagination.jsx";
 import { getCurrentProductsThisPage } from "../../store/store.js";
 
 const MainContent = () => {
@@ -36,10 +37,12 @@ const MainContent = () => {
   return (
     <ul id="products-list" className="products-list">
       {foundProduct.map((elem, idCard) =>
-        elem.category === menuCategory
-          ? (id++, (<FoodCard elem={elem} idCard={id} key={idCard} />))
-          : ""
+        elem.category === menuCategory ? (id++, (<FoodCard elem={elem} idCard={id} key={idCard} />)) : ""
       )}
+
+      <div className="form-pagination">
+        <Pagination />
+      </div>
     </ul>
   );
 };

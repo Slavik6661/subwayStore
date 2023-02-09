@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { getProducts, getMenu } from "../../../component/API/products";
+import { getCardProduct } from "../../../component/API/products";
 import "../../../static/style/navbar-menu.css";
+
 const Menu = () => {
   const dispatch = useDispatch();
   const arrayCategory = ["sandwiches", "burgers", "salads", "chicken", "drinks", "pizza", "shaurma"];
@@ -24,18 +25,9 @@ const Menu = () => {
     currentPageProducts = [];
   };
   useEffect(() => {
-    getCardProduct();
+    dispatch(getCardProduct());
   }, []);
-  const getCardProduct = (elem) => {
-    console.log("getCardProduct", menuCategory);
-    //menuCategory = elem;
-    console.log("getCardProduct", menuCategory);
-    axios.get(`/data?`, { params: { menuCategory } }).then((response) => {
-      console.log(response);
-      // dispatch(getProducts());
-      dispatch(getMenuBD(response.data));
-    });
-  };
+
   return (
     <>
       {arrayCategory.map((elem, index) => {
@@ -45,9 +37,9 @@ const Menu = () => {
             value={index}
             key={elem}
             onClick={() => {
-              setMenuItemActive((menuItemActive = index));
+              setMenuItemActive(index);
               setMenuState(elem);
-              getCardProduct(elem);
+              dispatch(getCardProduct(elem));
             }}
             className={Number(menuItemActive) === Number(index) ? "active" : "no-active"}
           >

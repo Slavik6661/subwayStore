@@ -23,8 +23,6 @@ const Search = () => {
         // value={searchParams}
         className="search-input"
         onChange={(e) => postSearchProduct(e.target.value)}
-        //onChange={(e) => (searchProduct = e.target.value)}
-        //onChange={(e) => dispatch(searchValue(e.target.value))}
       />
       <button className="search-button" onClick={() => postSearchProduct()}>
         Найти 🔎
