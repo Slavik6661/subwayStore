@@ -11,8 +11,9 @@ const Pagination = () => {
   let [currentPageActive, setCurrentPageActive] = useState(0);
   let [currentPage, setCurrentPage] = useState(0);
   let [numPagesCount, setNumPagesCount] = useState([]);
+  let [skipPage, setSkipPage] = useState(0);
   let siblingCount = 5;
-  let skipPage = 0;
+  console.log(skipPage);
   const totalPageCount = useSelector((state) => state.totalPageCount);
 
   const numberSelectedPage = (pageNumber) => {
@@ -23,7 +24,7 @@ const Pagination = () => {
     if (currentPage < totalPageCount - 1) {
       setCurrentPage((currentPage = currentPage + 1));
       setCurrentPageActive(currentPage);
-      skipPage = skipPage + 3;
+      setSkipPage((skipPage = skipPage + 3));
 
       axios.get(`/data?`, { params: { menuCategory, skipPage } }).then((response) => {
         console.log(response);
@@ -35,7 +36,7 @@ const Pagination = () => {
     if (currentPage > 0) {
       setCurrentPage((currentPage = currentPage - 1));
       setCurrentPageActive(currentPage);
-      skipPage = skipPage - 3;
+      setSkipPage((skipPage = skipPage - 3));
 
       axios.get(`/data?`, { params: { menuCategory, skipPage } }).then((response) => {
         console.log(response);
